@@ -9,7 +9,8 @@ type Props = {
   as?: keyof React.JSX.IntrinsicElements;
 };
 
-export function Reveal({ children, delay = 0, className = "", as: Tag = "div" }: Props) {
+export function Reveal({ children, delay = 0, className = "", as = "div" }: Props) {
+  const Tag = as as React.ElementType;
   const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -31,7 +32,6 @@ export function Reveal({ children, delay = 0, className = "", as: Tag = "div" }:
     return () => io.disconnect();
   }, [delay]);
 
-  // @ts-expect-error -- dynamic tag with ref
   return (
     <Tag ref={ref} className={`reveal ${className}`}>
       {children}
