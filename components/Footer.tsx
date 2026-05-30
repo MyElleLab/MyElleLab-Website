@@ -72,12 +72,12 @@ export function Footer() {
             <ul className="mt-4 space-y-2.5 text-sm">
               <li>
                 <a
-                  href="https://www.tiktok.com/@myhabitstats"
+                  href="https://www.linkedin.com/company/myellelab/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-white/70 hover:text-white transition"
                 >
-                  TikTok @MyHabitStats
+                  LinkedIn @MyElleLab
                 </a>
               </li>
             </ul>

@@ -1,10 +1,9 @@
 import { Reveal } from "./Reveal";
 
 const team = [
-  { initials: "AF", gradient: "from-flame-500 to-rose-500" },
-  { initials: "JK", gradient: "from-sky-400 to-indigo-500" },
-  { initials: "MR", gradient: "from-emerald-400 to-teal-600" },
-  { initials: "LM", gradient: "from-violet-500 to-fuchsia-500" },
+  { initials: "LF", gradient: "from-flame-500 to-rose-500" },
+  { initials: "DF", gradient: "from-sky-400 to-indigo-500" },
+  { initials: "LC", gradient: "from-emerald-400 to-teal-600" },
 ];
 
 export function About() {
@@ -18,7 +17,7 @@ export function About() {
         </Reveal>
         <Reveal delay={80}>
           <h2 className="mt-5 font-display text-4xl md:text-5xl font-semibold tracking-tightest text-balance leading-[1.05] max-w-3xl">
-            Four people. One studio.{" "}
+            Three people. One studio.{" "}
             <span className="text-white/55">
               iPhone apps with a clear point of view.
             </span>
@@ -27,7 +26,7 @@ export function About() {
         <Reveal delay={140}>
           <p className="mt-8 max-w-2xl text-white/65 leading-relaxed text-lg">
             MyElleLab is an independent iOS studio. We build apps the way we
-            wish more apps were built — small in scope, generous in detail, and
+            wish more apps were built: small in scope, generous in detail, and
             built to live on your home screen for years.
           </p>
         </Reveal>
@@ -46,7 +45,7 @@ export function About() {
               ))}
             </div>
             <p className="text-sm text-white/55">
-              The four founders — design, engineering, product, story.
+              The three founders — design, engineering, product.
             </p>
           </div>
         </Reveal>

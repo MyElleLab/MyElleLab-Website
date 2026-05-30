@@ -62,9 +62,9 @@ function Suite({
         </div>
       </Reveal>
 
-      <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 items-stretch">
         {suite.products.map((p, i) => (
-          <Reveal key={p.name} delay={i * 80}>
+          <Reveal key={p.name} delay={i * 80} className="h-full">
             <ProductCard product={p} />
           </Reveal>
         ))}

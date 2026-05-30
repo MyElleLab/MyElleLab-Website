@@ -36,7 +36,7 @@ export function ProductCard({ product }: { product: Product }) {
   const appStoreUrl = `https://apps.apple.com/app/id${product.appStoreId}`;
 
   return (
-    <article className="glass group relative flex flex-col rounded-2xl p-6 transition-all duration-500 hover:-translate-y-1 shadow-card">
+    <article className="glass group relative h-full flex flex-col rounded-2xl p-6 transition-all duration-500 hover:-translate-y-1 shadow-card">
       <div className="flex items-start justify-between">
         <div className="size-14 rounded-[18px] overflow-hidden shadow-[inset_0_1px_0_rgba(255,255,255,0.25),0_10px_30px_-10px_rgba(0,0,0,0.6)]">
           <Image
@@ -50,7 +50,7 @@ export function ProductCard({ product }: { product: Product }) {
         <StatusBadge status={product.status} />
       </div>
 
-      <div className="mt-5">
+      <div className="mt-5 flex-grow">
         <h3 className="font-display text-xl font-semibold tracking-tight">
           {product.name}
         </h3>
@@ -59,7 +59,7 @@ export function ProductCard({ product }: { product: Product }) {
         </p>
       </div>
 
-      <div className="mt-6 flex flex-wrap items-center gap-2 pt-5 border-t border-white/[0.06]">
+      <div className="mt-6 pt-5 flex flex-wrap items-center gap-2 border-t border-white/[0.06]">
         {isAvailable ? (
           <a
             href={appStoreUrl}
