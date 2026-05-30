@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { Product } from "@/lib/products";
 
 function AppStoreBadge() {
@@ -32,15 +33,19 @@ function ExternalIcon() {
 
 export function ProductCard({ product }: { product: Product }) {
   const isAvailable = product.status === "AVAILABLE";
+  const appStoreUrl = `https://apps.apple.com/app/id${product.appStoreId}`;
 
   return (
     <article className="glass group relative flex flex-col rounded-2xl p-6 transition-all duration-500 hover:-translate-y-1 shadow-card">
       <div className="flex items-start justify-between">
-        <div
-          className={`size-14 rounded-[18px] bg-gradient-to-br ${product.iconGradient} grid place-items-center font-display font-semibold text-white/95 shadow-[inset_0_1px_0_rgba(255,255,255,0.25),0_10px_30px_-10px_rgba(0,0,0,0.6)]`}
-          aria-hidden
-        >
-          {product.initials}
+        <div className="size-14 rounded-[18px] overflow-hidden shadow-[inset_0_1px_0_rgba(255,255,255,0.25),0_10px_30px_-10px_rgba(0,0,0,0.6)]">
+          <Image
+            src={product.iconSrc}
+            alt={`${product.name} app icon`}
+            width={56}
+            height={56}
+            className="size-14 object-cover"
+          />
         </div>
         <StatusBadge status={product.status} />
       </div>
@@ -56,48 +61,34 @@ export function ProductCard({ product }: { product: Product }) {
 
       <div className="mt-6 flex flex-wrap items-center gap-2 pt-5 border-t border-white/[0.06]">
         {isAvailable ? (
-          <>
-            <a
-              href={product.appStoreUrl ?? "#"}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-flame-500 px-3.5 py-2 text-xs font-medium text-ink-950 transition hover:bg-flame-400"
-            >
-              <AppStoreBadge />
-              Download
-            </a>
-            {product.domain && (
-              <a
-                href={`https://${product.domain}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.02] px-3.5 py-2 text-xs text-white/75 hover:text-white hover:bg-white/[0.06] transition"
-              >
-                Visit site
-                <ExternalIcon />
-              </a>
-            )}
-          </>
+          <a
+            href={appStoreUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-full bg-flame-500 px-3.5 py-2 text-xs font-medium text-ink-950 transition hover:bg-flame-400"
+          >
+            <AppStoreBadge />
+            Download
+          </a>
         ) : (
-          <>
-            <button
-              type="button"
-              className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3.5 py-2 text-xs text-white/80 hover:text-white hover:border-flame-500/40 transition"
-            >
-              Notify me
-            </button>
-            {product.domain && (
-              <a
-                href={`https://${product.domain}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-2 py-2 text-xs text-white/55 hover:text-white transition"
-              >
-                {product.domain}
-                <ExternalIcon />
-              </a>
-            )}
-          </>
+          <button
+            type="button"
+            className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3.5 py-2 text-xs text-white/80 hover:text-white hover:border-flame-500/40 transition"
+          >
+            Notify me
+          </button>
+        )}
+
+        {product.siteUrl && (
+          <a
+            href={product.siteUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.02] px-3.5 py-2 text-xs text-white/75 hover:text-white hover:bg-white/[0.06] transition"
+          >
+            Visit site
+            <ExternalIcon />
+          </a>
         )}
       </div>
     </article>

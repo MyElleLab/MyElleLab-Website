@@ -4,10 +4,9 @@ export type Product = {
   name: string;
   tagline: string;
   status: ProductStatus;
-  domain?: string;
-  appStoreUrl?: string;
-  iconGradient: string;
-  initials: string;
+  appStoreId: string;
+  iconSrc: string;
+  siteUrl?: string;
 };
 
 export type Suite = {
@@ -29,24 +28,23 @@ export const suites: Suite[] = [
         name: "MyHabitStats",
         tagline: "Habit tracker",
         status: "AVAILABLE",
-        domain: "myhabitstats.com",
-        appStoreUrl: "https://apps.apple.com/app/myhabitstats",
-        iconGradient: "from-flame-500 to-rose-500",
-        initials: "HS",
+        appStoreId: "6761617617",
+        iconSrc: "/icon-MyHabitStats.png",
+        siteUrl: "https://myhabitstats.com",
       },
       {
         name: "MyVisionLab",
         tagline: "Turn your vision into a daily practice.",
         status: "IN_PRODUCTION",
-        iconGradient: "from-indigo-500 to-violet-600",
-        initials: "VL",
+        appStoreId: "6774214996",
+        iconSrc: "/icon-MyVisionLab.png",
       },
       {
         name: "MyDarkMotivation",
         tagline: "Unfiltered fuel for the days you don't feel like it.",
         status: "IN_PRODUCTION",
-        iconGradient: "from-zinc-700 to-zinc-900",
-        initials: "DM",
+        appStoreId: "6761914913",
+        iconSrc: "/icon-MyDarkMotivation.png",
       },
     ],
   },
@@ -60,19 +58,18 @@ export const suites: Suite[] = [
         name: "MyFlux",
         tagline: "Video organizer & looper.",
         status: "AVAILABLE",
-        domain: "getmyflux.com",
-        appStoreUrl: "https://apps.apple.com/app/myflux",
-        iconGradient: "from-sky-400 to-indigo-500",
-        initials: "FX",
+        appStoreId: "6761893510",
+        iconSrc: "/icon-MyFlux.png",
+        siteUrl: "https://getmyflux.com",
       },
       {
         name: "TwinLens",
         tagline:
           "iPhone mirroring for professional photographers and solo travellers.",
         status: "IN_PRODUCTION",
-        domain: "twinlensapp.com",
-        iconGradient: "from-emerald-400 to-teal-600",
-        initials: "TL",
+        appStoreId: "6762047518",
+        iconSrc: "/icon-TwinLens.jpeg",
+        siteUrl: "https://twinlensapp.com",
       },
     ],
   },

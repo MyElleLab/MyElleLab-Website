@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180">
+  <rect width="180" height="180" fill="#ffffff"/>
+  <g fill="#000000">
+    <!-- M: two legs + V stroke (uniform width) -->
+    <rect x="34" y="35" width="14" height="110"/>
+    <rect x="70" y="35" width="14" height="110"/>
+    <path d="M 41 35 L 59 107 L 77 35" fill="none" stroke="#000000" stroke-width="14" stroke-linejoin="round" stroke-linecap="butt"/>
+    <!-- Y: arms + stem -->
+    <path d="M 103 35 L 121 90 L 139 35" fill="none" stroke="#000000" stroke-width="14" stroke-linejoin="round" stroke-linecap="butt"/>
+    <rect x="114" y="83" width="14" height="62"/>
+  </g>
+</svg>

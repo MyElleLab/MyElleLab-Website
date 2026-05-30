@@ -3,8 +3,12 @@ import { suites } from "@/lib/products";
 export function Footer() {
   const sites = suites
     .flatMap((s) => s.products)
-    .filter((p) => p.domain)
-    .map((p) => ({ name: p.name, domain: p.domain! }));
+    .filter((p) => p.siteUrl)
+    .map((p) => ({
+      name: p.name,
+      siteUrl: p.siteUrl!,
+      label: p.siteUrl!.replace(/^https?:\/\//, ""),
+    }));
 
   return (
     <footer id="contact" className="relative border-t border-white/5 mt-12">
@@ -46,15 +50,15 @@ export function Footer() {
             </h4>
             <ul className="mt-4 space-y-2.5 text-sm">
               {sites.map((s) => (
-                <li key={s.domain}>
+                <li key={s.siteUrl}>
                   <a
-                    href={`https://${s.domain}`}
+                    href={s.siteUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-white/70 hover:text-white transition"
                   >
                     {s.name}{" "}
-                    <span className="text-white/35">— {s.domain}</span>
+                    <span className="text-white/35">— {s.label}</span>
                   </a>
                 </li>
               ))}
