@@ -13,7 +13,6 @@ export type Suite = {
   id: string;
   name: string;
   description: string;
-  accent: string;
   products: Product[];
 };
 
@@ -22,7 +21,6 @@ export const suites: Suite[] = [
     id: "mydailysuccess",
     name: "MyDailySuccess",
     description: "Apps for building a better daily routine.",
-    accent: "from-flame-500/30 via-flame-500/10 to-transparent",
     products: [
       {
         name: "MyHabitStats",
@@ -52,7 +50,6 @@ export const suites: Suite[] = [
     id: "mycameraroll",
     name: "MyCameraRoll",
     description: "Apps for your photos and videos.",
-    accent: "from-sky-500/25 via-indigo-500/10 to-transparent",
     products: [
       {
         name: "MyFlux",

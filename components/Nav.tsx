@@ -23,14 +23,13 @@ export function Nav() {
       className={[
         "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
         scrolled
-          ? "backdrop-blur-xl bg-ink-950/70 border-b border-white/5"
+          ? "backdrop-blur-xl bg-canvas/80 border-b border-rule"
           : "bg-transparent",
       ].join(" ")}
     >
       <nav className="mx-auto max-w-7xl px-6 md:px-10 h-16 flex items-center justify-between">
         <a href="#top" className="group flex items-center gap-2">
-          <span className="inline-block size-2 rounded-full bg-flame-500 shadow-[0_0_18px_rgba(249,115,22,0.7)]" />
-          <span className="font-display font-semibold tracking-tight text-[17px]">
+          <span className="font-serif font-bold tracking-wordmark text-[19px] text-ink">
             MyElleLab
           </span>
         </a>
@@ -39,7 +38,7 @@ export function Nav() {
             <li key={l.href}>
               <a
                 href={l.href}
-                className="px-3 py-2 rounded-full text-white/70 hover:text-white hover:bg-white/5 transition"
+                className="px-3 py-2 rounded-full text-muted hover:text-ink transition"
               >
                 {l.label}
               </a>

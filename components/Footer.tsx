@@ -7,27 +7,29 @@ export function Footer() {
     .map((p) => ({
       name: p.name,
       siteUrl: p.siteUrl!,
-      label: p.siteUrl!.replace(/^https?:\/\//, ""),
+      label: p.siteUrl!.replace(/^https?:\/\//, "").replace(/\/$/, ""),
     }));
 
   return (
-    <footer id="contact" className="relative border-t border-white/5 mt-12">
+    <footer
+      id="contact"
+      className="relative bg-canvas border-t border-rule mt-12"
+    >
       <div className="mx-auto max-w-7xl px-6 md:px-10 py-16">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
           <div className="md:col-span-5">
             <div className="flex items-center gap-2">
-              <span className="inline-block size-2 rounded-full bg-flame-500 shadow-[0_0_18px_rgba(249,115,22,0.7)]" />
-              <span className="font-display font-semibold tracking-tight text-lg">
+              <span className="font-serif font-bold tracking-wordmark text-xl text-ink">
                 MyElleLab
               </span>
             </div>
-            <p className="mt-4 max-w-sm text-white/55 leading-relaxed text-sm">
+            <p className="mt-4 max-w-sm font-sans text-muted leading-relaxed text-sm">
               An independent iOS studio building focused apps, crafted in
               suites.
             </p>
             <a
               href="mailto:hello@myellelab.com"
-              className="mt-6 inline-flex items-center gap-2 text-sm text-white/80 hover:text-flame-400 transition"
+              className="mt-6 inline-flex items-center gap-2 text-sm font-sans text-ink hover:text-muted transition"
             >
               hello@myellelab.com
               <svg
@@ -45,7 +47,7 @@ export function Footer() {
           </div>
 
           <div className="md:col-span-4">
-            <h4 className="text-xs uppercase tracking-[0.18em] text-white/40">
+            <h4 className="font-sans uppercase tracking-eyebrow text-[11px] font-medium text-muted">
               Apps
             </h4>
             <ul className="mt-4 space-y-2.5 text-sm">
@@ -55,10 +57,10 @@ export function Footer() {
                     href={s.siteUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-white/70 hover:text-white transition"
+                    className="font-sans text-ink hover:text-muted transition"
                   >
                     {s.name}{" "}
-                    <span className="text-white/35">— {s.label}</span>
+                    <span className="text-muted">— {s.label}</span>
                   </a>
                 </li>
               ))}
@@ -66,7 +68,7 @@ export function Footer() {
           </div>
 
           <div className="md:col-span-3">
-            <h4 className="text-xs uppercase tracking-[0.18em] text-white/40">
+            <h4 className="font-sans uppercase tracking-eyebrow text-[11px] font-medium text-muted">
               Follow
             </h4>
             <ul className="mt-4 space-y-2.5 text-sm">
@@ -75,7 +77,7 @@ export function Footer() {
                   href="https://www.linkedin.com/company/myellelab/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-white/70 hover:text-white transition"
+                  className="font-sans text-ink hover:text-muted transition"
                 >
                   LinkedIn @MyElleLab
                 </a>
@@ -84,7 +86,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-white/40">
+        <div className="mt-14 pt-6 border-t border-rule flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 font-sans text-xs text-muted">
           <p>© {new Date().getFullYear()} MyElleLab. All rights reserved.</p>
           <p>Designed & built in-house.</p>
         </div>

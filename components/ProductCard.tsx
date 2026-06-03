@@ -36,9 +36,9 @@ export function ProductCard({ product }: { product: Product }) {
   const appStoreUrl = `https://apps.apple.com/app/id${product.appStoreId}`;
 
   return (
-    <article className="glass group relative h-full flex flex-col rounded-2xl p-6 transition-all duration-500 hover:-translate-y-1 shadow-card">
+    <article className="group relative h-full flex flex-col rounded-2xl bg-surface border border-rule p-6 shadow-sm transition-shadow duration-500 hover:shadow-md">
       <div className="flex items-start justify-between">
-        <div className="size-14 rounded-[18px] overflow-hidden shadow-[inset_0_1px_0_rgba(255,255,255,0.25),0_10px_30px_-10px_rgba(0,0,0,0.6)]">
+        <div className="size-14 rounded-[18px] overflow-hidden border border-rule">
           <Image
             src={product.iconSrc}
             alt={`${product.name} app icon`}
@@ -51,21 +51,21 @@ export function ProductCard({ product }: { product: Product }) {
       </div>
 
       <div className="mt-5 flex-grow">
-        <h3 className="font-display text-xl font-semibold tracking-tight">
+        <h3 className="font-serif text-2xl font-semibold tracking-wordmark text-ink">
           {product.name}
         </h3>
-        <p className="mt-1.5 text-sm text-white/55 leading-relaxed">
+        <p className="mt-1.5 font-sans text-sm text-muted leading-relaxed">
           {product.tagline}
         </p>
       </div>
 
-      <div className="mt-6 pt-5 flex flex-wrap items-center gap-2 border-t border-white/[0.06]">
+      <div className="mt-6 pt-5 flex flex-wrap items-center gap-2 border-t border-rule">
         {isAvailable ? (
           <a
             href={appStoreUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full bg-flame-500 px-3.5 py-2 text-xs font-medium text-ink-950 transition hover:bg-flame-400"
+            className="inline-flex items-center gap-2 rounded-full bg-ink px-3.5 py-2 text-xs font-medium text-white transition hover:bg-black"
           >
             <AppStoreBadge />
             Download
@@ -73,7 +73,7 @@ export function ProductCard({ product }: { product: Product }) {
         ) : (
           <button
             type="button"
-            className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3.5 py-2 text-xs text-white/80 hover:text-white hover:border-flame-500/40 transition"
+            className="inline-flex items-center gap-2 rounded-full border border-ink bg-surface px-3.5 py-2 text-xs font-medium text-ink hover:bg-ink hover:text-white transition"
           >
             Notify me
           </button>
@@ -84,7 +84,7 @@ export function ProductCard({ product }: { product: Product }) {
             href={product.siteUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.02] px-3.5 py-2 text-xs text-white/75 hover:text-white hover:bg-white/[0.06] transition"
+            className="inline-flex items-center gap-1.5 rounded-full border border-ink bg-surface px-3.5 py-2 text-xs font-medium text-ink hover:bg-ink hover:text-white transition"
           >
             Visit site
             <ExternalIcon />
@@ -98,15 +98,15 @@ export function ProductCard({ product }: { product: Product }) {
 function StatusBadge({ status }: { status: Product["status"] }) {
   if (status === "AVAILABLE") {
     return (
-      <span className="inline-flex items-center gap-1.5 rounded-full bg-flame-500 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-ink-950">
-        <span className="size-1.5 rounded-full bg-ink-950" />
+      <span className="inline-flex items-center gap-1.5 rounded-full bg-ink px-2.5 py-1 font-sans text-[10px] font-medium uppercase tracking-eyebrow text-white">
+        <span className="size-1.5 rounded-full bg-white" />
         Available
       </span>
     );
   }
   return (
-    <span className="inline-flex items-center gap-1.5 rounded-full border border-white/15 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-white/60">
-      <span className="size-1.5 rounded-full bg-white/40" />
+    <span className="inline-flex items-center gap-1.5 rounded-full border border-muted bg-transparent px-2.5 py-1 font-sans text-[10px] font-medium uppercase tracking-eyebrow text-muted">
+      <span className="size-1.5 rounded-full bg-muted" />
       Coming soon
     </span>
   );

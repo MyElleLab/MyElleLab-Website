@@ -1,90 +1,67 @@
-"use client";
+import Image from "next/image";
+import { suites } from "@/lib/products";
 
-import { useEffect, useRef } from "react";
+const heroIcons = suites.flatMap((s) => s.products).slice(0, 5);
 
 export function Hero() {
-  const orbRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    let raf = 0;
-    const onScroll = () => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        const y = window.scrollY;
-        if (orbRef.current) {
-          orbRef.current.style.transform = `translate3d(0, ${y * 0.18}px, 0)`;
-        }
-      });
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      cancelAnimationFrame(raf);
-    };
-  }, []);
-
   return (
     <section
       id="top"
-      className="relative isolate overflow-hidden pt-40 pb-28 md:pt-56 md:pb-40"
+      className="ribbons-hero relative isolate overflow-hidden pt-40 pb-28 md:pt-56 md:pb-40"
     >
-      {/* Parallax warm orb */}
-      <div
-        ref={orbRef}
-        aria-hidden
-        className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 size-[700px] rounded-full opacity-60 blur-3xl"
-        style={{
-          background:
-            "radial-gradient(closest-side, rgba(249,115,22,0.55), rgba(249,115,22,0) 70%)",
-        }}
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"
-      />
-
       <div className="relative mx-auto max-w-6xl px-6 md:px-10 text-center">
-        <p className="animate-fade-in inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-xs uppercase tracking-[0.18em] text-white/60">
-          <span className="size-1.5 rounded-full bg-flame-500 shadow-[0_0_10px_rgba(249,115,22,0.9)]" />
-          Independent iOS studio
+        <p className="animate-fade-in font-sans uppercase tracking-eyebrow text-[11px] font-medium text-muted">
+          An independent iOS studio
         </p>
 
-        <h1 className="animate-fade-up mt-8 font-display font-semibold tracking-tightest text-balance text-5xl sm:text-6xl md:text-7xl lg:text-[88px] leading-[1.02]">
-          An iOS studio building
-          <br className="hidden sm:block" />{" "}
-          <span className="bg-gradient-to-br from-white via-white to-flame-400 bg-clip-text text-transparent">
-            focused apps,
-          </span>{" "}
-          crafted in suites.
+        <h1 className="animate-fade-up mt-6 font-serif font-bold tracking-wordmark text-balance text-ink text-6xl sm:text-7xl md:text-8xl lg:text-[112px] leading-[1.02]">
+          MyElleLab
         </h1>
 
-        <p className="animate-fade-up mx-auto mt-6 max-w-2xl text-balance text-base md:text-lg text-white/60 leading-relaxed">
-          MyElleLab is four people designing and shipping iPhone apps that do
-          one thing beautifully — grouped into themed suites that share a
-          purpose.
+        <p className="animate-fade-up mx-auto mt-8 max-w-xl font-serif uppercase tracking-tagline text-[13px] md:text-sm text-ink">
+          Focused apps, crafted in suites
         </p>
 
-        <div className="animate-fade-up mt-10 flex items-center justify-center gap-3">
+        <div className="animate-fade-in mt-12 flex items-center justify-center gap-3">
+          {heroIcons.map((p) => (
+            <div
+              key={p.name}
+              className="size-11 md:size-12 rounded-[14px] overflow-hidden border border-rule bg-surface shadow-sm"
+              aria-hidden
+            >
+              <Image
+                src={p.iconSrc}
+                alt=""
+                width={48}
+                height={48}
+                className="size-full object-cover"
+              />
+            </div>
+          ))}
+        </div>
+
+        <div className="animate-fade-up mt-14 flex items-center justify-center gap-3">
           <a
             href="#suites"
-            className="group inline-flex items-center gap-2 rounded-full bg-flame-500 px-6 py-3.5 text-sm font-medium text-ink-950 shadow-glow transition hover:bg-flame-400"
+            className="inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3.5 text-sm font-medium text-white transition hover:bg-black"
           >
             Explore our suites
             <svg
-              className="size-4 transition-transform group-hover:translate-y-0.5"
+              className="size-4"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
+              aria-hidden
             >
               <path d="M12 5v14M5 12l7 7 7-7" />
             </svg>
           </a>
           <a
             href="#about"
-            className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.02] px-6 py-3.5 text-sm font-medium text-white/80 hover:bg-white/[0.05] hover:text-white transition"
+            className="inline-flex items-center rounded-full border border-ink bg-surface px-6 py-3.5 text-sm font-medium text-ink hover:bg-ink hover:text-white transition"
           >
             About the studio
           </a>
