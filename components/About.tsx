@@ -20,7 +20,8 @@ export function About() {
         </Reveal>
         <Reveal delay={80}>
           <h2 className="mt-5 font-serif text-4xl md:text-5xl font-semibold tracking-wordmark text-balance leading-[1.05] max-w-3xl text-ink">
-            Three people. One studio.{" "}
+            Three people. One studio.
+            <br />
             <span className="text-muted">
               iPhone apps with a clear point of view.
             </span>

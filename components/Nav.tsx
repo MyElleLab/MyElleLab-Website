@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
+import { LogoMark } from "./Logo";
 
 const links = [
   { href: "#suites", label: "Suites" },
@@ -28,11 +30,12 @@ export function Nav() {
       ].join(" ")}
     >
       <nav className="mx-auto max-w-7xl px-6 md:px-10 h-16 flex items-center justify-between">
-        <a href="#top" className="group flex items-center gap-2">
-          <span className="font-serif font-bold tracking-wordmark text-[19px] text-ink">
+        <Link href="/" className="group flex items-center gap-2.5 text-ink">
+          <LogoMark size={28} className="shrink-0 rounded-md border border-rule" />
+          <span className="font-serif font-bold tracking-wordmark text-[19px]">
             MyElleLab
           </span>
-        </a>
+        </Link>
         <ul className="flex items-center gap-1 md:gap-2 text-sm">
           {links.map((l) => (
             <li key={l.href}>

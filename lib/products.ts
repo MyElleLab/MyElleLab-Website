@@ -24,7 +24,7 @@ export const suites: Suite[] = [
     products: [
       {
         name: "MyHabitStats",
-        tagline: "Habit tracker",
+        tagline: "Get statistics on your own life on the pathway to success.",
         status: "AVAILABLE",
         appStoreId: "6761617617",
         iconSrc: "/icon-MyHabitStats.png",
