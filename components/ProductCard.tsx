@@ -73,9 +73,12 @@ export function ProductCard({ product }: { product: Product }) {
         ) : (
           <button
             type="button"
-            className="inline-flex items-center gap-2 rounded-full border border-ink bg-surface px-3.5 py-2 text-xs font-medium text-ink hover:bg-ink hover:text-white transition"
+            disabled
+            aria-label={`${product.name} — coming soon to the App Store`}
+            className="inline-flex items-center gap-2 rounded-full bg-ink px-3.5 py-2 text-xs font-medium text-white opacity-60 cursor-not-allowed"
           >
-            Notify me
+            <AppStoreBadge />
+            Soon
           </button>
         )}
 
