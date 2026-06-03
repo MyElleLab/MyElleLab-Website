@@ -61,8 +61,7 @@ export const suites: Suite[] = [
       },
       {
         name: "TwinLens",
-        tagline:
-          "iPhone mirroring for professional photographers and solo travellers.",
+        tagline: "iPhone mirroring for solo travellers.",
         status: "IN_PRODUCTION",
         appStoreId: "6762047518",
         iconSrc: "/icon-TwinLens.jpeg",
