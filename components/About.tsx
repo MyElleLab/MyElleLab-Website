@@ -12,14 +12,14 @@ export function About() {
       id="about"
       className="ribbons-about relative py-24 md:py-32"
     >
-      <div className="mx-auto max-w-5xl px-6 md:px-10">
+      <div className="mx-auto max-w-7xl px-6 md:px-10">
         <Reveal>
           <p className="font-sans uppercase tracking-eyebrow text-[11px] font-medium text-muted">
             About the studio
           </p>
         </Reveal>
         <Reveal delay={80}>
-          <h2 className="mt-5 font-serif text-4xl md:text-5xl font-semibold tracking-wordmark text-balance leading-[1.05] max-w-3xl text-ink">
+          <h2 className="mt-5 font-serif text-4xl md:text-5xl font-semibold tracking-wordmark text-balance leading-[1.05] max-w-5xl text-ink">
             Three people. One studio.
             <br />
             <span className="text-muted">
