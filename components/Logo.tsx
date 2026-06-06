@@ -13,7 +13,7 @@ export function LogoMark({
       style={{ width: size, height: size }}
     >
       <Image
-        src="/myellelab-logo.jpeg"
+        src="/myellelab-logo.svg"
         width={size}
         height={size}
         alt="MyElleLab logo"
