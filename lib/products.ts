@@ -56,7 +56,7 @@ export const suites: Suite[] = [
         tagline: "Video organizer & looper.",
         status: "AVAILABLE",
         appStoreId: "6761893510",
-        iconSrc: "/icon-MyFlux.png",
+        iconSrc: "/icon-MyFlux.svg",
         siteUrl: "https://getmyflux.com",
       },
       {
