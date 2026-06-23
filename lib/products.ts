@@ -23,11 +23,11 @@ export const suites: Suite[] = [
     description: "Apps for building a better daily routine.",
     products: [
       {
-        name: "MyHabitStats",
+        name: "MyGrowth",
         tagline: "Watch your habits compound into success.",
         status: "AVAILABLE",
         appStoreId: "6761617617",
-        iconSrc: "/icon-MyHabitStats.png",
+        iconSrc: "/icon-MyGrowth.png",
         siteUrl: "https://myhabitstats.com",
       },
       {
