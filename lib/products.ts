@@ -28,7 +28,7 @@ export const suites: Suite[] = [
         status: "AVAILABLE",
         appStoreId: "6761617617",
         iconSrc: "/icon-MyGrowth.png",
-        siteUrl: "https://myhabitstats.com",
+        siteUrl: "https://mygrowth.myellelab.com/en/",
       },
       {
         name: "MyVisionLab",
