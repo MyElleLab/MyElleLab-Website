@@ -52,7 +52,7 @@ export const suites: Suite[] = [
     description: "Apps for your photos and videos.",
     products: [
       {
-        name: "MyFlux",
+        name: "MyVideoLooper",
         tagline: "Video organizer & looper.",
         status: "AVAILABLE",
         appStoreId: "6761893510",
