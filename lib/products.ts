@@ -69,4 +69,27 @@ export const suites: Suite[] = [
       },
     ],
   },
+  {
+    id: "myfreetime",
+    name: "MyFreeTime",
+    description: "Apps for the moments you make your own.",
+    products: [
+      {
+        name: "MyMoodLab",
+        tagline: "Relationship Court.",
+        status: "AVAILABLE",
+        appStoreId: "6758580161",
+        iconSrc: "/icon-MyMoodLab.png",
+        siteUrl: "https://mymoodlab.myellelab.com",
+      },
+      {
+        name: "MyYahtzee",
+        tagline: "Dice & Tracker.",
+        status: "AVAILABLE",
+        appStoreId: "6790156691",
+        iconSrc: "/icon-MyYahtzee.png",
+        siteUrl: "https://myyahtzee.myellelab.com",
+      },
+    ],
+  },
 ];

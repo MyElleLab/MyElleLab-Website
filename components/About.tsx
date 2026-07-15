@@ -4,6 +4,8 @@ const team = [
   { initials: "LF", gradient: "from-rose-500 to-pink-600" },
   { initials: "DF", gradient: "from-sky-400 to-indigo-600" },
   { initials: "LC", gradient: "from-emerald-400 to-teal-600" },
+  { initials: "GR", gradient: "from-amber-400 to-orange-600" },
+  { initials: "LB", gradient: "from-violet-400 to-purple-600" },
 ];
 
 export function About() {
@@ -20,7 +22,7 @@ export function About() {
         </Reveal>
         <Reveal delay={80}>
           <h2 className="mt-5 font-serif text-4xl md:text-5xl font-semibold tracking-wordmark text-balance leading-[1.05] max-w-5xl text-ink">
-            Three people. One studio.
+            Five people. One studio.
             <br />
             <span className="text-muted">
               iPhone apps with a clear point of view.
@@ -49,7 +51,7 @@ export function About() {
               ))}
             </div>
             <p className="font-sans text-sm text-muted">
-              The three founders — design, engineering, product.
+              The five founders — design, engineering, product.
             </p>
           </div>
         </Reveal>
