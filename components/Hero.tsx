@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { suites } from "@/lib/products";
 
-const heroIcons = suites.flatMap((s) => s.products).slice(0, 5);
+const heroIcons = suites.flatMap((s) => s.products);
 
 export function Hero() {
   return (
@@ -22,7 +22,7 @@ export function Hero() {
           Focused apps, crafted in suites
         </p>
 
-        <div className="animate-fade-in mt-12 flex items-center justify-center gap-3">
+        <div className="animate-fade-in mt-12 flex flex-wrap items-center justify-center gap-3">
           {heroIcons.map((p) => (
             <div
               key={p.name}
