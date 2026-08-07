@@ -92,4 +92,19 @@ export const suites: Suite[] = [
       },
     ],
   },
+  {
+    id: "mysmartmates",
+    name: "MySmartMates",
+    description: "Apps that use AI to make smarter everyday decisions.",
+    products: [
+      {
+        name: "MySellingMate",
+        tagline: "Snap a photo, get a resale price and the best place to sell it.",
+        status: "IN_PRODUCTION",
+        appStoreId: "6794851597",
+        iconSrc: "/icon-MySellingMate.png",
+        siteUrl: "https://mysellingmate.myellelab.com",
+      },
+    ],
+  },
 ];
