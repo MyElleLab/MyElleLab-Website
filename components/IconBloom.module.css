@@ -1,0 +1,142 @@
+/* Bloom lens — a diagonally-lit disc that seats an app icon.
+   Mechanics adapted from a Uiverse component; colour layer rebuilt on our
+   light editorial tokens (ink / surface / wisp). */
+
+.bloom {
+  --bloom-size: 60px;
+  --bloom-icon: 32px;
+
+  position: relative;
+  width: var(--bloom-size);
+  aspect-ratio: 1;
+  flex: none;
+  border-radius: 50%;
+  overflow: hidden;
+  transform: rotate(-45deg);
+  transition: transform 0.2s ease-in-out;
+
+  /* Asymmetric rim. Left/right only, so the two arcs taper to nothing at the
+     poles instead of meeting in a mitred seam — the source hid those seams
+     under its white blooms, which have no place on a light canvas. */
+  border-right: 4px solid rgba(255, 255, 255, 0.9);
+  border-left: 4px solid rgba(10, 10, 11, 0.06);
+}
+
+@media (min-width: 768px) {
+  .bloom {
+    --bloom-size: 76px;
+    --bloom-icon: 40px;
+  }
+}
+
+/* Anchors only: a pointer and a press response belong on something clickable. */
+a.bloom {
+  cursor: pointer;
+}
+
+.bloom:hover {
+  transform: rotate(-45deg) scale(1.06);
+}
+
+a.bloom:active {
+  transform: rotate(-45deg) scale(0.94);
+}
+
+/* Gradient ring behind the seat. */
+.back {
+  position: absolute;
+  inset: 0;
+  /* No radius of its own — the parent's overflow clips it to the disc. */
+  background: linear-gradient(
+    60deg,
+    rgba(10, 10, 11, 0.1) 0%,
+    rgba(216, 213, 234, 0.55) 100%
+  );
+}
+
+/* Specular sweep. White regardless of theme. */
+.glass {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transform-origin: bottom center;
+  transform: translate(0%, -50%);
+  transition: transform 0.5s ease-in-out;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.75) 100%
+  );
+  /* Feather the trailing edge. Un-masked it terminates in a hard diagonal
+     across the disc, which reads as a seam rather than a highlight. */
+  -webkit-mask-image: linear-gradient(to bottom, #000 45%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 45%, transparent 100%);
+}
+
+.bloom:hover .glass {
+  transform: translate(0%, -40%);
+}
+
+/* The white seat the icon sits in. */
+.front {
+  position: absolute;
+  width: calc(var(--bloom-size) - 16px);
+  height: calc(var(--bloom-size) - 16px);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: var(--surface);
+  display: grid;
+  place-content: center;
+  box-shadow: rgba(10, 10, 11, 0.1) -6px 4px 12px 0px;
+  transition: transform 0.2s ease-in-out;
+}
+
+a.bloom:active .front {
+  transform: translate(-50%, -50%) scale(1.06);
+}
+
+/* Counter-rotated so the mark reads upright inside the diagonal disc.
+   Squircle radius, never a circle crop — these icons are rounded squares. */
+.icon {
+  display: block;
+  width: var(--bloom-icon);
+  height: var(--bloom-icon);
+  border-radius: 22%;
+  transform: rotate(45deg);
+  object-fit: cover;
+  transition: filter 0.2s ease-in-out;
+}
+
+.bloom:hover .icon {
+  filter: drop-shadow(0 2px 6px rgba(10, 10, 11, 0.18));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bloom,
+  .bloom:hover,
+  a.bloom:active {
+    transform: rotate(-45deg);
+  }
+
+  .front,
+  a.bloom:active .front {
+    transform: translate(-50%, -50%);
+  }
+
+  .bloom,
+  .glass,
+  .front,
+  .icon {
+    transition: none;
+  }
+
+  .bloom:hover .glass {
+    transform: translate(0%, -50%);
+  }
+
+  .bloom:hover .icon {
+    filter: none;
+  }
+}

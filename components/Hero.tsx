@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { IconBloom } from "@/components/IconBloom";
 import { suites } from "@/lib/products";
 
 const heroIcons = suites.flatMap((s) => s.products);
@@ -24,19 +24,7 @@ export function Hero() {
 
         <div className="animate-fade-in mt-12 flex flex-wrap items-center justify-center gap-3">
           {heroIcons.map((p) => (
-            <div
-              key={p.name}
-              className="size-11 md:size-12 rounded-[14px] overflow-hidden border border-rule bg-surface shadow-sm"
-              aria-hidden
-            >
-              <Image
-                src={p.iconSrc}
-                alt=""
-                width={48}
-                height={48}
-                className="size-full object-cover"
-              />
-            </div>
+            <IconBloom key={p.name} src={p.iconSrc} alt="" />
           ))}
         </div>
 
