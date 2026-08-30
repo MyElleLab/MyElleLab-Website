@@ -34,12 +34,16 @@ a.bloom {
   cursor: pointer;
 }
 
-.bloom:hover {
-  transform: rotate(-45deg) scale(1.06);
-}
-
 a.bloom:active {
   transform: rotate(-45deg) scale(0.94);
+}
+
+/* Guarded so a tap on a touch device cannot latch the lifted state, and
+   skippable via .noHover where a host element owns the hover instead. */
+@media (hover: hover) and (pointer: fine) {
+  .bloom:not(.noHover):hover {
+    transform: rotate(-45deg) scale(1.06);
+  }
 }
 
 /* Gradient ring behind the seat. */
@@ -73,8 +77,10 @@ a.bloom:active {
   mask-image: linear-gradient(to bottom, #000 45%, transparent 100%);
 }
 
-.bloom:hover .glass {
-  transform: translate(0%, -40%);
+@media (hover: hover) and (pointer: fine) {
+  .bloom:not(.noHover):hover .glass {
+    transform: translate(0%, -40%);
+  }
 }
 
 /* The white seat the icon sits in. */
@@ -109,13 +115,15 @@ a.bloom:active .front {
   transition: filter 0.2s ease-in-out;
 }
 
-.bloom:hover .icon {
-  filter: drop-shadow(0 2px 6px rgba(10, 10, 11, 0.18));
+@media (hover: hover) and (pointer: fine) {
+  .bloom:not(.noHover):hover .icon {
+    filter: drop-shadow(0 2px 6px rgba(10, 10, 11, 0.18));
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .bloom,
-  .bloom:hover,
+  .bloom:not(.noHover):hover,
   a.bloom:active {
     transform: rotate(-45deg);
   }
@@ -132,11 +140,11 @@ a.bloom:active .front {
     transition: none;
   }
 
-  .bloom:hover .glass {
+  .bloom:not(.noHover):hover .glass {
     transform: translate(0%, -50%);
   }
 
-  .bloom:hover .icon {
+  .bloom:not(.noHover):hover .icon {
     filter: none;
   }
 }

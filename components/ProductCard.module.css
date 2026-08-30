@@ -45,6 +45,12 @@
   transform-style: preserve-3d;
 }
 
+/* Keeps the lens in the card's 3D space so the disc tilts with the surface
+   rather than staying pinned flat to the screen. */
+.iconSlot {
+  transform-style: preserve-3d;
+}
+
 /* Restrained sheen. No swooping corner radius — it reads as ours, not theirs. */
 .sheen {
   position: absolute;

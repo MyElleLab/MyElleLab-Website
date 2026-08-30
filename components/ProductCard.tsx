@@ -1,5 +1,5 @@
-import Image from "next/image";
 import type { Product } from "@/lib/products";
+import { IconBloom } from "./IconBloom";
 import styles from "./ProductCard.module.css";
 
 function AppStoreBadge() {
@@ -44,15 +44,16 @@ export function ProductCard({ product }: { product: Product }) {
         <span className={styles.sheen} aria-hidden />
 
         <div className={`flex items-start justify-between ${styles.layerGroup}`}>
-          <div
-            className={`size-14 rounded-[18px] overflow-hidden border border-rule ${styles.layerIcon}`}
-          >
-            <Image
+          {/* The Z lift and the lens's own rotate must sit on separate
+              elements — both set `transform`, so sharing one element makes
+              them clobber each other. */}
+          <div className={`size-14 flex-none ${styles.layerIcon} ${styles.iconSlot}`}>
+            <IconBloom
               src={product.iconSrc}
               alt={`${product.name} app icon`}
-              width={56}
-              height={56}
-              className="size-14 object-cover"
+              size={56}
+              iconSize={28}
+              hoverEffects={false}
             />
           </div>
           <StatusBadge status={product.status} className={styles.layerBadge} />
