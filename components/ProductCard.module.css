@@ -1,0 +1,141 @@
+/* 3D depth-and-tilt for product cards.
+   Mechanics (perspective, preserve-3d, Z-layer separation, staggered lift)
+   adapted from a Uiverse component; none of its visual design is carried
+   over — the card keeps its own white editorial surface and radius.
+
+   Everything here is hover-only and gated behind (hover: hover), so touch
+   devices never latch a sticky transform after a tap. */
+
+.scene {
+  perspective: 1200px;
+  height: 100%;
+}
+
+.card {
+  transform-style: preserve-3d;
+  transition: all 0.5s ease-in-out;
+  box-shadow: rgba(10, 10, 11, 0.06) 0px 4px 12px -4px;
+}
+
+/* Containers on the chain between .card and any translated layer must keep
+   the 3D context alive, or the child's Z collapses to the card plane. */
+.layerGroup {
+  transform-style: preserve-3d;
+}
+
+/* Depth layers.
+   The brief asked for these at rest, on the premise that only the tilt makes
+   them visible. Under a 1200px perspective that premise does not hold: a
+   positive translateZ projects as scale plus outward displacement, so resting
+   depth measurably enlarged the icon (56px -> 57.6px) and shifted every layer
+   off its laid-out position. That collides with the harder constraint that the
+   card look untouched until hover, so the depth is carried on hover instead.
+   The separation, its ordering and its values are unchanged — the tilt still
+   reveals genuine parallax, it just starts from a flat resting card. */
+.layerIcon,
+.layerBadge,
+.layerName,
+.layerTagline,
+.layerActions {
+  transform: none;
+  transition: transform 0.5s ease-in-out;
+}
+
+.layerActions {
+  transform-style: preserve-3d;
+}
+
+/* Restrained sheen. No swooping corner radius — it reads as ours, not theirs. */
+.sheen {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate3d(0, 0, 4px);
+  transition: opacity 0.5s ease-in-out;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.55) 0%,
+    rgba(255, 255, 255, 0) 55%
+  );
+}
+
+.actionBtn {
+  transition: transform 0.25s ease-in-out;
+}
+.actionBtn:nth-child(1) {
+  transition-delay: 0.1s;
+}
+.actionBtn:nth-child(2) {
+  transition-delay: 0.18s;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .scene:hover .card {
+    transform: rotate3d(1, 1, 0, 7deg);
+    box-shadow:
+      rgba(10, 10, 11, 0.1) 18px 26px 28px -24px,
+      rgba(10, 10, 11, 0.06) 0px 12px 20px -8px;
+  }
+
+  .scene:hover .layerIcon {
+    transform: translate3d(0, 0, 34px);
+  }
+  .scene:hover .layerBadge {
+    transform: translate3d(0, 0, 26px);
+  }
+  .scene:hover .layerName {
+    transform: translate3d(0, 0, 20px);
+  }
+  .scene:hover .layerTagline {
+    transform: translate3d(0, 0, 14px);
+  }
+  .scene:hover .layerActions {
+    transform: translate3d(0, 0, 24px);
+  }
+
+  .scene:hover .sheen {
+    opacity: 1;
+  }
+
+  .scene:hover .actionBtn {
+    transform: translate3d(0, 0, 38px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .actionBtn,
+  .sheen,
+  .layerIcon,
+  .layerBadge,
+  .layerName,
+  .layerTagline,
+  .layerActions {
+    transition: none;
+  }
+
+  /* No layer separation either — it only reads via the tilt. */
+  .scene:hover .layerIcon,
+  .scene:hover .layerBadge,
+  .scene:hover .layerName,
+  .scene:hover .layerTagline,
+  .scene:hover .layerActions {
+    transform: none;
+  }
+
+  /* Keep a plain shadow change; drop the tilt, the stagger and the sheen. */
+  .scene:hover .card {
+    transform: none;
+    box-shadow: rgba(10, 10, 11, 0.1) 0px 6px 16px -6px;
+  }
+
+  .scene:hover .actionBtn {
+    transform: none;
+  }
+
+  .scene:hover .sheen {
+    opacity: 0;
+  }
+}

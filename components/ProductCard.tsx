@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { Product } from "@/lib/products";
+import styles from "./ProductCard.module.css";
 
 function AppStoreBadge() {
   return (
@@ -36,79 +37,101 @@ export function ProductCard({ product }: { product: Product }) {
   const appStoreUrl = `https://apps.apple.com/app/id${product.appStoreId}`;
 
   return (
-    <article className="group relative h-full flex flex-col rounded-2xl bg-surface border border-rule p-6 shadow-sm transition-shadow duration-500 hover:shadow-md">
-      <div className="flex items-start justify-between">
-        <div className="size-14 rounded-[18px] overflow-hidden border border-rule">
-          <Image
-            src={product.iconSrc}
-            alt={`${product.name} app icon`}
-            width={56}
-            height={56}
-            className="size-14 object-cover"
-          />
+    <div className={styles.scene}>
+      <article
+        className={`group relative h-full flex flex-col rounded-2xl bg-surface border border-rule p-6 ${styles.card}`}
+      >
+        <span className={styles.sheen} aria-hidden />
+
+        <div className={`flex items-start justify-between ${styles.layerGroup}`}>
+          <div
+            className={`size-14 rounded-[18px] overflow-hidden border border-rule ${styles.layerIcon}`}
+          >
+            <Image
+              src={product.iconSrc}
+              alt={`${product.name} app icon`}
+              width={56}
+              height={56}
+              className="size-14 object-cover"
+            />
+          </div>
+          <StatusBadge status={product.status} className={styles.layerBadge} />
         </div>
-        <StatusBadge status={product.status} />
-      </div>
 
-      <div className="mt-5 flex-grow">
-        <h3 className="font-serif text-2xl font-semibold tracking-wordmark text-ink">
-          {product.name}
-        </h3>
-        <p className="mt-1.5 font-sans text-sm text-muted leading-relaxed">
-          {product.tagline}
-        </p>
-      </div>
+        <div className={`mt-5 flex-grow ${styles.layerGroup}`}>
+          <h3
+            className={`font-serif text-2xl font-semibold tracking-wordmark text-ink ${styles.layerName}`}
+          >
+            {product.name}
+          </h3>
+          <p
+            className={`mt-1.5 font-sans text-sm text-muted leading-relaxed ${styles.layerTagline}`}
+          >
+            {product.tagline}
+          </p>
+        </div>
 
-      <div className="mt-6 pt-5 flex flex-wrap items-center gap-2 border-t border-rule">
-        {isAvailable ? (
-          <a
-            href={appStoreUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full bg-ink px-3.5 py-2 text-xs font-medium text-white transition hover:bg-black"
-          >
-            <AppStoreBadge />
-            Download
-          </a>
-        ) : (
-          <button
-            type="button"
-            disabled
-            aria-label={`${product.name} — coming soon to the App Store`}
-            className="inline-flex items-center gap-2 rounded-full bg-ink px-3.5 py-2 text-xs font-medium text-white opacity-60 cursor-not-allowed"
-          >
-            <AppStoreBadge />
-            Soon
-          </button>
-        )}
+        <div
+          className={`mt-6 pt-5 flex flex-wrap items-center gap-2 border-t border-rule ${styles.layerActions}`}
+        >
+          {isAvailable ? (
+            <a
+              href={appStoreUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`inline-flex items-center gap-2 rounded-full bg-ink px-3.5 py-2 text-xs font-medium text-white transition hover:bg-black ${styles.actionBtn}`}
+            >
+              <AppStoreBadge />
+              Download
+            </a>
+          ) : (
+            <button
+              type="button"
+              disabled
+              aria-label={`${product.name} — coming soon to the App Store`}
+              className={`inline-flex items-center gap-2 rounded-full bg-ink px-3.5 py-2 text-xs font-medium text-white opacity-60 cursor-not-allowed ${styles.actionBtn}`}
+            >
+              <AppStoreBadge />
+              Soon
+            </button>
+          )}
 
-        {product.siteUrl && (
-          <a
-            href={product.siteUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 rounded-full border border-ink bg-surface px-3.5 py-2 text-xs font-medium text-ink hover:bg-ink hover:text-white transition"
-          >
-            Visit site
-            <ExternalIcon />
-          </a>
-        )}
-      </div>
-    </article>
+          {product.siteUrl && (
+            <a
+              href={product.siteUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`inline-flex items-center gap-1.5 rounded-full border border-ink bg-surface px-3.5 py-2 text-xs font-medium text-ink hover:bg-ink hover:text-white transition ${styles.actionBtn}`}
+            >
+              Visit site
+              <ExternalIcon />
+            </a>
+          )}
+        </div>
+      </article>
+    </div>
   );
 }
 
-function StatusBadge({ status }: { status: Product["status"] }) {
+function StatusBadge({
+  status,
+  className = "",
+}: {
+  status: Product["status"];
+  className?: string;
+}) {
   if (status === "AVAILABLE") {
     return (
-      <span className="inline-flex items-center gap-1.5 rounded-full bg-ink px-2.5 py-1 font-sans text-[10px] font-medium uppercase tracking-eyebrow text-white">
+      <span className={`inline-flex items-center gap-1.5 rounded-full bg-ink px-2.5 py-1 font-sans text-[10px] font-medium uppercase tracking-eyebrow text-white ${className}`}>
         <span className="size-1.5 rounded-full bg-white" />
         Available
       </span>
     );
   }
   return (
-    <span className="inline-flex items-center gap-1.5 rounded-full border border-muted bg-transparent px-2.5 py-1 font-sans text-[10px] font-medium uppercase tracking-eyebrow text-muted">
+    <span
+      className={`inline-flex items-center gap-1.5 rounded-full border border-muted bg-transparent px-2.5 py-1 font-sans text-[10px] font-medium uppercase tracking-eyebrow text-muted ${className}`}
+    >
       <span className="size-1.5 rounded-full bg-muted" />
       Coming soon
     </span>
