@@ -1,0 +1,79 @@
+/* Layered 3D wordmark.
+   Mechanics (three Z-stacked copies of the text plus a slow infinite wobble)
+   adapted from a Uiverse component by Thomas-Cabrit; its gold-on-dark
+   treatment — holographic gradient, background-clip: text, text-stroke,
+   radial glow and bordered glass panel — is not carried over. Ours is solid
+   ink on the light canvas, with the rearmost ghost tinted to the same wisp
+   lavender as the hero ribbons so the depth belongs to the page rather than
+   reading as a generic drop shadow. */
+
+.scene {
+  perspective: 1400px;
+}
+
+/* A single-cell grid rather than absolute positioning: every layer stays in
+   flow and shares one cell, so they overlap exactly while the stack still
+   derives its width and height from the text. Absolutely positioning all
+   three would collapse the stack to zero and pull the tagline up the page. */
+.stack {
+  display: inline-grid;
+  width: auto;
+  transform-style: preserve-3d;
+  animation: wordmark-wobble 9s ease-in-out infinite;
+}
+
+.layer {
+  grid-area: 1 / 1;
+  white-space: nowrap;
+  /* font-family, size, weight, letter-spacing and leading are inherited from
+     the hero's own h1 — nothing about the type is restated here. */
+}
+
+.front {
+  color: var(--ink);
+  opacity: 1;
+  transform: translateZ(0);
+  filter: drop-shadow(0 6px 16px rgba(10, 10, 11, 0.1));
+}
+
+.mid {
+  color: var(--ink);
+  opacity: 0.13;
+  filter: blur(0.5px);
+  transform: translateZ(-14px);
+}
+
+.back {
+  color: rgba(216, 213, 234, 0.55);
+  filter: blur(1.5px);
+  transform: translateZ(-30px);
+}
+
+/* Full depth once the type is large enough to carry it. */
+@media (min-width: 768px) {
+  .mid {
+    transform: translateZ(-28px);
+  }
+  .back {
+    transform: translateZ(-60px);
+  }
+}
+
+@keyframes wordmark-wobble {
+  0% {
+    transform: rotateX(5deg) rotateY(-6deg);
+  }
+  50% {
+    transform: rotateX(6deg) rotateY(6deg);
+  }
+  100% {
+    transform: rotateX(5deg) rotateY(-6deg);
+  }
+}
+
+/* Motion stops; the depth stays. */
+@media (prefers-reduced-motion: reduce) {
+  .stack {
+    animation: none;
+  }
+}

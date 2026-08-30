@@ -1,3 +1,4 @@
+import { HeroWordmark } from "@/components/HeroWordmark";
 import { IconBloom } from "@/components/IconBloom";
 import { suites } from "@/lib/products";
 
@@ -15,7 +16,7 @@ export function Hero() {
         </p>
 
         <h1 className="animate-fade-up mt-6 font-serif font-bold tracking-wordmark text-balance text-ink text-6xl sm:text-7xl md:text-8xl lg:text-[112px] leading-[1.02]">
-          MyElleLab
+          <HeroWordmark />
         </h1>
 
         <p className="animate-fade-up mx-auto mt-8 max-w-xl font-serif uppercase tracking-tagline text-[13px] md:text-sm text-ink">
