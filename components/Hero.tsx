@@ -1,3 +1,4 @@
+import { EyebrowWaves } from "@/components/EyebrowWaves";
 import { HeroWordmark } from "@/components/HeroWordmark";
 import { IconBloom } from "@/components/IconBloom";
 import { suites } from "@/lib/products";
@@ -12,7 +13,7 @@ export function Hero() {
     >
       <div className="relative mx-auto max-w-6xl px-6 md:px-10 text-center">
         <p className="animate-fade-in font-sans uppercase tracking-eyebrow text-[11px] font-medium text-muted">
-          An independent iOS studio
+          <EyebrowWaves>An independent iOS studio</EyebrowWaves>
         </p>
 
         <h1 className="animate-fade-up mt-6 font-serif font-bold tracking-wordmark text-balance text-ink text-6xl sm:text-7xl md:text-8xl lg:text-[112px] leading-[1.02]">

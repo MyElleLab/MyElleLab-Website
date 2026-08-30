@@ -1,0 +1,28 @@
+/* Wave ribbon behind the hero eyebrow.
+   Only the wave-morphing mechanic is taken from the Uiverse loader by
+   andrew-manzyk; the sphere, its radial gradients, the rotation and every
+   colour animation are dropped. Sizing is in em so the ribbon tracks the
+   eyebrow's own type rather than a fixed pixel width. */
+
+.wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.waves {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 110%;
+  height: 2.4em;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  overflow: visible;
+  z-index: 0;
+}
+
+/* The text sits above the ribbon and keeps its own colour and tracking. */
+.label {
+  position: relative;
+  z-index: 1;
+}
