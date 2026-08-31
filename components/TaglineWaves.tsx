@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, type ReactNode } from "react";
-import styles from "./EyebrowWaves.module.css";
+import styles from "./TaglineWaves.module.css";
 
 /* Two crest states in the 0 0 100 100 viewBox, drawn past both edges so the
    ribbon never ends mid-view. Morphing between them is the whole mechanic. */
@@ -25,7 +25,7 @@ const LAYERS = [
   { from: WAVE_DOWN, to: WAVE_UP, begin: "-3s", opacity: 0.5 },
 ];
 
-export function EyebrowWaves({ children }: { children: ReactNode }) {
+export function TaglineWaves({ children }: { children: ReactNode }) {
   /* Starts false so the server and the first client render agree, and so a
      reduced-motion visitor never sees a frame of movement. SMIL cannot be
      stopped from CSS, so the <animate> elements are simply not rendered. */
@@ -49,18 +49,18 @@ export function EyebrowWaves({ children }: { children: ReactNode }) {
         focusable="false"
       >
         <defs>
-          <linearGradient id="eyebrow-wave-fade" x1="0" y1="0" x2="1" y2="0">
+          <linearGradient id="tagline-wave-fade" x1="0" y1="0" x2="1" y2="0">
             <stop offset="0" stopColor="#000" />
             <stop offset="0.2" stopColor="#fff" />
             <stop offset="0.8" stopColor="#fff" />
             <stop offset="1" stopColor="#000" />
           </linearGradient>
-          <mask id="eyebrow-wave-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100">
-            <rect x="0" y="0" width="100" height="100" fill="url(#eyebrow-wave-fade)" />
+          <mask id="tagline-wave-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100">
+            <rect x="0" y="0" width="100" height="100" fill="url(#tagline-wave-fade)" />
           </mask>
         </defs>
 
-        <g mask="url(#eyebrow-wave-mask)" fill="none" stroke="rgba(216, 213, 234, 0.85)">
+        <g mask="url(#tagline-wave-mask)" fill="none" stroke="rgba(216, 213, 234, 0.85)">
           {LAYERS.map((l, i) => (
             <path
               key={i}

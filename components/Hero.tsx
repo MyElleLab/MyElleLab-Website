@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { EyebrowWaves } from "@/components/EyebrowWaves";
+import { TaglineWaves } from "@/components/TaglineWaves";
 import { HeroMarquee } from "@/components/HeroMarquee";
 import { HeroWordmark } from "@/components/HeroWordmark";
 import { suites } from "@/lib/products";
@@ -33,7 +33,7 @@ export function Hero() {
 
       <div className="relative z-10 mx-auto max-w-6xl px-6 md:px-10 text-center">
         <p className="animate-fade-in font-sans uppercase tracking-eyebrow text-[11px] font-medium text-muted">
-          <EyebrowWaves>An independent iOS studio</EyebrowWaves>
+          An independent iOS studio
         </p>
 
         <h1 className="animate-fade-up mt-6 font-serif font-bold tracking-wordmark text-balance text-ink text-6xl sm:text-7xl md:text-8xl lg:text-[112px] leading-[1.02]">
@@ -41,7 +41,7 @@ export function Hero() {
         </h1>
 
         <p className="animate-fade-up mx-auto mt-8 max-w-xl font-serif uppercase tracking-tagline text-[13px] md:text-sm text-ink">
-          Focused apps, crafted in suites
+          <TaglineWaves>Focused apps, crafted in suites</TaglineWaves>
         </p>
 
         <div className="animate-fade-in mt-12">
