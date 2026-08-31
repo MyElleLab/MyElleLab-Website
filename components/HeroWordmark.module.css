@@ -8,6 +8,10 @@
    reading as a generic drop shadow. */
 
 .scene {
+  /* A bare <span> computes to display: inline, and perspective does not apply
+     to non-replaced inline elements — without this the 1400px is dropped and
+     the layers project orthographically, sliding rather than receding. */
+  display: inline-block;
   perspective: 1400px;
 }
 
