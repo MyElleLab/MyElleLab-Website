@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { EyebrowWaves } from "@/components/EyebrowWaves";
 import { HeroWordmark } from "@/components/HeroWordmark";
 import { IconBloom } from "@/components/IconBloom";
@@ -9,9 +11,27 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="ribbons-hero relative isolate overflow-hidden pt-40 pb-28 md:pt-56 md:pb-40"
+      className="relative isolate overflow-hidden bg-canvas pt-40 pb-28 md:pt-56 md:pb-40"
     >
-      <div className="relative mx-auto max-w-6xl px-6 md:px-10 text-center">
+      {/* Decorative silk backdrop. Replaces the old .ribbons-hero gradients —
+          layering both muddied the folds. */}
+      <div className="absolute inset-0 z-0 overflow-hidden" aria-hidden>
+        <Image
+          src="/bg-MyElleLab.webp"
+          alt=""
+          fill
+          priority
+          quality={85}
+          sizes="100vw"
+          className="object-cover object-center"
+        />
+        {/* The image's bottom edge averages ~[241,237,247] against a
+            [248,247,251] canvas, which reads as a hard rule across the page.
+            This dissolves it into the next section. */}
+        <div className="hero-fade absolute inset-x-0 bottom-0" />
+      </div>
+
+      <div className="relative z-10 mx-auto max-w-6xl px-6 md:px-10 text-center">
         <p className="animate-fade-in font-sans uppercase tracking-eyebrow text-[11px] font-medium text-muted">
           <EyebrowWaves>An independent iOS studio</EyebrowWaves>
         </p>

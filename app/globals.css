@@ -31,12 +31,16 @@ body {
 /* Ribbon backgrounds — overlapping pale-lavender ellipses on canvas.
    Each section uses a slightly different composition so the page reads
    composed rather than copy-pasted. */
-.ribbons-hero {
-  background:
-    radial-gradient(ellipse 90% 40% at 100% 50%, rgba(216, 213, 234, 0.45) 0%, transparent 60%),
-    radial-gradient(ellipse 80% 35% at 0% 75%, rgba(216, 213, 234, 0.30) 0%, transparent 65%),
-    radial-gradient(ellipse 60% 30% at 50% 10%, rgba(216, 213, 234, 0.22) 0%, transparent 70%),
-    var(--canvas);
+/* The hero's ribbons are now a silk image (see Hero.tsx); this fade lands the
+   image's bottom edge on the flat canvas so the two don't meet in a seam. */
+.hero-fade {
+  height: 22%;
+  background: linear-gradient(
+    to bottom,
+    rgba(248, 247, 251, 0) 0%,
+    rgba(248, 247, 251, 0.72) 55%,
+    var(--canvas) 100%
+  );
 }
 
 .ribbons-about {
