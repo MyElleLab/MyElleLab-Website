@@ -1,8 +1,8 @@
 import Image from "next/image";
 
 import { EyebrowWaves } from "@/components/EyebrowWaves";
+import { HeroMarquee } from "@/components/HeroMarquee";
 import { HeroWordmark } from "@/components/HeroWordmark";
-import { IconBloom } from "@/components/IconBloom";
 import { suites } from "@/lib/products";
 
 const heroIcons = suites.flatMap((s) => s.products);
@@ -44,10 +44,8 @@ export function Hero() {
           Focused apps, crafted in suites
         </p>
 
-        <div className="animate-fade-in mt-12 flex flex-wrap items-center justify-center gap-3">
-          {heroIcons.map((p) => (
-            <IconBloom key={p.name} src={p.iconSrc} alt="" />
-          ))}
+        <div className="animate-fade-in mt-12">
+          <HeroMarquee products={heroIcons} />
         </div>
 
         <div className="animate-fade-up mt-14 flex items-center justify-center gap-3">

@@ -1,0 +1,85 @@
+/* Horizontal drift for the hero icon row.
+   Marquee mechanic adapted from a Uiverse component by barisdogansutcu; its
+   social buttons, brand-colour SVGs, black edge gradients and fixed 300px
+   frame are all discarded — this scrolls the existing IconBloom discs. */
+
+.viewport {
+  width: 100%;
+  overflow: hidden;
+  /* A mask rather than an overlay gradient: the hero sits on the silk image
+     now, so the discs must dissolve into whatever is behind them. */
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    black 8%,
+    black 92%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    black 8%,
+    black 92%,
+    transparent 100%
+  );
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  animation: marquee 40s linear infinite;
+}
+
+/* The spacing lives on the item, not as a flex `gap`. With `gap`, a track of
+   N sets is N*discs + (N*discs - 1) gaps, so -50% lands half a gap short of
+   where a set starts and the loop steps sideways. Folding the space into each
+   item makes every set exactly 8*(disc + space), and -50% is exact. */
+.contents {
+  display: contents;
+}
+
+.item {
+  margin-right: 12px;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* A disc sliding out from under the cursor mid-hover feels broken. */
+@media (hover: hover) {
+  .viewport:hover .track {
+    animation-play-state: paused;
+  }
+}
+
+/* Fall back to the static centred row this replaced, not a frozen track with
+   icons clipped mid-slide. */
+@media (prefers-reduced-motion: reduce) {
+  .viewport {
+    overflow: visible;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .track {
+    animation: none;
+    width: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .item {
+    margin-right: 0;
+  }
+
+  .dup {
+    display: none;
+  }
+}
