@@ -128,7 +128,7 @@ export function Footer() {
               Apple glyph on the Download buttons. Fine print by design. */}
           <p className="mt-4 max-w-3xl text-[11px] leading-relaxed">
             Apple, the Apple logo, iPhone, iPad, and App Store are trademarks of
-            Apple Inc., registered in the U.S. and other countries. iOS is a
+            Apple Inc., registered in the U.S. and other countries. IOS is a
             trademark or registered trademark of Cisco in the U.S. and other
             countries and is used under license.
           </p>
