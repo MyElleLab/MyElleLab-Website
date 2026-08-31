@@ -1,0 +1,129 @@
+/* Dock magnification for the founder avatars.
+   Cursor-proximity scaling adapted from a Uiverse component by Cobp; its hex
+   swatches, aria-color attribute and 8px label are not carried over.
+   Flat selectors throughout — the project's CSS modules are plain CSS, so the
+   source's native `&` nesting is un-nested rather than adding a preprocessor. */
+
+.row {
+  display: flex;
+}
+
+/* The slot is the flex item and never scales, so the tooltip hung off it stays
+   at its true size while the disc inside swells. */
+.slot {
+  position: relative;
+  z-index: 0;
+  flex: none;
+}
+
+.disc {
+  transition: transform 400ms cubic-bezier(0.175, 0.885, 0.32, 1.1);
+  will-change: transform;
+}
+
+.tip {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  opacity: 0;
+  pointer-events: none;
+  white-space: nowrap;
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--ink);
+  padding: 3px 8px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  box-shadow:
+    rgba(10, 10, 11, 0.12) 0px 4px 12px -4px,
+    rgba(10, 10, 11, 0.08) 0px 0px 0px 1px;
+  transition:
+    opacity 400ms cubic-bezier(0.175, 0.885, 0.32, 1.1),
+    transform 400ms cubic-bezier(0.175, 0.885, 0.32, 1.1);
+}
+
+/* Everything below is hover-only: on a touch screen there is no hover, so a
+   tap can never latch a scaled disc or leave a tooltip hanging open. */
+@media (hover: hover) and (pointer: fine) {
+  .slot:hover .disc {
+    transform: scale(1.35);
+  }
+
+  /* Neighbours also slide away from the hovered disc. The avatars overlap by
+     12px at rest, and at 1.35 the hovered disc reaches past where the next
+     one's initials sit — "DF" rendered as "D". Nudging them outward restores
+     the initials while the row still swells. This is a transform, not the
+     margin the source would have changed: margin would resize the row and
+     shove the caption sideways every time the cursor moved. */
+  .slot:hover + .slot .disc {
+    transform: translateX(12px) scale(1.2);
+  }
+  .slot:has(+ .slot:hover) .disc {
+    transform: translateX(-12px) scale(1.2);
+  }
+  .slot:hover + .slot + .slot .disc {
+    transform: translateX(20px) scale(1.08);
+  }
+  .slot:has(+ .slot + .slot:hover) .disc {
+    transform: translateX(-20px) scale(1.08);
+  }
+
+  /* The displacement has to keep propagating past the scaled neighbours.
+     Without these, hovering an end avatar slid the +2 disc into the two
+     un-scaled ones and buried them — hovering LF hid GR completely. They
+     take no scale, only enough shift to stay clear. */
+  .slot:hover + .slot + .slot + .slot .disc {
+    transform: translateX(24px);
+  }
+  .slot:has(+ .slot + .slot + .slot:hover) .disc {
+    transform: translateX(-24px);
+  }
+  .slot:hover + .slot + .slot + .slot + .slot .disc {
+    transform: translateX(26px);
+  }
+  .slot:has(+ .slot + .slot + .slot + .slot:hover) .disc {
+    transform: translateX(-26px);
+  }
+
+  /* Stacking has to ascend with scale or a swelling disc renders behind the
+     neighbour it is growing over. Flex items honour z-index directly. */
+  .slot:hover {
+    z-index: 5;
+  }
+  .slot:hover + .slot,
+  .slot:has(+ .slot:hover) {
+    z-index: 4;
+  }
+  .slot:hover + .slot + .slot,
+  .slot:has(+ .slot + .slot:hover) {
+    z-index: 3;
+  }
+
+  .slot:hover .tip {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .disc,
+  .tip {
+    transition: none;
+  }
+  .slot:hover .disc,
+  .slot:hover + .slot .disc,
+  .slot:has(+ .slot:hover) .disc,
+  .slot:hover + .slot + .slot .disc,
+  .slot:has(+ .slot + .slot:hover) .disc,
+  .slot:hover + .slot + .slot + .slot .disc,
+  .slot:has(+ .slot + .slot + .slot:hover) .disc,
+  .slot:hover + .slot + .slot + .slot + .slot .disc,
+  .slot:has(+ .slot + .slot + .slot + .slot:hover) .disc {
+    transform: none;
+  }
+  .slot:hover .tip {
+    opacity: 0;
+  }
+}

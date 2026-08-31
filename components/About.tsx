@@ -1,4 +1,5 @@
 import { Reveal } from "./Reveal";
+import styles from "./FounderDock.module.css";
 
 const team = [
   { initials: "LF", gradient: "from-rose-500 to-pink-600" },
@@ -39,19 +40,25 @@ export function About() {
 
         <Reveal delay={220}>
           <div className="mt-14 flex items-center gap-4">
-            <div className="flex -space-x-3">
+            <div className={`${styles.row} -space-x-3`}>
               {team.map((m) => (
-                <div
-                  key={m.initials}
-                  className={`size-12 rounded-full ring-2 ring-canvas bg-gradient-to-br ${m.gradient} grid place-items-center font-serif text-sm font-semibold text-white shadow-sm`}
-                  aria-hidden
-                >
-                  {m.initials}
+                <div key={m.initials} className={styles.slot}>
+                  {/* Not aria-hidden any more: the initials are the avatar's
+                      accessible name. The tooltip repeats them in CSS-adjacent
+                      markup because generated content is not reliably exposed. */}
+                  <div
+                    className={`size-12 rounded-full ring-2 ring-canvas bg-gradient-to-br ${m.gradient} grid place-items-center font-serif text-sm font-semibold text-white shadow-sm ${styles.disc}`}
+                  >
+                    {m.initials}
+                  </div>
+                  <span className={styles.tip} aria-hidden>
+                    {m.initials}
+                  </span>
                 </div>
               ))}
             </div>
             <p className="font-sans text-sm text-muted">
-              The five founders — design, engineering, product.
+              The five founders: design, engineering, product.
             </p>
           </div>
         </Reveal>
