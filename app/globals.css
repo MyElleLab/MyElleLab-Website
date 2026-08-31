@@ -68,6 +68,14 @@ body {
   transform: translateY(0);
 }
 
+/* The nav links to these sections, and the nav is fixed, so a hash jump would
+   otherwise land them flush underneath it. Unlike the product cards these
+   sections sit outside Reveal — the Reveals are their children — so no
+   --reveal-rise allowance is needed here. */
+.section-anchor {
+  scroll-margin-top: calc(var(--nav-h) + 1.5rem);
+}
+
 .text-balance {
   text-wrap: balance;
 }

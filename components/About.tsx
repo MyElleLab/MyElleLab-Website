@@ -13,7 +13,7 @@ export function About() {
   return (
     <section
       id="about"
-      className="ribbons-about relative py-24 md:py-32"
+      className="section-anchor ribbons-about relative py-24 md:py-32"
     >
       <div className="mx-auto max-w-7xl px-6 md:px-10">
         <Reveal>
@@ -58,7 +58,7 @@ export function About() {
               ))}
             </div>
             <p className="font-sans text-sm text-muted">
-              The five founders: design, engineering, product.
+              The five founders — design, engineering, product.
             </p>
           </div>
         </Reveal>

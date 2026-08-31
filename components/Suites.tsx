@@ -4,7 +4,10 @@ import { Reveal } from "./Reveal";
 
 export function Suites() {
   return (
-    <section id="suites" className="relative bg-canvas py-24 md:py-32">
+    <section
+      id="suites"
+      className="section-anchor relative bg-canvas py-24 md:py-32"
+    >
       <div className="mx-auto max-w-7xl px-6 md:px-10">
         <Reveal>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 md:mb-20">

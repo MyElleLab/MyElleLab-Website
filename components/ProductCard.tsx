@@ -53,12 +53,12 @@ export function ProductCard({ product }: { product: Product }) {
           {/* The Z lift and the lens's own rotate must sit on separate
               elements — both set `transform`, so sharing one element makes
               them clobber each other. */}
-          <div className={`size-14 flex-none ${styles.layerIcon} ${styles.iconSlot}`}>
+          <div className={`size-16 flex-none ${styles.layerIcon} ${styles.iconSlot}`}>
             <IconBloom
               src={product.iconSrc}
               alt={`${product.name} app icon`}
-              size={56}
-              iconSize={28}
+              size={64}
+              iconSize={36}
               hoverEffects={false}
             />
           </div>

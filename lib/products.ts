@@ -104,13 +104,14 @@ export const suites: Suite[] = [
   {
     id: "mysmartmates",
     name: "MySmartMates",
-    description: "Apps that use AI to make smarter everyday decisions.",
+    description: "Apps that think ahead so you don't have to.",
     products: [
       {
         name: "MySellingMate",
         slug: "mysellingmate",
-        tagline: "Snap a photo, get a resale price and the best place to sell it.",
-        status: "IN_PRODUCTION",
+        tagline:
+          "Photograph anything you want to sell and get a price and a place to sell it.",
+        status: "AVAILABLE",
         appStoreId: "6794851597",
         iconSrc: "/icon-MySellingMate.png",
         siteUrl: "https://mysellingmate.myellelab.com",
