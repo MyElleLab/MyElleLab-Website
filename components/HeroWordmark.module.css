@@ -48,7 +48,10 @@
 }
 
 .back {
-  color: rgba(216, 213, 234, 0.55);
+  /* Ink, not the wisp lavender this started as: the silk's own folds vary by
+     ~17/255 in that same hue, so a lavender ghost read as another fold. Ink
+     separates on hue, which the background cannot mimic at any luminance. */
+  color: rgba(10, 10, 11, 0.1);
   filter: blur(1.5px);
   transform: translateZ(-30px);
 }
