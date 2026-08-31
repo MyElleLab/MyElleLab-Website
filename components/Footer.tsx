@@ -1,4 +1,13 @@
+import { Fragment } from "react";
+import Link from "next/link";
+
 import { suites } from "@/lib/products";
+
+const legalLinks = [
+  { href: "/privacy", label: "Privacy Policy" },
+  { href: "/terms", label: "Terms of Use" },
+  { href: "/company", label: "Company Details" },
+];
 
 export function Footer() {
   const sites = suites
@@ -86,9 +95,36 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 pt-6 border-t border-rule flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 font-sans text-xs text-muted">
-          <p>© {new Date().getFullYear()} MyElleLab. All rights reserved.</p>
-          <p>Designed & built in-house.</p>
+        <div className="mt-14 pt-6 border-t border-rule font-sans text-muted">
+          <nav
+            aria-label="Legal"
+            className="flex flex-wrap items-center gap-x-2.5 gap-y-1.5 text-xs"
+          >
+            {legalLinks.map((l, i) => (
+              <Fragment key={l.href}>
+                {i > 0 && (
+                  <span aria-hidden className="select-none opacity-50">
+                    ·
+                  </span>
+                )}
+                <Link href={l.href} className="hover:text-ink transition">
+                  {l.label}
+                </Link>
+              </Fragment>
+            ))}
+          </nav>
+
+          <div className="mt-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
+            <p>© {new Date().getFullYear()} MyElleLab. All rights reserved.</p>
+            <p>Designed & built in-house.</p>
+          </div>
+
+          {/* Required attribution: the site uses iPhone, iOS, App Store and the
+              Apple glyph on the Download buttons. Fine print by design. */}
+          <p className="mt-4 max-w-3xl text-[11px] leading-relaxed">
+            Apple, the Apple logo, iPhone, iPad, and App Store are trademarks of
+            Apple Inc., registered in the U.S. and other countries.
+          </p>
         </div>
       </div>
     </footer>

@@ -4,10 +4,13 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { LogoMark } from "./Logo";
 
+/* Root-relative, not bare hashes: the nav is reused on /privacy, /terms and
+   /company, where "#suites" and "#about" point at sections that do not exist
+   on the page. "/#suites" resolves from anywhere. */
 const links = [
-  { href: "#suites", label: "Suites" },
-  { href: "#about", label: "About" },
-  { href: "#contact", label: "Contact" },
+  { href: "/#suites", label: "Suites" },
+  { href: "/#about", label: "About" },
+  { href: "/#contact", label: "Contact" },
 ];
 
 export function Nav() {
