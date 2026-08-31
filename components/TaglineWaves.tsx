@@ -60,7 +60,7 @@ export function TaglineWaves({ children }: { children: ReactNode }) {
           </mask>
         </defs>
 
-        <g mask="url(#tagline-wave-mask)" fill="none" stroke="rgba(216, 213, 234, 0.85)">
+        <g mask="url(#tagline-wave-mask)" fill="none" stroke="rgba(216, 213, 234, 0.45)">
           {LAYERS.map((l, i) => (
             <path
               key={i}
