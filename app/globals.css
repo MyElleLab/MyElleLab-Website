@@ -9,10 +9,14 @@
   --muted: #6b6b7a;
   --rule: #e5e3ec;
   --wisp: #d8d5ea;
+  --nav-h: 4rem; /* the fixed header is h-16 at every breakpoint */
+  --reveal-rise: 20px; /* how far .reveal lifts as it fades in */
 }
 
-html {
-  scroll-behavior: smooth;
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 html,
@@ -53,7 +57,7 @@ body {
 /* Reveal-on-scroll */
 .reveal {
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(var(--reveal-rise));
   transition:
     opacity 0.95s cubic-bezier(0.22, 1, 0.36, 1),
     transform 0.95s cubic-bezier(0.22, 1, 0.36, 1);

@@ -2,6 +2,8 @@ export type ProductStatus = "AVAILABLE" | "IN_PRODUCTION";
 
 export type Product = {
   name: string;
+  /** Stable url fragment; the card's id and the hero link both derive from it. */
+  slug: string;
   tagline: string;
   status: ProductStatus;
   appStoreId: string;
@@ -24,6 +26,7 @@ export const suites: Suite[] = [
     products: [
       {
         name: "MyGrowth",
+        slug: "mygrowth",
         tagline: "Watch your habits compound into success.",
         status: "AVAILABLE",
         appStoreId: "6761617617",
@@ -32,6 +35,7 @@ export const suites: Suite[] = [
       },
       {
         name: "MyVisionLab",
+        slug: "myvisionlab",
         tagline: "Turn your vision into a daily practice.",
         status: "IN_PRODUCTION",
         appStoreId: "6774214996",
@@ -39,6 +43,7 @@ export const suites: Suite[] = [
       },
       {
         name: "MyDarkMotivation",
+        slug: "mydarkmotivation",
         tagline: "Unfiltered fuel for the days you don't feel like it.",
         status: "IN_PRODUCTION",
         appStoreId: "6761914913",
@@ -53,6 +58,7 @@ export const suites: Suite[] = [
     products: [
       {
         name: "MyLooper",
+        slug: "mylooper",
         tagline: "Video organizer & looper.",
         status: "AVAILABLE",
         appStoreId: "6761893510",
@@ -61,6 +67,7 @@ export const suites: Suite[] = [
       },
       {
         name: "MyTwinLens",
+        slug: "mytwinlens",
         tagline: "iPhone mirroring for solo travellers.",
         status: "AVAILABLE",
         appStoreId: "6762047518",
@@ -76,6 +83,7 @@ export const suites: Suite[] = [
     products: [
       {
         name: "MyMoodLab",
+        slug: "mymoodlab",
         tagline: "Relationship Court.",
         status: "AVAILABLE",
         appStoreId: "6758580161",
@@ -84,6 +92,7 @@ export const suites: Suite[] = [
       },
       {
         name: "MyYahtzee",
+        slug: "myyahtzee",
         tagline: "Dice & Tracker.",
         status: "AVAILABLE",
         appStoreId: "6790156691",
@@ -99,6 +108,7 @@ export const suites: Suite[] = [
     products: [
       {
         name: "MySellingMate",
+        slug: "mysellingmate",
         tagline: "Snap a photo, get a resale price and the best place to sell it.",
         status: "IN_PRODUCTION",
         appStoreId: "6794851597",
@@ -108,3 +118,8 @@ export const suites: Suite[] = [
     ],
   },
 ];
+
+/** The single source of truth for a product card's anchor id. */
+export function productAnchorId(product: Product) {
+  return `product-${product.slug}`;
+}

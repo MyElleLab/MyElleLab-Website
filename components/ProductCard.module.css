@@ -12,6 +12,12 @@
 }
 
 .card {
+  /* Clears the fixed nav plus breathing room. The extra --reveal-rise matters:
+     a card jumped to from the hero has not been revealed yet, so the browser
+     picks its scroll offset while the card still sits 20px low, and Reveal then
+     lifts it by that much once it enters view — leaving it hard against the nav
+     unless the offset accounts for the lift up front. */
+  scroll-margin-top: calc(var(--nav-h) + 1.5rem + var(--reveal-rise));
   transform-style: preserve-3d;
   transition: all 0.5s ease-in-out;
   box-shadow: rgba(10, 10, 11, 0.06) 0px 4px 12px -4px;
@@ -143,5 +149,44 @@
 
   .scene:hover .sheen {
     opacity: 0;
+  }
+}
+
+
+/* The card is focusable only so a hash jump can move focus to it; it is never
+   in the tab order, so the UA's focus ring adds a colour the design does not
+   use while duplicating the :target ring below. */
+.card:focus {
+  outline: none;
+}
+
+/* Landing feedback: after a hash jump the targeted card rings briefly, so the
+   arrival is acknowledged instead of dropping the reader into a wall of cards.
+   Ink at low alpha — no new colours. */
+.card:target::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow: inset 0 0 0 2px rgba(10, 10, 11, 0.22);
+  animation: card-target 1.6s ease-out forwards;
+}
+
+@keyframes card-target {
+  0%,
+  62% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Keep the acknowledgement, drop the animation. */
+  .card:target::after {
+    animation: none;
+    opacity: 1;
   }
 }

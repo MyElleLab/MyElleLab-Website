@@ -1,4 +1,4 @@
-import type { Product } from "@/lib/products";
+import { productAnchorId, type Product } from "@/lib/products";
 import { IconBloom } from "./IconBloom";
 import styles from "./ProductCard.module.css";
 
@@ -39,6 +39,12 @@ export function ProductCard({ product }: { product: Product }) {
   return (
     <div className={styles.scene}>
       <article
+        id={productAnchorId(product)}
+        /* Focusable only programmatically: a hash jump leaves focus on <body>
+           unless the target can take it, so a keyboard user would land visually
+           on the card but keep tabbing from the hero. -1 keeps it out of the
+           tab order while letting the fragment move focus here. */
+        tabIndex={-1}
         className={`group relative h-full flex flex-col rounded-2xl bg-surface border border-rule p-6 ${styles.card}`}
       >
         <span className={styles.sheen} aria-hidden />

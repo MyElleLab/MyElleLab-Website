@@ -22,6 +22,8 @@ type IconBloomProps = {
    * lifts and sheens the disc. Suppresses the lens's own scale, sweep and lift.
    */
   hoverEffects?: boolean;
+  /** -1 on decorative duplicates so keyboard users tab the set once. */
+  tabIndex?: number;
   className?: string;
 };
 
@@ -32,6 +34,7 @@ export function IconBloom({
   size,
   iconSize,
   hoverEffects = true,
+  tabIndex,
   className,
 }: IconBloomProps) {
   const classes = [styles.bloom, hoverEffects ? "" : styles.noHover, className]
@@ -61,13 +64,16 @@ export function IconBloom({
   );
 
   if (href) {
+    // Only leave the site in a new tab. A same-page fragment must navigate in
+    // place, or the jump-to-card link would spawn a duplicate tab.
+    const external = !href.startsWith("#");
     return (
       <a
         href={href}
         className={classes}
         style={sizeVars}
-        target="_blank"
-        rel="noreferrer"
+        tabIndex={tabIndex}
+        {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
         aria-label={alt || undefined}
       >
         {contents}
