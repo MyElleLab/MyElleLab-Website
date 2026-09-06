@@ -1,0 +1,44 @@
+import type { ReactNode } from "react";
+import { Footer } from "@/components/Footer";
+import { Nav } from "@/components/Nav";
+
+/**
+ * Shell for the site's prose routes — legal pages, the blog index, the blog
+ * series pages — so they carry the real site chrome: same nav, same footer,
+ * same type. The top padding clears the fixed nav (h-16) with room to spare.
+ *
+ * `subtitle` is the one thing the blog needed that the legal pages did not: a
+ * standing line under the H1 that is not part of the body copy.
+ */
+export function TextPage({
+  title,
+  subtitle,
+  children,
+}: {
+  title: string;
+  subtitle?: ReactNode;
+  children: ReactNode;
+}) {
+  return (
+    <main className="relative z-10">
+      <Nav />
+      <section className="relative bg-canvas pt-36 pb-24 md:pt-44 md:pb-32">
+        <div className="mx-auto max-w-7xl px-6 md:px-10">
+          <h1 className="font-serif text-4xl md:text-5xl font-semibold tracking-wordmark text-balance leading-[1.05] text-ink">
+            {title}
+          </h1>
+          {subtitle && (
+            <p className="mt-5 max-w-[65ch] font-sans text-lg text-muted leading-relaxed">
+              {subtitle}
+            </p>
+          )}
+          {/* ~65ch keeps the measure comfortable once real copy lands. */}
+          <div className="mt-8 max-w-[65ch] font-sans text-ink leading-relaxed space-y-4">
+            {children}
+          </div>
+        </div>
+      </section>
+      <Footer />
+    </main>
+  );
+}

@@ -18,7 +18,52 @@ export type Suite = {
   products: Product[];
 };
 
+/* Order is meaningful: it drives the suite eyebrow numbering (01/04 …), the
+   hero marquee's icon order, and the footer's Apps column. Reorder here and
+   the page follows. */
 export const suites: Suite[] = [
+  {
+    id: "mysmartmates",
+    name: "MySmartMates",
+    description: "Apps that think ahead so you don't have to.",
+    products: [
+      {
+        name: "MySellingMate",
+        slug: "mysellingmate",
+        tagline:
+          "Photograph anything you want to sell and get a price and a place to sell it.",
+        status: "AVAILABLE",
+        appStoreId: "6794851597",
+        iconSrc: "/icon-MySellingMate.png",
+        siteUrl: "https://mysellingmate.myellelab.com",
+      },
+    ],
+  },
+  {
+    id: "mycameraroll",
+    name: "MyCameraRoll",
+    description: "Apps for your photos and videos.",
+    products: [
+      {
+        name: "MyLooper",
+        slug: "mylooper",
+        tagline: "Video organizer & looper.",
+        status: "AVAILABLE",
+        appStoreId: "6761893510",
+        iconSrc: "/icon-MyLooper.svg",
+        siteUrl: "https://mylooper.myellelab.com",
+      },
+      {
+        name: "MyTwinLens",
+        slug: "mytwinlens",
+        tagline: "iPhone mirroring for solo travellers.",
+        status: "AVAILABLE",
+        appStoreId: "6762047518",
+        iconSrc: "/icon-MyTwinLens.jpeg",
+        siteUrl: "https://mytwinlens.myellelab.com",
+      },
+    ],
+  },
   {
     id: "mydailysuccess",
     name: "MyDailySuccess",
@@ -52,31 +97,6 @@ export const suites: Suite[] = [
     ],
   },
   {
-    id: "mycameraroll",
-    name: "MyCameraRoll",
-    description: "Apps for your photos and videos.",
-    products: [
-      {
-        name: "MyLooper",
-        slug: "mylooper",
-        tagline: "Video organizer & looper.",
-        status: "AVAILABLE",
-        appStoreId: "6761893510",
-        iconSrc: "/icon-MyLooper.svg",
-        siteUrl: "https://mylooper.myellelab.com",
-      },
-      {
-        name: "MyTwinLens",
-        slug: "mytwinlens",
-        tagline: "iPhone mirroring for solo travellers.",
-        status: "AVAILABLE",
-        appStoreId: "6762047518",
-        iconSrc: "/icon-MyTwinLens.jpeg",
-        siteUrl: "https://mytwinlens.myellelab.com",
-      },
-    ],
-  },
-  {
     id: "myfreetime",
     name: "MyFreeTime",
     description: "Apps for the moments you make your own.",
@@ -101,26 +121,23 @@ export const suites: Suite[] = [
       },
     ],
   },
-  {
-    id: "mysmartmates",
-    name: "MySmartMates",
-    description: "Apps that think ahead so you don't have to.",
-    products: [
-      {
-        name: "MySellingMate",
-        slug: "mysellingmate",
-        tagline:
-          "Photograph anything you want to sell and get a price and a place to sell it.",
-        status: "AVAILABLE",
-        appStoreId: "6794851597",
-        iconSrc: "/icon-MySellingMate.png",
-        siteUrl: "https://mysellingmate.myellelab.com",
-      },
-    ],
-  },
 ];
 
 /** The single source of truth for a product card's anchor id. */
 export function productAnchorId(product: Product) {
   return `product-${product.slug}`;
+}
+
+/**
+ * The single source of truth for a suite's blog series slug — the same idea as
+ * productAnchorId(). The blog routes are generated from this, so renaming a
+ * suite moves its series rather than stranding a dead route behind it.
+ */
+export function suiteSlug(suite: Suite) {
+  return suite.id;
+}
+
+/** The single source of truth for a suite's blog series href. */
+export function blogSeriesPath(suite: Suite) {
+  return `/blog/${suiteSlug(suite)}`;
 }
