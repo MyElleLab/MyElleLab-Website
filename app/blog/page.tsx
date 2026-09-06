@@ -1,24 +1,25 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { JsonLd } from "@/components/JsonLd";
 import { TextPage } from "@/components/TextPage";
 import { blogSeriesPath, suites } from "@/lib/products";
+import { blogSchema } from "@/lib/schema";
+import { BLOG_DESCRIPTION, SITE_NAME, blogRobots } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Blog — MyElleLab",
-  description:
-    "Notes from the studio, one series per product suite.",
-  // TODO: remove `robots` once the first real posts land. An empty blog
-  // indexed as your blog is worse than not being indexed at all.
-  robots: { index: false, follow: false },
+  title: `Blog — ${SITE_NAME}`,
+  description: BLOG_DESCRIPTION,
+  // Noindexed while the series pages are empty. Lifting it is one edit —
+  // BLOG_INDEXABLE in lib/site.ts — which also adds these routes to the
+  // sitemap, so the two signals can never disagree.
+  robots: blogRobots,
 };
 
 export default function BlogIndexPage() {
   return (
-    <TextPage
-      title="Blog"
-      subtitle="Notes from the studio — one series per suite, following the same shape as the apps themselves."
-    >
+    <TextPage title="Blog" subtitle={BLOG_DESCRIPTION}>
+      <JsonLd data={blogSchema()} />
       <ul className="space-y-3">
         {suites.map((suite) => (
           <li key={suite.id}>

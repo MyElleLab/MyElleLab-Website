@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import { JsonLd } from "@/components/JsonLd";
 import { TextPage } from "@/components/TextPage";
 import { suiteSlug, suites, type Suite } from "@/lib/products";
+import { blogSeriesSchema } from "@/lib/schema";
+import { BLOG_NAME, blogRobots } from "@/lib/site";
 
 type Params = { series: string };
 
@@ -30,11 +33,12 @@ export async function generateMetadata({
   if (!suite) return {};
 
   return {
-    title: `${suite.name} — MyElleLab Blog`,
+    title: `${suite.name} — ${BLOG_NAME}`,
     description: suite.description,
-    // TODO: remove `robots` once this series has real posts. An empty series
-    // page indexed as your blog is worse than not being indexed at all.
-    robots: { index: false, follow: false },
+    // Noindexed while this series is empty. Lifting it is one edit —
+    // BLOG_INDEXABLE in lib/site.ts — which also adds this route to the
+    // sitemap, so the two signals can never disagree.
+    robots: blogRobots,
   };
 }
 
@@ -49,6 +53,8 @@ export default async function BlogSeriesPage({
 
   return (
     <TextPage title={suite.name} subtitle={suite.description}>
+      <JsonLd data={blogSeriesSchema(suite)} />
+
       <p className="text-muted">Posts coming soon.</p>
 
       {/* The first post is a fill-in, not a design job. Replace the empty
@@ -76,6 +82,34 @@ export default async function BlogSeriesPage({
               </li>
             ))}
           </ol>
+      */}
+
+      {/* And one BlogPosting per post, emitted next to it with the same
+          <JsonLd /> component. Every field below is required or strongly
+          recommended by schema.org for an Article — leave none of them
+          undefined, or the tag renders the string "undefined" and the post
+          is worse off than with no structured data at all.
+
+          <JsonLd
+            data={{
+              "@context": "https://schema.org",
+              "@type": "BlogPosting",
+              headline: post.title,          // <= 110 chars
+              description: post.excerpt,
+              datePublished: post.date,      // ISO 8601, e.g. "2026-09-06"
+              dateModified: post.updated ?? post.date,
+              author: { "@type": "Person", name: post.author },
+              image: absoluteUrl(post.image),
+              articleBody: post.body,
+              url: `${absoluteUrl(blogSeriesPath(suite))}/${post.slug}`,
+              isPartOf: blogSeriesSchema(suite),
+              publisher: {
+                "@type": "Organization",
+                name: SITE_NAME,
+                url: SITE_URL,
+              },
+            }}
+          />
       */}
     </TextPage>
   );

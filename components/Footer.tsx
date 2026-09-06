@@ -1,4 +1,10 @@
 import { suites } from "@/lib/products";
+import {
+  CONTACT_EMAIL,
+  LINKEDIN_URL,
+  SITE_NAME,
+  STUDIO_DESCRIPTION,
+} from "@/lib/site";
 
 export function Footer() {
   const sites = suites
@@ -20,18 +26,20 @@ export function Footer() {
           <div className="md:col-span-5">
             <div className="flex items-center gap-2">
               <span className="font-serif font-bold tracking-wordmark text-xl text-ink">
-                MyElleLab
+                {SITE_NAME}
               </span>
             </div>
+            {/* The Organization JSON-LD reads this same constant, so the
+                machine-readable description and the visible one stay one
+                string. */}
             <p className="mt-4 max-w-sm font-sans text-muted leading-relaxed text-sm">
-              An independent iOS studio building focused apps, crafted in
-              suites.
+              {STUDIO_DESCRIPTION}
             </p>
             <a
-              href="mailto:hello@myellelab.com"
+              href={`mailto:${CONTACT_EMAIL}`}
               className="mt-6 inline-flex items-center gap-2 text-sm font-sans text-ink hover:text-muted transition"
             >
-              hello@myellelab.com
+              {CONTACT_EMAIL}
               <svg
                 viewBox="0 0 24 24"
                 className="size-3.5"
@@ -74,7 +82,7 @@ export function Footer() {
             <ul className="mt-4 space-y-2.5 text-sm">
               <li>
                 <a
-                  href="https://www.linkedin.com/company/myellelab/"
+                  href={LINKEDIN_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="font-sans text-ink hover:text-muted transition"
@@ -120,7 +128,9 @@ export function Footer() {
           */}
 
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
-            <p>© {new Date().getFullYear()} MyElleLab. All rights reserved.</p>
+            <p>
+            © {new Date().getFullYear()} {SITE_NAME}. All rights reserved.
+          </p>
             <p>Designed & built in-house.</p>
           </div>
 
