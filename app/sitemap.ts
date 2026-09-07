@@ -1,13 +1,13 @@
 import type { MetadataRoute } from "next";
 
-import { blogSeriesPath, suites } from "@/lib/products";
 import { getPosts } from "@/lib/posts";
+import { blogSeries, seriesPath } from "@/lib/series";
 import { BLOG_INDEXABLE, absoluteUrl } from "@/lib/site";
 
 /**
  * /sitemap.xml
  *
- * Every URL is derived from the suites data and the blog slug helper, so a
+ * Every URL is derived from lib/series.ts and the content layer, so a
  * new or renamed suite moves through here without an edit. A hand-kept list
  * goes stale in silence — nothing fails, the sitemap just quietly stops
  * describing the site.
@@ -19,7 +19,7 @@ import { BLOG_INDEXABLE, absoluteUrl } from "@/lib/site";
  *   says "don't". Sending both is a contradiction, so the noindexed page is
  *   simply left out.
  *
- *   /blog, the four series pages and every post — same reason, for now.
+ *   /blog, every series page and every post — same reason, for now.
  *   They are written
  *   out below and gated on BLOG_INDEXABLE rather than commented out, so
  *   lifting the noindex is one edit in lib/site.ts and the sitemap follows in
@@ -47,8 +47,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.7,
     },
-    ...suites.map((suite) => ({
-      url: absoluteUrl(blogSeriesPath(suite)),
+    ...blogSeries.map((series) => ({
+      url: absoluteUrl(seriesPath(series)),
       lastModified,
       changeFrequency: "weekly" as const,
       priority: 0.6,

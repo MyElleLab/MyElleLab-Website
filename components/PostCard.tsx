@@ -35,7 +35,7 @@ export function PostCard({ post }: { post: Post }) {
       <div className="flex flex-grow flex-col p-5">
         <div className="flex items-center justify-between gap-3">
           <span className="font-sans text-[11px] font-medium uppercase tracking-eyebrow text-muted">
-            {post.suite.name}
+            {post.series.name}
           </span>
           <time
             dateTime={post.date}

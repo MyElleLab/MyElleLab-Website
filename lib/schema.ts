@@ -1,5 +1,5 @@
-import { blogSeriesPath, type Suite } from "@/lib/products";
 import type { Post } from "@/lib/posts";
+import { seriesPath, type BlogSeries } from "@/lib/series";
 import {
   AUTHOR_URL,
   BLOG_DESCRIPTION,
@@ -53,13 +53,13 @@ export function blogSchema() {
   };
 }
 
-export function blogSeriesSchema(suite: Suite) {
+export function blogSeriesSchema(series: BlogSeries) {
   return {
     "@context": "https://schema.org",
     "@type": "Blog",
-    name: `${suite.name} — ${BLOG_NAME}`,
-    description: suite.description,
-    url: absoluteUrl(blogSeriesPath(suite)),
+    name: `${series.name} — ${BLOG_NAME}`,
+    description: series.description,
+    url: absoluteUrl(seriesPath(series)),
     publisher,
     isPartOf: {
       "@type": "Blog",
@@ -99,8 +99,8 @@ export function blogPostingSchema(post: Post) {
     publisher,
     isPartOf: {
       "@type": "Blog",
-      name: `${post.suite.name} — ${BLOG_NAME}`,
-      url: absoluteUrl(blogSeriesPath(post.suite)),
+      name: `${post.series.name} — ${BLOG_NAME}`,
+      url: absoluteUrl(seriesPath(post.series)),
     },
   };
 }

@@ -4,8 +4,8 @@ import Link from "next/link";
 import { JsonLd } from "@/components/JsonLd";
 import { PostGrid } from "@/components/PostCard";
 import { TextPage } from "@/components/TextPage";
-import { blogSeriesPath, suites } from "@/lib/products";
 import { getLatestPosts } from "@/lib/posts";
+import { blogSeries, seriesPath } from "@/lib/series";
 import { blogSchema } from "@/lib/schema";
 import { BLOG_DESCRIPTION, SITE_NAME, blogRobots } from "@/lib/site";
 
@@ -46,15 +46,15 @@ export default function BlogIndexPage() {
     >
       <JsonLd data={blogSchema()} />
       <ul className="space-y-3">
-        {suites.map((suite) => (
-          <li key={suite.id}>
+        {blogSeries.map((series) => (
+          <li key={series.slug}>
             <Link
-              href={blogSeriesPath(suite)}
+              href={seriesPath(series)}
               className="group block rounded-2xl border border-rule bg-surface px-6 py-5 transition hover:border-ink/20 hover:bg-canvas"
             >
               <span className="flex items-baseline justify-between gap-4">
                 <span className="font-serif text-xl md:text-2xl font-semibold tracking-wordmark text-ink">
-                  {suite.name}
+                  {series.name}
                 </span>
                 <svg
                   viewBox="0 0 24 24"
@@ -70,7 +70,7 @@ export default function BlogIndexPage() {
                 </svg>
               </span>
               <span className="mt-1.5 block font-sans text-sm text-muted leading-relaxed">
-                {suite.description}
+                {series.description}
               </span>
             </Link>
           </li>

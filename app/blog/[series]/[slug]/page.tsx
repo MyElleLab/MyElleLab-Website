@@ -8,7 +8,7 @@ import { MdxContent } from "@/components/mdx/MdxContent";
 import { PostGrid } from "@/components/PostCard";
 import { SeriesNav } from "@/components/PostNav";
 import { TextPage } from "@/components/TextPage";
-import { blogSeriesPath } from "@/lib/products";
+import { seriesPath } from "@/lib/series";
 import {
   formatPostDate,
   getPost,
@@ -51,7 +51,7 @@ export async function generateMetadata({
     : undefined;
 
   return {
-    title: `${post.title} — ${post.suite.name}`,
+    title: `${post.title} — ${post.series.name}`,
     description: post.description,
     robots: blogRobots,
     openGraph: {
@@ -88,10 +88,10 @@ export default async function BlogPostPage({
       title={post.title}
       eyebrow={
         <Link
-          href={blogSeriesPath(post.suite)}
+          href={seriesPath(post.series)}
           className="font-sans text-[11px] font-medium uppercase tracking-eyebrow text-muted transition hover:text-ink"
         >
-          {post.suite.name}
+          {post.series.name}
         </Link>
       }
       meta={

@@ -3,16 +3,17 @@ import path from "node:path";
 
 import matter from "gray-matter";
 
-import { suiteSlug, suites, type Suite } from "@/lib/products";
+import { blogSeries, type BlogSeries } from "@/lib/series";
 import { DEFAULT_AUTHOR } from "@/lib/site";
 
 /**
  * The blog's content layer: MDX files on disk, read at build time.
  *
- * A post's series is implied by its directory — content/blog/<series-slug>/
- * where <series-slug> is suiteSlug() output. There is no `series` field in
- * the frontmatter to contradict the path, and a directory naming a series
- * that does not exist fails the build rather than quietly vanishing.
+ * A post's series is implied by its directory — content/blog/<series-slug>/,
+ * matching a slug in lib/series.ts (the four suites plus the studio). There is
+ * no `series` field in the frontmatter to contradict the path, and a directory
+ * naming a series that does not exist fails the build rather than quietly
+ * vanishing.
  */
 
 const CONTENT_DIR = path.join(process.cwd(), "content", "blog");
@@ -35,7 +36,7 @@ export type Post = {
   /** File basename without the extension. */
   slug: string;
   seriesSlug: string;
-  suite: Suite;
+  series: BlogSeries;
   /** Sort key. */
   timestamp: number;
   /** MDX source, frontmatter stripped. */
@@ -72,7 +73,7 @@ function requireString(file: string, data: Record<string, unknown>, key: string)
   return value.trim();
 }
 
-function parsePost(filePath: string, seriesSlug: string, suite: Suite): Post {
+function parsePost(filePath: string, series: BlogSeries): Post {
   const relative = path.relative(process.cwd(), filePath);
   const parsed = matter(fs.readFileSync(filePath, "utf8"));
   const data = parsed.data as Record<string, unknown>;
@@ -147,11 +148,11 @@ function parsePost(filePath: string, seriesSlug: string, suite: Suite): Post {
     coverAlt,
     draft: data.draft === true,
     slug,
-    seriesSlug,
-    suite,
+    seriesSlug: series.slug,
+    series,
     timestamp,
     body: parsed.content,
-    href: `/blog/${seriesSlug}/${slug}`,
+    href: `/blog/${series.slug}/${slug}`,
   };
 }
 
@@ -162,17 +163,17 @@ function readAllPosts(): Post[] {
   for (const dir of fs.readdirSync(CONTENT_DIR, { withFileTypes: true })) {
     if (!dir.isDirectory()) continue;
 
-    const suite = suites.find((s) => suiteSlug(s) === dir.name);
-    if (!suite) {
+    const series = blogSeries.find((s) => s.slug === dir.name);
+    if (!series) {
       fail(
         path.join("content", "blog", dir.name),
-        `no suite has the slug "${dir.name}" — a post directory must match a suite in lib/products.ts`,
+        `no series has the slug "${dir.name}" — a post directory must match a series in lib/series.ts (${blogSeries.map((s) => s.slug).join(", ")})`,
       );
     }
 
     for (const entry of fs.readdirSync(path.join(CONTENT_DIR, dir.name))) {
       if (!entry.endsWith(".mdx")) continue;
-      posts.push(parsePost(path.join(CONTENT_DIR, dir.name, entry), dir.name, suite));
+      posts.push(parsePost(path.join(CONTENT_DIR, dir.name, entry), series));
     }
   }
 

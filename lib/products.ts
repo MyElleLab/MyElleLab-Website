@@ -137,7 +137,5 @@ export function suiteSlug(suite: Suite) {
   return suite.id;
 }
 
-/** The single source of truth for a suite's blog series href. */
-export function blogSeriesPath(suite: Suite) {
-  return `/blog/${suiteSlug(suite)}`;
-}
+/* The blog's href helper used to live here. It moved to lib/series.ts as
+   seriesPath(), because the blog now has a series that is not a suite. */

@@ -4,26 +4,22 @@ import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/JsonLd";
 import { PostGrid } from "@/components/PostCard";
 import { TextPage } from "@/components/TextPage";
-import { suiteSlug, suites, type Suite } from "@/lib/products";
 import { getPostsInSeries } from "@/lib/posts";
+import { blogSeries, getSeries } from "@/lib/series";
 import { blogSeriesSchema } from "@/lib/schema";
 import { BLOG_NAME, blogRobots } from "@/lib/site";
 
 type Params = { series: string };
 
-/* The four series routes are generated from the suites data, not from a list
-   kept alongside it — renaming a suite moves its series with it. dynamicParams
-   is off so a slug that no longer exists 404s instead of rendering an empty
-   series page. */
+/* Series routes are generated from lib/series.ts — the four suites plus the
+   studio — not from a list kept alongside it, so renaming a suite moves its
+   series with it. dynamicParams is off so a slug that no longer exists 404s
+   instead of rendering an empty series page. */
 export function generateStaticParams(): Params[] {
-  return suites.map((suite) => ({ series: suiteSlug(suite) }));
+  return blogSeries.map((series) => ({ series: series.slug }));
 }
 
 export const dynamicParams = false;
-
-function findSuite(series: string): Suite | undefined {
-  return suites.find((suite) => suiteSlug(suite) === series);
-}
 
 export async function generateMetadata({
   params,
@@ -31,12 +27,12 @@ export async function generateMetadata({
   params: Promise<Params>;
 }): Promise<Metadata> {
   const { series } = await params;
-  const suite = findSuite(series);
-  if (!suite) return {};
+  const found = getSeries(series);
+  if (!found) return {};
 
   return {
-    title: `${suite.name} — ${BLOG_NAME}`,
-    description: suite.description,
+    title: `${found.name} — ${BLOG_NAME}`,
+    description: found.description,
     // Noindexed while this series is empty. Lifting it is one edit —
     // BLOG_INDEXABLE in lib/site.ts — which also adds this route to the
     // sitemap, so the two signals can never disagree.
@@ -50,18 +46,18 @@ export default async function BlogSeriesPage({
   params: Promise<Params>;
 }) {
   const { series } = await params;
-  const suite = findSuite(series);
-  if (!suite) notFound();
+  const found = getSeries(series);
+  if (!found) notFound();
 
   const posts = getPostsInSeries(series);
 
   return (
     <TextPage
-      title={suite.name}
-      subtitle={suite.description}
+      title={found.name}
+      subtitle={found.description}
       wide={posts.length > 0 ? <PostGrid posts={posts} /> : null}
     >
-      <JsonLd data={blogSeriesSchema(suite)} />
+      <JsonLd data={blogSeriesSchema(found)} />
 
       {/* The empty state stays for a series with nothing in it yet. */}
       {posts.length === 0 && <p className="text-muted">Posts coming soon.</p>}

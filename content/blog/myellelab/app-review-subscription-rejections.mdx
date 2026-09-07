@@ -1,0 +1,44 @@
+---
+title: "What App Review actually rejects for auto-renewable subscriptions"
+description: "Three rejections on the same guideline taught me the difference between a subscription being ready and being submitted. Here's what Apple actually checks."
+date: "2026-09-07"
+tags: ["app-store", "subscriptions", "app-review"]
+cover: "/blog/app-review-subscription-rejections.png"
+coverAlt: "App Store Connect showing a subscription in Prepare for Submission state"
+draft: true
+---
+
+Open with the specific thing that happened, not with context. The reader
+should know within two sentences whether this post is about their problem.
+
+## The first rejection
+
+Prose. Keep paragraphs short — three or four lines. The measure is ~65
+characters, so long paragraphs become tall grey blocks fast.
+
+For anything the reader might copy, use a fenced block with a language tag:
+
+```swift
+let product = try await Product.products(for: ["com.myellelab.pro.monthly"])
+```
+
+Inline `code` for identifiers, file names, and UI labels.
+
+## What was actually wrong
+
+Lists work well for enumerable things:
+
+- The subscription group showed "Ready for Review"
+- The individual subscriptions still showed "Prepare for Submission"
+- Adding the group is not the same as adding each subscription
+
+> Pull-quote for the one line you'd want someone to screenshot.
+
+Images use standard markdown; put files in `/public/blog/`:
+
+![Alt text that describes what's shown](/blog/screenshot.png)
+
+## What I'd do differently
+
+End with the transferable lesson, not a summary. The reader came for the
+specific problem; send them away with the general principle.
