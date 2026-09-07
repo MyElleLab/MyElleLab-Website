@@ -18,11 +18,15 @@ export type BlogSeries = {
   description: string;
 };
 
-/** The studio-level series. Its slug is the directory name under content/blog. */
+/**
+ * The studio-level series. Its slug is the directory name under content/blog,
+ * and it sits last so the four product suites keep their deliberate order.
+ */
 export const STUDIO_SERIES: BlogSeries = {
   slug: "myellelab",
-  name: "The Studio",
-  description: "Notes on building and shipping iOS apps.",
+  name: "MyElleLab",
+  description:
+    "Notes from building the studio — what shipping actually involves.",
 };
 
 export const blogSeries: BlogSeries[] = [
