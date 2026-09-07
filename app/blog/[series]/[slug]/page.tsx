@@ -89,7 +89,11 @@ export default async function BlogPostPage({
       eyebrow={
         <Link
           href={seriesPath(post.series)}
-          className="font-sans text-[11px] font-medium uppercase tracking-eyebrow text-muted transition hover:text-ink"
+          /* Not uppercased: this is a series name, and the camelCase wordmark
+             is the name. Size, tracking, colour and spacing are unchanged, so
+             it still reads as an eyebrow. Section labels that are not names
+             ("Elsewhere in the studio", "Latest") stay uppercase. */
+          className="font-sans text-[11px] font-medium tracking-eyebrow text-muted transition hover:text-ink"
         >
           {post.series.name}
         </Link>
