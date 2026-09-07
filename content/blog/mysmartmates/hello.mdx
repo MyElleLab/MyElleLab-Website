@@ -1,0 +1,39 @@
+---
+title: Pipeline smoke test
+description: A throwaway post that exists to prove the MDX pipeline renders headings, lists, and code. Not editorial copy.
+date: 2026-09-06
+tags: ["meta"]
+draft: true
+---
+
+This post exists so the pipeline has something to render. It is a draft, so it
+never reaches production — it is here to make the type, spacing, and code
+styling visible while the blog is still empty.
+
+Body copy sits at roughly sixty-five characters to the line, which is the same
+measure the legal pages use. Inline code such as `suiteSlug()` should read as
+part of the sentence rather than interrupting it.
+
+## A second-level heading
+
+Headings are Playfair, like every other heading on the site. The list below is
+here to check bullet spacing and marker colour:
+
+- A first item, short.
+- A second item that runs on a little further so it wraps onto a second line
+  and the leading between wrapped lines can be judged.
+- A third item.
+
+A fenced block follows, which is the real thing being tested:
+
+```ts
+export function suiteBlogPath(suite: Suite) {
+  // The slug is the single source of truth for the route.
+  const slug = suiteSlug(suite);
+  return `/blog/${slug}`;
+}
+```
+
+> A blockquote, for the sake of seeing one.
+
+That is enough to judge the styling.

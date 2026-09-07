@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 
 import { blogSeriesPath, suites } from "@/lib/products";
+import { getPosts } from "@/lib/posts";
 import { BLOG_INDEXABLE, absoluteUrl } from "@/lib/site";
 
 /**
@@ -18,7 +19,8 @@ import { BLOG_INDEXABLE, absoluteUrl } from "@/lib/site";
  *   says "don't". Sending both is a contradiction, so the noindexed page is
  *   simply left out.
  *
- *   /blog and the four series pages — same reason, for now. They are written
+ *   /blog, the four series pages and every post — same reason, for now.
+ *   They are written
  *   out below and gated on BLOG_INDEXABLE rather than commented out, so
  *   lifting the noindex is one edit in lib/site.ts and the sitemap follows in
  *   the same breath. The two can't drift apart.
@@ -50,6 +52,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified,
       changeFrequency: "weekly" as const,
       priority: 0.6,
+    })),
+    /* Posts. getPosts() already drops drafts in production, so a draft is
+       never advertised. lastModified is the post's own date, not the build's:
+       a rebuild should not tell crawlers every post changed. */
+    ...getPosts().map((post) => ({
+      url: absoluteUrl(post.href),
+      lastModified: new Date(post.date),
+      changeFrequency: "monthly" as const,
+      priority: 0.5,
     })),
   ];
 

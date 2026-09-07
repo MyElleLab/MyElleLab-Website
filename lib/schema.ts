@@ -1,4 +1,5 @@
 import { blogSeriesPath, type Suite } from "@/lib/products";
+import type { Post } from "@/lib/posts";
 import {
   BLOG_DESCRIPTION,
   BLOG_NAME,
@@ -62,6 +63,33 @@ export function blogSeriesSchema(suite: Suite) {
       "@type": "Blog",
       name: BLOG_NAME,
       url: absoluteUrl("/blog"),
+    },
+  };
+}
+
+/**
+ * One post. No `author`: the studio has not decided how posts are bylined,
+ * and an invented or placeholder author is worse than none — schema.org
+ * treats author as optional, so omitting it is valid.
+ *
+ * `image` is only set when the post actually has a cover; an Article with an
+ * image property pointing at nothing is worse than one without.
+ */
+export function blogPostingSchema(post: Post) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.description,
+    datePublished: post.date,
+    dateModified: post.date,
+    url: absoluteUrl(post.href),
+    ...(post.cover ? { image: absoluteUrl(post.cover) } : {}),
+    publisher,
+    isPartOf: {
+      "@type": "Blog",
+      name: `${post.suite.name} — ${BLOG_NAME}`,
+      url: absoluteUrl(blogSeriesPath(post.suite)),
     },
   };
 }

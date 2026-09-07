@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { JsonLd } from "@/components/JsonLd";
+import { PostGrid } from "@/components/PostCard";
 import { TextPage } from "@/components/TextPage";
 import { blogSeriesPath, suites } from "@/lib/products";
+import { getLatestPosts } from "@/lib/posts";
 import { blogSchema } from "@/lib/schema";
 import { BLOG_DESCRIPTION, SITE_NAME, blogRobots } from "@/lib/site";
 
@@ -16,9 +18,32 @@ export const metadata: Metadata = {
   robots: blogRobots,
 };
 
+/** How many recent posts the index shows under the series cards. */
+const LATEST_COUNT = 6;
+
 export default function BlogIndexPage() {
+  const latest = getLatestPosts(LATEST_COUNT);
+
   return (
-    <TextPage title="Blog" subtitle={BLOG_DESCRIPTION}>
+    <TextPage
+      title="Blog"
+      subtitle={BLOG_DESCRIPTION}
+      wide={
+        latest.length > 0 ? (
+          <section aria-labelledby="latest" className="mt-16">
+            <h2
+              id="latest"
+              className="font-sans text-[11px] font-medium uppercase tracking-eyebrow text-muted"
+            >
+              Latest
+            </h2>
+            <div className="mt-6">
+              <PostGrid posts={latest} />
+            </div>
+          </section>
+        ) : null
+      }
+    >
       <JsonLd data={blogSchema()} />
       <ul className="space-y-3">
         {suites.map((suite) => (

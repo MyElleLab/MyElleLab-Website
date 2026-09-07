@@ -89,3 +89,55 @@ body {
   );
   height: 1px;
 }
+
+/* ---------------------------------------------------------------------------
+   MDX code blocks
+   --------------------------------------------------------------------------- */
+
+/* rehype-pretty-code wraps each block in a figure. The block sits on the same
+   white surface as the cards, with the same hairline and radius, so it reads
+   as an inset panel on the lavender page rather than a slab dropped into it.
+   The theme is light on purpose — see components/mdx/MdxContent.tsx. */
+.mdx figure[data-rehype-pretty-code-figure] {
+  margin: 1.75rem 0;
+}
+
+.mdx figure[data-rehype-pretty-code-figure] figcaption {
+  font-family: var(--font-sans), ui-sans-serif, system-ui;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+
+.mdx pre {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 1rem; /* matches the cards' rounded-2xl */
+  padding: 1.25rem 1.25rem;
+  overflow-x: auto;
+  font-size: 13.5px;
+  line-height: 1.7;
+}
+
+/* Inside a block the highlighter owns the colours, so the inline-code chrome
+   from the `code` component mapping has to come back off. */
+.mdx pre code {
+  background: none;
+  border: 0;
+  padding: 0;
+  font-size: inherit;
+  color: inherit;
+  display: grid; /* one row per line, so line highlighting can span the gutter */
+}
+
+.mdx pre code [data-line] {
+  padding: 0 0.1rem;
+}
+
+/* Long lines scroll rather than wrap — wrapped code is harder to read than
+   scrolled code, and the container is only ~65ch wide. */
+.mdx pre code span {
+  white-space: pre;
+}

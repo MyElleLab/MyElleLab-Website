@@ -12,30 +12,49 @@ import { Nav } from "@/components/Nav";
  */
 export function TextPage({
   title,
+  eyebrow,
+  meta,
   subtitle,
   children,
+  wide,
 }: {
   title: string;
+  /** Small tracked line above the H1 — the post pages' series link. */
+  eyebrow?: ReactNode;
+  /** Small line under the H1 — the post pages' date. */
+  meta?: ReactNode;
   subtitle?: ReactNode;
-  children: ReactNode;
+  children?: ReactNode;
+  /**
+   * Rendered below the measure at the full container width. Card grids need
+   * the whole page; prose does not.
+   */
+  wide?: ReactNode;
 }) {
   return (
     <main className="relative z-10">
       <Nav />
       <section className="relative bg-canvas pt-36 pb-24 md:pt-44 md:pb-32">
         <div className="mx-auto max-w-7xl px-6 md:px-10">
+          {eyebrow && <div className="mb-5">{eyebrow}</div>}
           <h1 className="font-serif text-4xl md:text-5xl font-semibold tracking-wordmark text-balance leading-[1.05] text-ink">
             {title}
           </h1>
+          {meta && (
+            <p className="mt-4 font-sans text-sm text-muted">{meta}</p>
+          )}
           {subtitle && (
             <p className="mt-5 max-w-[65ch] font-sans text-lg text-muted leading-relaxed">
               {subtitle}
             </p>
           )}
           {/* ~65ch keeps the measure comfortable once real copy lands. */}
-          <div className="mt-8 max-w-[65ch] font-sans text-ink leading-relaxed space-y-4">
-            {children}
-          </div>
+          {children && (
+            <div className="mt-8 max-w-[65ch] font-sans text-ink leading-relaxed space-y-4">
+              {children}
+            </div>
+          )}
+          {wide && <div className="mt-8">{wide}</div>}
         </div>
       </section>
       <Footer />
