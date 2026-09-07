@@ -48,10 +48,11 @@ export async function generateMetadata({
   const post = getPost(series, slug);
   if (!post) return {};
 
-  const images = post.cover
-    ? [{ url: absoluteUrl(post.cover), alt: post.coverAlt }]
-    : undefined;
-
+  /* No `images` here on purpose. opengraph-image.tsx in this folder generates
+     a proper 1200x630 for the post, and Next wires it into og:image,
+     og:image:width/height/alt and twitter:image. Setting images here would
+     override that with the raw 16:9 cover, which is the shape the platforms
+     trim unpredictably. */
   return {
     title: `${post.title} — ${post.series.name}`,
     description: post.description,
@@ -62,13 +63,11 @@ export async function generateMetadata({
       description: post.description,
       url: absoluteUrl(post.href),
       publishedTime: post.date,
-      images,
     },
     twitter: {
-      card: images ? "summary_large_image" : "summary",
+      card: "summary_large_image",
       title: post.title,
       description: post.description,
-      images,
     },
   };
 }

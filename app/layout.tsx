@@ -30,6 +30,11 @@ export const metadata: Metadata = {
     type: "website",
     url: SITE_URL,
   },
+  /* Every route now has a generated 1200x630, so the large card is the right
+     default rather than something posts opt into. */
+  twitter: {
+    card: "summary_large_image",
+  },
   metadataBase: new URL(SITE_URL),
 };
 
