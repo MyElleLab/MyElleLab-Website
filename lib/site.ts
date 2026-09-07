@@ -19,6 +19,16 @@ export const CONTACT_EMAIL = "hello@myellelab.com";
 /** The mark the nav renders; also the Organization schema's logo. */
 export const LOGO_PATH = "/myellelab-logo.svg";
 
+/**
+ * The byline every post carries unless its frontmatter names someone else.
+ * Kept here so adding a post does not mean retyping the name, and so a change
+ * of byline is one edit rather than one per file.
+ */
+export const DEFAULT_AUTHOR = "Leonardo Ferhati";
+
+/** The author's personal site — the Person `url` in a post's JSON-LD. */
+export const AUTHOR_URL = "https://leonardoferhati.com";
+
 export const BLOG_NAME = `${SITE_NAME} Blog`;
 export const BLOG_DESCRIPTION =
   "Notes from the studio: one series per suite, following the same shape as the apps themselves.";

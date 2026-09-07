@@ -4,6 +4,7 @@ import path from "node:path";
 import matter from "gray-matter";
 
 import { suiteSlug, suites, type Suite } from "@/lib/products";
+import { DEFAULT_AUTHOR } from "@/lib/site";
 
 /**
  * The blog's content layer: MDX files on disk, read at build time.
@@ -25,6 +26,8 @@ export type Post = {
   description: string;
   /** As authored, ISO 8601. */
   date: string;
+  /** Frontmatter `author`, or DEFAULT_AUTHOR when it is absent. */
+  author: string;
   tags: string[];
   cover?: string;
   coverAlt?: string;
@@ -54,7 +57,7 @@ function fail(file: string, problem: string): never {
       `    problem: ${problem}`,
       "",
       "  Required: title (string), description (string), date (ISO 8601).",
-      "  Optional: tags (string[]), cover (path under /public), draft (boolean).",
+      "  Optional: author (string), tags (string[]), cover (path under /public), draft (boolean).",
       "  coverAlt (string) is required whenever cover is set.",
       "",
     ].join("\n"),
@@ -121,6 +124,13 @@ function parsePost(filePath: string, seriesSlug: string, suite: Suite): Post {
     fail(relative, `"coverAlt" is set but "cover" is not`);
   }
 
+  /* Optional, and defaulted rather than required: nearly every post is by
+     the same person, so the common case should be silence in the file. */
+  let author = DEFAULT_AUTHOR;
+  if (data.author !== undefined) {
+    author = requireString(relative, data, "author");
+  }
+
   if (data.draft !== undefined && typeof data.draft !== "boolean") {
     fail(relative, `"draft" must be a boolean (got ${JSON.stringify(data.draft)})`);
   }
@@ -131,6 +141,7 @@ function parsePost(filePath: string, seriesSlug: string, suite: Suite): Post {
     title,
     description,
     date,
+    author,
     tags,
     cover,
     coverAlt,

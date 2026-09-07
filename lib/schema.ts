@@ -1,7 +1,9 @@
 import { blogSeriesPath, type Suite } from "@/lib/products";
 import type { Post } from "@/lib/posts";
 import {
+  AUTHOR_URL,
   BLOG_DESCRIPTION,
+  DEFAULT_AUTHOR,
   BLOG_NAME,
   LINKEDIN_URL,
   LOGO_PATH,
@@ -68,9 +70,9 @@ export function blogSeriesSchema(suite: Suite) {
 }
 
 /**
- * One post. No `author`: the studio has not decided how posts are bylined,
- * and an invented or placeholder author is worse than none — schema.org
- * treats author as optional, so omitting it is valid.
+ * One post. `author` is a Person carrying the byline and the personal site,
+ * which is what lets a search or AI-search result attribute the piece rather
+ * than leaving it anonymous.
  *
  * `image` is only set when the post actually has a cover; an Article with an
  * image property pointing at nothing is worse than one without.
@@ -84,6 +86,15 @@ export function blogPostingSchema(post: Post) {
     datePublished: post.date,
     dateModified: post.date,
     url: absoluteUrl(post.href),
+    author: {
+      "@type": "Person",
+      name: post.author,
+      /* The personal site belongs to the default author, so it is only
+         attached when the byline is actually theirs. A guest byline with
+         someone else's URL would be a false attribution, and a machine-
+         readable one at that. */
+      ...(post.author === DEFAULT_AUTHOR ? { url: AUTHOR_URL } : {}),
+    },
     ...(post.cover ? { image: absoluteUrl(post.cover) } : {}),
     publisher,
     isPartOf: {

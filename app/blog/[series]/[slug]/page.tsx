@@ -94,7 +94,15 @@ export default async function BlogPostPage({
           {post.suite.name}
         </Link>
       }
-      meta={<time dateTime={post.date}>{formatPostDate(post.date)}</time>}
+      meta={
+        <>
+          {post.author}
+          {/* Thin spaces around the separator so it reads as punctuation
+              rather than as a bullet in a list. */}
+          <span aria-hidden> · </span>
+          <time dateTime={post.date}>{formatPostDate(post.date)}</time>
+        </>
+      }
       wide={
         elsewhere.length >= ELSEWHERE_MIN ? (
           <section aria-labelledby="elsewhere" className="mt-20">
