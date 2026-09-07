@@ -34,7 +34,10 @@ export function PostCard({ post }: { post: Post }) {
 
       <div className="flex flex-grow flex-col p-5">
         <div className="flex items-center justify-between gap-3">
-          <span className="font-sans text-[11px] font-medium uppercase tracking-eyebrow text-muted">
+          {/* Not uppercased: the series names are camelCase brand names, and
+              "MYELLELAB" loses the shape of the wordmark. Letter-spacing and
+              size are unchanged. */}
+          <span className="font-sans text-[11px] font-medium tracking-eyebrow text-muted">
             {post.series.name}
           </span>
           <time

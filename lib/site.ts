@@ -31,7 +31,7 @@ export const AUTHOR_URL = "https://leonardoferhati.com";
 
 export const BLOG_NAME = `${SITE_NAME} Blog`;
 export const BLOG_DESCRIPTION =
-  "Notes from the studio: one series per suite, following the same shape as the apps themselves.";
+  "Notes from the studio: one series per suite, plus the studio itself.";
 
 /** Absolute URL for a site-relative path. Schema.org and sitemaps both want
     fully-qualified URLs, and a leading-slash path is what the app deals in. */

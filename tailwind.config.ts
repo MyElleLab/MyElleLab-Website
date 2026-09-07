@@ -11,6 +11,9 @@ const config: Config = {
         muted: "#6B6B7A",       // secondary text
         rule: "#E5E3EC",        // borders / hairlines
         wisp: "#D8D5EA",        // background gradient tint
+        // Secondary text on an ink fill. 8.30:1 on #0A0A0B, and it holds the
+        // same title/description hierarchy `muted` gives on white.
+        "muted-ink": "#A9A5BE",
       },
       fontFamily: {
         serif: ["var(--font-serif)", "ui-serif", "Georgia", "serif"],

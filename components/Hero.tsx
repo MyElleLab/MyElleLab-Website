@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import { TaglineWaves } from "@/components/TaglineWaves";
 import { HeroMarquee } from "@/components/HeroMarquee";
@@ -67,12 +68,15 @@ export function Hero() {
               <path d="M12 5v14M5 12l7 7 7-7" />
             </svg>
           </a>
-          <a
-            href="#about"
+          {/* A real route, not a fragment, so it goes through Link. The
+              styling and position are unchanged. This was the hero's only
+              path to #about; the nav "About" link still reaches it. */}
+          <Link
+            href="/blog/myellelab"
             className="inline-flex items-center rounded-full border border-ink bg-surface px-6 py-3.5 text-sm font-medium text-ink hover:bg-ink hover:text-white transition"
           >
-            About the studio
-          </a>
+            Read our story
+          </Link>
         </div>
       </div>
     </section>

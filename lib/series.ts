@@ -16,26 +16,34 @@ export type BlogSeries = {
   slug: string;
   name: string;
   description: string;
+  /**
+   * Renders the /blog index card ink-filled instead of white. A property on
+   * the data, not a slug the card component knows about, so moving the
+   * treatment to another series is an edit here and nowhere else.
+   */
+  featured?: boolean;
 };
 
 /**
- * The studio-level series. Its slug is the directory name under content/blog,
- * and it sits last so the four product suites keep their deliberate order.
+ * The studio-level series. Its slug is the directory name under content/blog.
  */
 export const STUDIO_SERIES: BlogSeries = {
   slug: "myellelab",
   name: "MyElleLab",
-  description:
-    "Notes from building the studio — what shipping actually involves.",
+  description: "Notes about our story and experiences.",
+  featured: true,
 };
 
+/* The studio leads; the four suites keep their own order behind it. This is
+   the blog's order only. The homepage SUITES section reads `suites` directly
+   and still starts at MySmartMates. */
 export const blogSeries: BlogSeries[] = [
+  STUDIO_SERIES,
   ...suites.map((suite) => ({
     slug: suiteSlug(suite),
     name: suite.name,
     description: suite.description,
   })),
-  STUDIO_SERIES,
 ];
 
 export function getSeries(slug: string): BlogSeries | undefined {
