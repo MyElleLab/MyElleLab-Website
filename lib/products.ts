@@ -123,6 +123,19 @@ export const suites: Suite[] = [
   },
 ];
 
+/** Every product across every suite, flattened. */
+export const allProducts: Product[] = suites.flatMap((suite) => suite.products);
+
+/** Lookup by the product's own slug. Used to resolve a post's relatedApp. */
+export function findProduct(slug: string): Product | undefined {
+  return allProducts.find((product) => product.slug === slug);
+}
+
+/** The App Store listing for a product. */
+export function appStoreUrl(product: Product) {
+  return `https://apps.apple.com/app/id${product.appStoreId}`;
+}
+
 /** The single source of truth for a product card's anchor id. */
 export function productAnchorId(product: Product) {
   return `product-${product.slug}`;

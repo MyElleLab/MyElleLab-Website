@@ -7,6 +7,8 @@ import { JsonLd } from "@/components/JsonLd";
 import { MdxContent } from "@/components/mdx/MdxContent";
 import { PostGrid } from "@/components/PostCard";
 import { SeriesNav } from "@/components/PostNav";
+import { PostShare } from "@/components/PostShare";
+import { RelatedApp } from "@/components/RelatedApp";
 import { TextPage } from "@/components/TextPage";
 import { seriesPath } from "@/lib/series";
 import {
@@ -137,6 +139,18 @@ export default async function BlogPostPage({
       )}
 
       <MdxContent source={post.body} />
+
+      {/* Closing matter. The hairline is the only separator: the share
+          controls and the app line are asides, not new sections. */}
+      <div className="hairline mt-14" />
+
+      {/* The canonical URL, not window.location, so a preview deployment
+          cannot leak its host into a shared link. */}
+      <PostShare title={post.title} url={absoluteUrl(post.href)} />
+
+      {post.relatedApp && post.relatedPitch && (
+        <RelatedApp product={post.relatedApp} pitch={post.relatedPitch} />
+      )}
 
       <SeriesNav previous={previous} next={next} />
     </TextPage>

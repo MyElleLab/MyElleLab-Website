@@ -3,6 +3,7 @@ import path from "node:path";
 
 import matter from "gray-matter";
 
+import { allProducts, findProduct, type Product } from "@/lib/products";
 import { blogSeries, type BlogSeries } from "@/lib/series";
 import { DEFAULT_AUTHOR } from "@/lib/site";
 
@@ -32,6 +33,9 @@ export type Post = {
   tags: string[];
   cover?: string;
   coverAlt?: string;
+  /** Optional closing aside: a product to point at, and the line to say it. */
+  relatedApp?: Product;
+  relatedPitch?: string;
   draft: boolean;
   /** File basename without the extension. */
   slug: string;
@@ -58,7 +62,8 @@ function fail(file: string, problem: string): never {
       `    problem: ${problem}`,
       "",
       "  Required: title (string), description (string), date (ISO 8601).",
-      "  Optional: author (string), tags (string[]), cover (path under /public), draft (boolean).",
+      "  Optional: author (string), tags (string[]), cover (path under /public), draft (boolean),",
+      "            relatedApp (a product slug) with relatedPitch (one sentence).",
       "  coverAlt (string) is required whenever cover is set.",
       "",
     ].join("\n"),
@@ -132,6 +137,27 @@ function parsePost(filePath: string, series: BlogSeries): Post {
     author = requireString(relative, data, "author");
   }
 
+  /* relatedApp is a product slug, resolved here rather than at render time so
+     a typo stops the build instead of quietly rendering nothing. */
+  let relatedApp: Product | undefined;
+  let relatedPitch: string | undefined;
+  if (data.relatedApp !== undefined) {
+    const slug = requireString(relative, data, "relatedApp");
+    relatedApp = findProduct(slug);
+    if (!relatedApp) {
+      fail(
+        relative,
+        `"relatedApp" is ${JSON.stringify(slug)}, which is not a product slug in lib/products.ts (${allProducts.map((p) => p.slug).join(", ")})`,
+      );
+    }
+    if (data.relatedPitch === undefined) {
+      fail(relative, `"relatedPitch" is required whenever "relatedApp" is set — the line has to be written per post`);
+    }
+    relatedPitch = requireString(relative, data, "relatedPitch");
+  } else if (data.relatedPitch !== undefined) {
+    fail(relative, `"relatedPitch" is set but "relatedApp" is not`);
+  }
+
   if (data.draft !== undefined && typeof data.draft !== "boolean") {
     fail(relative, `"draft" must be a boolean (got ${JSON.stringify(data.draft)})`);
   }
@@ -146,6 +172,8 @@ function parsePost(filePath: string, series: BlogSeries): Post {
     tags,
     cover,
     coverAlt,
+    relatedApp,
+    relatedPitch,
     draft: data.draft === true,
     slug,
     seriesSlug: series.slug,

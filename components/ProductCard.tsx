@@ -1,4 +1,4 @@
-import { productAnchorId, type Product } from "@/lib/products";
+import { appStoreUrl, productAnchorId, type Product } from "@/lib/products";
 import { IconBloom } from "./IconBloom";
 import styles from "./ProductCard.module.css";
 
@@ -34,7 +34,7 @@ function ExternalIcon() {
 
 export function ProductCard({ product }: { product: Product }) {
   const isAvailable = product.status === "AVAILABLE";
-  const appStoreUrl = `https://apps.apple.com/app/id${product.appStoreId}`;
+  const storeUrl = appStoreUrl(product);
 
   return (
     <div className={styles.scene}>
@@ -83,7 +83,7 @@ export function ProductCard({ product }: { product: Product }) {
         >
           {isAvailable ? (
             <a
-              href={appStoreUrl}
+              href={storeUrl}
               target="_blank"
               rel="noopener noreferrer"
               className={`inline-flex items-center gap-2 rounded-full bg-ink px-3.5 py-2 text-xs font-medium text-white transition hover:bg-black ${styles.actionBtn}`}
