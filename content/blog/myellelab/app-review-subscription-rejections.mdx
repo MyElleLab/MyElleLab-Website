@@ -1,6 +1,6 @@
 ---
-title: "What App Review actually rejects for auto-renewable subscriptions"
-description: "Three rejections on the same guideline taught me the difference between a subscription being ready and being submitted. Here's what Apple actually checks."
+title: "Guideline 2.1(b): adding the subscription group is not enough"
+description: "MySellingMate was rejected twice on the same guideline. The subscription group read Ready for Review while both subscriptions sat at Prepare for Submission."
 date: "2026-09-07"
 tags: ["app-store", "subscriptions", "app-review"]
 cover: "/blog/app-review-subscription-rejections.png"
@@ -8,37 +8,116 @@ coverAlt: "App Store Connect showing a subscription in Prepare for Submission st
 draft: false
 ---
 
-Open with the specific thing that happened, not with context. The reader
-should know within two sentences whether this post is about their problem.
+MySellingMate was rejected twice on Guideline 2.1(b) before I understood what
+App Review was asking for. If you have that rejection open in another tab, the
+answer is probably this: your subscription group is submitted and your
+individual subscriptions are not.
 
-## The first rejection
+A group and its members hold separate states, and the group's state tells you
+nothing about theirs. Mine read "Ready for Review". Monthly Pro and Yearly Pro
+were both still sitting at "Prepare for Submission". On the surface everything
+looked finished.
 
-Prose. Keep paragraphs short — three or four lines. The measure is ~65
-characters, so long paragraphs become tall grey blocks fast.
+## What the first rejection said
 
-For anything the reader might copy, use a fenced block with a language tag:
+On 20 August, build 4 came back on Guideline 2.1(b). The monthly and yearly
+In-App Purchase products had never been submitted for review at all. Nothing
+else was flagged: no metadata problem, no privacy issue, no content question.
+Apple asked for the IAPs to be submitted, and for a new binary.
 
-```swift
-let product = try await Product.products(for: ["com.myellelab.pro.monthly"])
-```
+That request has two items in it. I did one of them.
 
-Inline `code` for identifiers, file names, and UI labels.
+## A new binary does not submit a subscription
 
-## What was actually wrong
+On 25 August I uploaded build 5 and resubmitted. The rejection came back
+identical: same guideline, same submission, same explanation.
 
-Lists work well for enumerable things:
+The new binary was necessary, because Apple had asked for one. It was never
+sufficient. Two conditions have to hold at the same time, and neither one
+implies the other:
 
-- The subscription group showed "Ready for Review"
-- The individual subscriptions still showed "Prepare for Submission"
-- Adding the group is not the same as adding each subscription
+- Each subscription has to reach "Ready to Submit", which it cannot do until
+  an App Review screenshot is attached to it in App Store Connect.
+- Each subscription has to be added explicitly as an item to the version's
+  submission.
 
-> Pull-quote for the one line you'd want someone to screenshot.
+The first is about the product being complete. The second is about the product
+being included in the thing you are sending to Apple. I had been treating them
+as a single step, and a build upload satisfies neither.
 
-Images use standard markdown; put files in `/public/blog/`:
+## Where the state actually diverged
 
-![Alt text that describes what's shown](/blog/screenshot.png)
+The subscription group is where this goes wrong, and it goes wrong quietly.
 
-## What I'd do differently
+In App Store Connect the group has a status, and every subscription inside it
+has its own. I opened the group, saw "Ready for Review", added it for review,
+and read that as the subscriptions being handled. The group is the thing you
+name and organise around, so it feels like the unit you submit.
 
-End with the transferable lesson, not a summary. The reader came for the
-specific problem; send them away with the general principle.
+It is not. Monthly Pro and Yearly Pro each had to be opened individually and
+added for review on their own. Until that happened they stayed at "Prepare for
+Submission", which is another way of saying they were not part of the
+submission at all.
+
+Nothing in the group's status hints at the problem. A group reading "Ready for
+Review" whose members are all at "Prepare for Submission" is a perfectly valid
+state, and it is displayed without any warning. The parent looks finished. The
+children have not started. That mismatch survived two rejections because I
+kept checking the level that told me what I wanted to hear, and the level that
+would have corrected me was one click further in.
+
+There is no partial credit here either. Two products were unsubmitted, and
+both had to be added. Getting one of them right would have produced the same
+rejection a third time.
+
+## The fourth requirement, which has nothing to do with status
+
+The third rejection arrived on 25 August and into the 26th, and it was
+unrelated to any of the above. Auto-renewable subscriptions require a
+functional Terms of Use link, the EULA, in the App Description shown on the
+App Store product page. Not inside the binary, not on a settings screen behind
+a sign-in: in the description text a shopper reads before installing anything.
+
+This one was metadata only. No new binary, no new build number, nothing to
+compile. I edited the description, added the link, and resubmitted the version.
+
+It is worth filing separately in your head from the 2.1(b) problem. The first
+two rejections were about whether the products had been submitted. This one
+was about what the store page has to say the moment a subscription exists at
+all, and you can hit it even when every product is correctly submitted.
+
+MySellingMate was approved and went live on 31 August.
+
+## What has to be true
+
+Before an auto-renewable subscription clears review, all four of these need to
+hold at once:
+
+- Every subscription has an App Review screenshot attached in App Store
+  Connect. Without it the product cannot reach "Ready to Submit".
+- Every subscription individually shows "Ready to Submit". Not the group: each
+  product inside it.
+- Every subscription is added as an item to the version's submission. Adding
+  the group does not add its members.
+- The App Description contains a working Terms of Use link, because
+  auto-renewable subscriptions require one on the product page.
+
+The first three are the same rejection wearing different clothes. The fourth
+is a separate rule that happens to apply to the same feature.
+
+## What I would want back
+
+The five days between the first rejection and the diagnosis. I spent them
+improving the fix rather than questioning it: a cleaner build, a more careful
+resubmission, the same wrong model of what was being asked.
+
+A second identical rejection is not a sign that you did the right thing
+incompletely. It is a sign that you did a different thing, and the review is
+telling you so in the same words it used the first time. When the reply does
+not change, the thing to revisit is the diagnosis, not the effort.
+
+The status itself is the part worth carrying to other tools. Any interface
+that shows a parent's state without its children's will eventually let you
+ship a container with nothing in it. When something reads as done, it is worth
+asking what exactly it is reporting on, and whether anything underneath it is
+still waiting to start.
