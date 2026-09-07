@@ -44,13 +44,19 @@ export function TextPage({
             <p className="mt-4 font-sans text-sm text-muted">{meta}</p>
           )}
           {subtitle && (
-            <p className="mt-5 max-w-[65ch] font-sans text-lg text-muted leading-relaxed">
+            <p className="mt-5 max-w-[34rem] font-sans text-lg text-muted leading-relaxed">
               {subtitle}
             </p>
           )}
-          {/* ~65ch keeps the measure comfortable once real copy lands. */}
+          {/* 544px, about 72 characters of running prose.
+
+              Not `65ch`: CSS `ch` is the advance width of the "0" glyph, and
+              Geist's zero is 10.61px at 16px, so 65ch computed to 690px and
+              fitted roughly 91 characters. That is well past the comfortable
+              45 to 75. A fixed rem value keeps the measure independent of the
+              typeface's figure width. */}
           {children && (
-            <div className="mt-8 max-w-[65ch] font-sans text-ink leading-relaxed space-y-4">
+            <div className="mt-8 max-w-[34rem] font-sans text-ink leading-relaxed space-y-4">
               {children}
             </div>
           )}

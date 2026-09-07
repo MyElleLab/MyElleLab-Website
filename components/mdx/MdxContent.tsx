@@ -67,7 +67,9 @@ const components = {
   li: (props: P<"li">) => <li className="leading-relaxed text-ink" {...props} />,
   blockquote: (props: P<"blockquote">) => (
     <blockquote
-      className="my-7 border-l-2 border-rule pl-5 font-serif text-lg italic text-muted"
+      /* text-ink, not text-muted: a pull-quote should carry more weight than
+         the body, not less. Playfair italic and the 2px rule stay. */
+      className="my-7 border-l-2 border-rule pl-5 font-serif text-lg italic text-ink"
       {...props}
     />
   ),

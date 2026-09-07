@@ -137,7 +137,7 @@ body {
 }
 
 /* Long lines scroll rather than wrap — wrapped code is harder to read than
-   scrolled code, and the container is only ~65ch wide. */
+   scrolled code, and the container is only 544px wide. */
 .mdx pre code span {
   white-space: pre;
 }
