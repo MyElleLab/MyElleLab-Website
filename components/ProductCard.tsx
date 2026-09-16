@@ -1,4 +1,11 @@
-import { appStoreUrl, productAnchorId, type Product } from "@/lib/products";
+import Image from "next/image";
+
+import {
+  appStoreUrl,
+  productAnchorId,
+  splitIconLetterName,
+  type Product,
+} from "@/lib/products";
 import { IconBloom } from "./IconBloom";
 import styles from "./ProductCard.module.css";
 
@@ -35,6 +42,7 @@ function ExternalIcon() {
 export function ProductCard({ product }: { product: Product }) {
   const isAvailable = product.status === "AVAILABLE";
   const storeUrl = appStoreUrl(product);
+  const wordmark = splitIconLetterName(product);
 
   return (
     <div className={styles.scene}>
@@ -69,7 +77,32 @@ export function ProductCard({ product }: { product: Product }) {
           <h3
             className={`font-serif text-2xl font-semibold tracking-wordmark text-ink ${styles.layerName}`}
           >
-            {product.name}
+            {wordmark ? (
+              <>
+                {/* The heading reads as one word only to someone looking at
+                    it. This is the whole name, said once, for everyone
+                    else. */}
+                <span className="sr-only">{product.name}</span>
+                <span aria-hidden>
+                  {/* alt is never announced under aria-hidden. It is here so
+                      that a heading whose image fails still spells the name
+                      rather than losing its first letter. */}
+                  <span className={styles.wordmarkFused}>
+                    <Image
+                      src={wordmark.src}
+                      alt={wordmark.letter}
+                      width={413}
+                      height={512}
+                      className={styles.wordmarkIcon}
+                    />
+                    {wordmark.fused}
+                  </span>
+                  {wordmark.rest}
+                </span>
+              </>
+            ) : (
+              product.name
+            )}
           </h3>
           <p
             className={`mt-1.5 font-sans text-sm text-muted leading-relaxed ${styles.layerTagline}`}

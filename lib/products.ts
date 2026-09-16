@@ -9,6 +9,16 @@ export type Product = {
   appStoreId: string;
   iconSrc: string;
   siteUrl?: string;
+  /**
+   * The app mark redrawn as bare ink, for setting inline in a line of type.
+   * The card heading sets it in place of the parenthesised letter in `name`,
+   * so the mark and the letters after it read as one word.
+   *
+   * A separate file from `iconSrc` on purpose: the App Store icon is a filled
+   * tile, and a filled tile at heading size reads as a box beside a word
+   * rather than as a letter inside one.
+   */
+  wordmarkIconSrc?: string;
 };
 
 export type Suite = {
@@ -81,10 +91,11 @@ export const suites: Suite[] = [
       {
         name: "(E)go: MyPersonal Success",
         slug: "ego",
-        tagline: "[PLACEHOLDER: tagline to be supplied. Do not publish as-is.]",
+        tagline: "The app that reminds you that you are the best.",
         status: "IN_PRODUCTION",
         appStoreId: "6811412550",
         iconSrc: "/icon-MyEgo.png",
+        wordmarkIconSrc: "/wordmark-MyEgo.png",
         siteUrl: "https://ego.myellelab.com/",
       },
     ],
@@ -122,6 +133,26 @@ export const allProducts: Product[] = suites.flatMap((suite) => suite.products);
 /** Lookup by the product's own slug. Used to resolve a post's relatedApp. */
 export function findProduct(slug: string): Product | undefined {
   return allProducts.find((product) => product.slug === slug);
+}
+
+/**
+ * Splits a name that carries the app mark as one of its own letters.
+ *
+ * A single parenthesised letter at the head of `name` marks the letter the
+ * icon stands for, which is how the app writes itself: "(E)go: MyPersonal
+ * Success" is the mark, then "go", then the rest. `fused` is the run of
+ * letters the mark must never be separated from; `rest` is free to wrap.
+ *
+ * Returns undefined for every other name, which is all of them. Nothing has
+ * to opt in twice: the name states the device and `wordmarkIconSrc` supplies
+ * the artwork, so the two cannot describe different letters.
+ */
+export function splitIconLetterName(product: Product) {
+  if (!product.wordmarkIconSrc) return undefined;
+  const match = /^\(([A-Za-z])\)(\w*)(.*)$/.exec(product.name);
+  if (!match) return undefined;
+  const [, letter, fused, rest] = match;
+  return { letter, fused, rest, src: product.wordmarkIconSrc };
 }
 
 /** The App Store listing for a product. */

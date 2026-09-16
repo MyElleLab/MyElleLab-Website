@@ -190,3 +190,37 @@
     opacity: 1;
   }
 }
+
+/* The heading's first letter is the app mark itself, set as a glyph rather
+   than as an image beside a word.
+
+   The artwork is cropped to the ink and carries its own alpha, so the box the
+   line lays out IS the letter. That is what makes the rest trivial:
+   `vertical-align: baseline` puts an inline-block's bottom edge on the
+   baseline, and the bottom edge is the letter's foot, so the E stands on the
+   baseline with no tucking. Height is the only measurement — Playfair's caps
+   stand 0.70em, so the E does too — and width follows the aspect ratio.
+
+   The two margins are the sidebearings the crop removed. A glyph carries a
+   little air inside its advance width; an ink-tight crop carries none, so
+   without these the E jams against the g and sits a hair left of where a
+   capital starts in every other heading. Both are measured against the
+   letterfit Playfair sets elsewhere in the same line.
+
+   An image with its own ground could not be set this close at all: the ground
+   would paint over the letter beside it, which is the difference between a
+   glyph and a picture of one. */
+.wordmarkIcon {
+  display: inline-block;
+  height: 0.7em;
+  width: auto;
+  max-width: none;
+  margin-left: 0.02em;
+  margin-right: 0.05em;
+  vertical-align: baseline;
+}
+
+/* A letter cannot be orphaned from the rest of its word. */
+.wordmarkFused {
+  white-space: nowrap;
+}
