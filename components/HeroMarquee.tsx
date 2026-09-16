@@ -7,10 +7,12 @@ import styles from "./HeroMarquee.module.css";
 
 /* The track holds the icon set four times and travels -50%, i.e. two whole
    sets. Two sets would satisfy the loop maths but not the geometry: one set is
-   704px at desktop against a 1072px viewport, so once it had scrolled a full
+   616px at desktop against a 1072px viewport, so once it had scrolled a full
    set there would be nothing left to fill the right-hand side. Travelling a
    whole number of sets is what makes the wrap invisible; four copies is what
-   keeps the viewport covered. */
+   keeps the viewport covered — and it keeps covering it as products come and
+   go, since two sets stay wider than the viewport well below the current
+   seven. */
 const COPIES = 4;
 
 /** How long the row stays still after a touch, so scanning it isn't a fight. */
@@ -66,7 +68,7 @@ export function HeroMarquee({ products }: { products: Product[] }) {
               }
               /* Only the first pass is real; the rest are visual duplication,
                  and reduced motion drops them so the static fallback is the
-                 original eight-disc row rather than thirty-two. */
+                 original single row of discs rather than four of them. */
               aria-hidden={isClone ? true : undefined}
             >
               {products.map((p) => (
@@ -78,8 +80,9 @@ export function HeroMarquee({ products }: { products: Product[] }) {
                   alt={p.name}
                   href={`#${productAnchorId(p)}`}
                   /* Clones stay tappable — a finger can't tell the copies
-                     apart — but leave the tab order at eight links, not
-                     thirty-two, which aria-hidden alone would not do. */
+                     apart — but leave the tab order at one set of links
+                     rather than four, which aria-hidden alone would not
+                     do. */
                   tabIndex={isClone ? -1 : undefined}
                   className={styles.item}
                 />

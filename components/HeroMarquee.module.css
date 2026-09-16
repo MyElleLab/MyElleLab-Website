@@ -33,7 +33,8 @@
 /* The spacing lives on the item, not as a flex `gap`. With `gap`, a track of
    N sets is N*discs + (N*discs - 1) gaps, so -50% lands half a gap short of
    where a set starts and the loop steps sideways. Folding the space into each
-   item makes every set exactly 8*(disc + space), and -50% is exact. */
+   item makes every set exactly discs*(disc + space) whatever the disc count
+   is, and -50% is exact. */
 .contents {
   display: contents;
 }
