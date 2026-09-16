@@ -210,12 +210,13 @@
    little air inside its advance width and an ink-tight crop carries none, so
    without them the E jams against the brackets.
 
-   They are not equal, and should not be. The values come from typing
-   "(E)go: MyPersonal Success" into a clone of this very heading and measuring
-   the font's own ink gaps at 8x: Playfair sets "(E" at 1.375px and "E)" at
-   1.125px at this size, looser before the capital than after it. Match the
-   font rather than the eye and the bracketed mark sets the way the same word
-   would if it had been typed.
+   They are not equal, and should not be. The values come from typing the
+   heading's own string into a clone of it and measuring the font's own ink
+   gaps at 8x: Playfair sets "(E" at 1.375px and "E)" at 1.125px at this size,
+   looser before the capital than after it. Match the font rather than the eye
+   and the bracketed mark sets the way the same word would if it had been
+   typed. The gaps belong to the bracket-and-capital pair alone, so renaming
+   the product does not disturb them.
 
    The mark is not Playfair, though. At a matched cap height its E draws about
    0.75px wider than Playfair's, so holding those gaps makes the bracketed

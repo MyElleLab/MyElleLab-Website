@@ -89,9 +89,9 @@ export const suites: Suite[] = [
         siteUrl: "https://mygrowth.myellelab.com/en/",
       },
       {
-        name: "(E)go: MyPersonal Success",
+        name: "(E)go: MySuccess",
         slug: "ego",
-        tagline: "The app that reminds you that you are the best.",
+        tagline: "Remind yourself that you are the best.",
         status: "IN_PRODUCTION",
         appStoreId: "6811412550",
         iconSrc: "/icon-MyEgo.png",
@@ -139,9 +139,9 @@ export function findProduct(slug: string): Product | undefined {
  * Splits a name that carries the app mark as one of its own letters.
  *
  * A single parenthesised letter at the head of `name` marks the letter the
- * icon stands for, which is how the app writes itself: "(E)go: MyPersonal
- * Success" is the mark, then "go", then the rest. `fused` is the run of
- * letters the mark must never be separated from; `rest` is free to wrap.
+ * icon stands for, which is how the app writes itself: "(E)go: MySuccess" is
+ * the mark, then "go", then the rest. `fused` is the run of letters the mark
+ * must never be separated from; `rest` is free to wrap.
  *
  * Returns undefined for every other name, which is all of them. Nothing has
  * to opt in twice: the name states the device and `wordmarkIconSrc` supplies
