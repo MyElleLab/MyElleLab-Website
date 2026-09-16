@@ -88,6 +88,12 @@ export function ProductCard({ product }: { product: Product }) {
                       that a heading whose image fails still spells the name
                       rather than losing its first letter. */}
                   <span className={styles.wordmarkFused}>
+                    {/* The brackets are typed Playfair, not part of the
+                        artwork, so they pick up the heading's size and weight
+                        and sit on its baseline without being told to. Written
+                        as literals rather than as JSX text so that no amount
+                        of reformatting can slip a space in beside the E. */}
+                    {"("}
                     <Image
                       src={wordmark.src}
                       alt={wordmark.letter}
@@ -95,7 +101,7 @@ export function ProductCard({ product }: { product: Product }) {
                       height={512}
                       className={styles.wordmarkIcon}
                     />
-                    {wordmark.fused}
+                    {`)${wordmark.fused}`}
                   </span>
                   {wordmark.rest}
                 </span>

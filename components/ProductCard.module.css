@@ -192,7 +192,7 @@
 }
 
 /* The heading's first letter is the app mark itself, set as a glyph rather
-   than as an image beside a word.
+   than as an image beside a word, with typed brackets either side of it.
 
    The artwork is cropped to the ink and carries its own alpha, so the box the
    line lays out IS the letter. That is what makes the rest trivial:
@@ -201,26 +201,38 @@
    baseline with no tucking. Height is the only measurement — Playfair's caps
    stand 0.70em, so the E does too — and width follows the aspect ratio.
 
-   The two margins are the sidebearings the crop removed. A glyph carries a
-   little air inside its advance width; an ink-tight crop carries none, so
-   without these the E jams against the g and sits a hair left of where a
-   capital starts in every other heading. Both are measured against the
-   letterfit Playfair sets elsewhere in the same line.
+   An image carrying its own ground could not be set between brackets at all:
+   the ground would paint over them. That is the difference between a glyph
+   and a picture of one, and it is why this file exists separately from the
+   app icon.
 
-   An image with its own ground could not be set this close at all: the ground
-   would paint over the letter beside it, which is the difference between a
-   glyph and a picture of one. */
+   The two margins are the sidebearings the crop removed. A glyph carries a
+   little air inside its advance width and an ink-tight crop carries none, so
+   without them the E jams against the brackets.
+
+   They are not equal, and should not be. The values come from typing
+   "(E)go: MyPersonal Success" into a clone of this very heading and measuring
+   the font's own ink gaps at 8x: Playfair sets "(E" at 1.375px and "E)" at
+   1.125px at this size, looser before the capital than after it. Match the
+   font rather than the eye and the bracketed mark sets the way the same word
+   would if it had been typed.
+
+   The mark is not Playfair, though. At a matched cap height its E draws about
+   0.75px wider than Playfair's, so holding those gaps makes the bracketed
+   group that much wider than a typed one. Cap height is the alignment anyone
+   can see, against every other capital on the line. Group width is not, since
+   there is nothing beside it to compare it against. */
 .wordmarkIcon {
   display: inline-block;
   height: 0.7em;
   width: auto;
   max-width: none;
-  margin-left: 0.02em;
-  margin-right: 0.05em;
+  margin-left: 0.044em;
+  margin-right: 0.036em;
   vertical-align: baseline;
 }
 
-/* A letter cannot be orphaned from the rest of its word. */
+/* A letter cannot be orphaned from the rest of its word, brackets included. */
 .wordmarkFused {
   white-space: nowrap;
 }
