@@ -6,6 +6,7 @@ import {
   OG_SIZE,
   markDataUri,
   ogFonts,
+  publicImageDataUri,
 } from "@/lib/og";
 import { SITE_NAME, STUDIO_DESCRIPTION } from "@/lib/site";
 
@@ -23,6 +24,7 @@ export default async function OpenGraphImage() {
     (
       <div
         style={{
+          position: "relative",
           width: "100%",
           height: "100%",
           display: "flex",
@@ -33,6 +35,19 @@ export default async function OpenGraphImage() {
           fontFamily: "Geist",
         }}
       >
+        <img
+          src={publicImageDataUri("og-bg-MyElleLab.jpg")}
+          width={1200}
+          height={630}
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+          }}
+        />
         <img
           src={markDataUri()}
           width={96}
@@ -56,12 +71,12 @@ export default async function OpenGraphImage() {
             marginTop: 18,
             maxWidth: 640,
             textAlign: "center",
-            fontSize: 26,
+            fontSize: 30,
             lineHeight: 1.45,
             color: OG_COLORS.muted,
           }}
         >
-          {STUDIO_DESCRIPTION}
+          Focused apps, crafted in suites.
         </div>
       </div>
     ),
