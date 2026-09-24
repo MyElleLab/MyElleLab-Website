@@ -89,12 +89,17 @@ export const suites: Suite[] = [
         siteUrl: "https://mygrowth.myellelab.com/en/",
       },
       {
-        name: "(E)go: MySuccess",
+        name: "MySuccess",
         slug: "ego",
         tagline: "Remind yourself that you are the best.",
         status: "IN_PRODUCTION",
         appStoreId: "6811412550",
         iconSrc: "/icon-MyEgo.png",
+        /* Inert while the name is plain: splitIconLetterName needs a
+           parenthesised letter at the head of `name` and "MySuccess" has
+           none, so the card heads itself with text like every other card.
+           Kept pointing at the artwork so that restoring the wordmark is a
+           change to the name and nothing else. */
         wordmarkIconSrc: "/wordmark-MyEgo.png",
         siteUrl: "https://ego.myellelab.com/",
       },
@@ -146,6 +151,13 @@ export function findProduct(slug: string): Product | undefined {
  * Returns undefined for every other name, which is all of them. Nothing has
  * to opt in twice: the name states the device and `wordmarkIconSrc` supplies
  * the artwork, so the two cannot describe different letters.
+ *
+ * No product currently opts in. (E)go was the only one and is now plain
+ * "MySuccess", so this returns undefined for every product in the list and
+ * ProductCard never takes its inline-glyph branch. Kept rather than deleted
+ * because the decision may be reversed, and because the artwork it reaches
+ * for is still in the repo: public/wordmark-MyEgo.png, with its source and
+ * the steps that produced it under assets/source/.
  */
 export function splitIconLetterName(product: Product) {
   if (!product.wordmarkIconSrc) return undefined;

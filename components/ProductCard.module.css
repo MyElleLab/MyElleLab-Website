@@ -191,7 +191,15 @@
   }
 }
 
-/* The heading's first letter is the app mark itself, set as a glyph rather
+/* CURRENTLY UNUSED. These two rules style the inline-glyph heading, which no
+   product asks for any more: (E)go was the only one and is now plain
+   "MySuccess", so splitIconLetterName returns undefined throughout and
+   ProductCard never renders the markup these apply to. They are kept, with
+   the artwork and its source, because the decision may be reversed. Nothing
+   below has changed; it describes how the treatment worked and how its
+   numbers were arrived at.
+
+   The heading's first letter is the app mark itself, set as a glyph rather
    than as an image beside a word, with typed brackets either side of it.
 
    The artwork is cropped to the ink and carries its own alpha, so the box the
