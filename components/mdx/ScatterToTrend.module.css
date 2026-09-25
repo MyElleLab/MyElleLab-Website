@@ -1,0 +1,50 @@
+/* Scatter resolving to a trend.
+
+   Every dot is authored at its settled position and pushed off it by
+   --dy, so the resting DOM is the finished picture and the animation is the
+   thing that gets removed. A browser that never runs the transition, or a
+   reader who has asked for no motion, sees the settled state rather than a
+   permanent scatter.
+
+   Positions move with `transform` and the line draws with
+   `stroke-dashoffset`. Neither is the `d` attribute, which CSS can only
+   animate in Blink and renders dead in WebKit. The eyebrow waves already
+   cost this project that lesson once. */
+
+.dot {
+  transform: translateY(var(--dy));
+  transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--delay);
+}
+
+.play .dot {
+  transform: translateY(0);
+}
+
+/* pathLength="1" normalises the line so the dash maths needs no measuring
+   and no layout read: one unit of dash, one unit of offset, wound back to
+   zero. It starts a little after the dots so the line arrives through them
+   rather than ahead of them. */
+.line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 1500ms cubic-bezier(0.33, 0, 0.2, 1) 500ms;
+}
+
+.play .line {
+  stroke-dashoffset: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dot,
+  .play .dot {
+    transform: translateY(0);
+    transition: none;
+  }
+
+  .line,
+  .play .line {
+    stroke-dashoffset: 0;
+    transition: none;
+  }
+}

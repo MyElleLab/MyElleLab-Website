@@ -4,6 +4,8 @@ import Image from "next/image";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import rehypePrettyCode, { type Options as PrettyCodeOptions } from "rehype-pretty-code";
 
+import { Figure } from "@/components/mdx/Figure";
+import { ScatterToTrend } from "@/components/mdx/ScatterToTrend";
 import { codeTheme } from "@/lib/code-theme";
 
 /**
@@ -97,6 +99,13 @@ const components = {
   td: (props: P<"td">) => (
     <td className="border-b border-rule px-3 py-2 align-top text-ink" {...props} />
   ),
+  /* Capitalised entries are components a post calls by name rather than
+     element mappings. Figure is the frame for anything visual in a body;
+     the visuals themselves register alongside it, so a post writes
+     <Figure caption="..."><ScatterToTrend /></Figure> and nothing about the
+     frame is restated per post. */
+  Figure,
+  ScatterToTrend,
   /* Only src/alt/title are carried through. Markdown types width and height
      as strings, which next/image rejects, and the rest of an <img>'s props
      have no meaning here. */
