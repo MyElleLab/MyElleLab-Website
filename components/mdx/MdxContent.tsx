@@ -6,6 +6,7 @@ import rehypePrettyCode, { type Options as PrettyCodeOptions } from "rehype-pret
 
 import { Figure } from "@/components/mdx/Figure";
 import { ScatterToTrend } from "@/components/mdx/ScatterToTrend";
+import { Scorecard } from "@/components/mdx/Scorecard";
 import { codeTheme } from "@/lib/code-theme";
 
 /**
@@ -106,6 +107,7 @@ const components = {
      frame is restated per post. */
   Figure,
   ScatterToTrend,
+  Scorecard,
   /* Only src/alt/title are carried through. Markdown types width and height
      as strings, which next/image rejects, and the rest of an <img>'s props
      have no meaning here. */

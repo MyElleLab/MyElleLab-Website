@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 
 import styles from "./ScatterToTrend.module.css";
+import { usePlayOnScroll } from "./usePlayOnScroll";
 
 /**
  * Forty entries that look like noise until they are seen together.
@@ -64,37 +64,7 @@ const lineX = (t: number) => 26 + t * (VIEW_W - 52);
 const LINE = `${lineX(LINE_T0).toFixed(2)},${trendY(LINE_T0).toFixed(2)} ${lineX(LINE_T1).toFixed(2)},${trendY(LINE_T1).toFixed(2)}`;
 
 export function ScatterToTrend() {
-  const ref = useRef<SVGSVGElement>(null);
-  const [played, setPlayed] = useState(false);
-
-  /* On scroll into view, not on mount. This figure sits most of the way down
-     a long post; started on mount it would be finished long before anyone
-     scrolled to it, and the reader would only ever meet the settled state.
-     It runs once and is never rewound: unobserve on the first intersection,
-     and the class it adds is never taken off. */
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    if (typeof IntersectionObserver === "undefined") {
-      setPlayed(true);
-      return;
-    }
-
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (!entry.isIntersecting) continue;
-          setPlayed(true);
-          io.unobserve(entry.target);
-        }
-      },
-      { threshold: 0.35 },
-    );
-
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
+  const { ref, played } = usePlayOnScroll<SVGSVGElement>();
 
   return (
     <svg

@@ -1,0 +1,29 @@
+/* Thirteen categories closing one at a time.
+
+   Same shape as ScatterToTrend's module, deliberately. Each cell is authored
+   filled and the CSS takes the fill away, so the resting DOM is the finished
+   scorecard: a browser that never runs the transition, or a reader who has
+   asked for no motion, sees thirteen filled cells rather than an empty grid.
+
+   fill-opacity, not fill. Animating a paint server between two colours is
+   not something to rely on across engines, and opacity on the fill alone
+   leaves the outline untouched underneath, which is exactly the transition
+   the figure wants: an outlined cell becoming a solid one. */
+
+.cell {
+  fill-opacity: 0;
+  transition: fill-opacity 260ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--delay);
+}
+
+.play .cell {
+  fill-opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cell,
+  .play .cell {
+    fill-opacity: 1;
+    transition: none;
+  }
+}
