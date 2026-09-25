@@ -66,17 +66,20 @@ export default async function OpenGraphImage() {
         >
           {SITE_NAME}
         </div>
+        {/* The post cards' eyebrow, in the middle of a centred layout rather
+            than at the top of a panel: same Geist 500, same 0.12em, same
+            muted ink, so the two images read as one family. It is also how
+            the site sets this line in the hero. */}
         <div
           style={{
-            marginTop: 18,
-            maxWidth: 640,
-            textAlign: "center",
-            fontSize: 30,
-            lineHeight: 1.45,
+            marginTop: 22,
+            fontSize: 21,
+            fontWeight: 500,
+            letterSpacing: "0.12em",
             color: OG_COLORS.muted,
           }}
         >
-          Focused apps, crafted in suites.
+          FOCUSED APPS, CRAFTED IN SUITES
         </div>
       </div>
     ),

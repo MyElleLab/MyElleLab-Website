@@ -27,11 +27,35 @@ export const OG_COLORS = {
 };
 
 /**
- * Meaningful content stays inside this width, centred. A platform cropping
- * the 1200x630 frame to a square keeps only the middle 630px, so anything
- * wider than this is at risk of being cut in a preview.
+ * Meaningful content stays inside this width on the centred layouts. A
+ * platform cropping the 1200x630 frame to a square keeps only the middle
+ * 630px, so anything wider than this is at risk of being cut in a preview.
  */
 export const OG_SAFE_WIDTH = 600;
+
+/**
+ * The post card's split. The cover takes the left panel and bleeds off three
+ * edges; the type takes what is left.
+ *
+ * A square crop cuts the title, and no value here prevents it. A centred
+ * 630x630 keeps x=285..915, while type that begins after a left panel of 55
+ * per cent or more cannot start before x=716, which leaves under 200px of
+ * measure inside the square. Putting the title beside the cover and keeping
+ * it whole in a centred square crop are mutually exclusive; this layout
+ * chooses the first, because 1.91:1 is what the feeds that matter actually
+ * render and the square is a thumbnail fallback.
+ *
+ * OG_SAFE_WIDTH above still describes the centred layouts, where the
+ * constraint does hold.
+ */
+export const OG_SPLIT_X = Math.round(OG_SIZE.width * 0.56);
+
+/**
+ * Type never goes above or below this band. Platforms crop this one image to
+ * several shapes, and the middle 80 per cent survives all of them. The cover
+ * is exempt by design: it is meant to bleed.
+ */
+export const OG_SAFE_INSET_Y = Math.round(OG_SIZE.height * 0.1);
 
 export function ogFonts() {
   const read = (file: string) => fs.readFileSync(path.join(FONT_DIR, file));
