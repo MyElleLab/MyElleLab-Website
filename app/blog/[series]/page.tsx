@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { JsonLd } from "@/components/JsonLd";
+import { OtherSeries } from "@/components/OtherSeries";
 import { PostGrid } from "@/components/PostCard";
 import { TextPage } from "@/components/TextPage";
 import { getPostsInSeries } from "@/lib/posts";
@@ -55,13 +56,20 @@ export default async function BlogSeriesPage({
     <TextPage
       title={found.name}
       subtitle={found.description}
-      wide={posts.length > 0 ? <PostGrid posts={posts} /> : null}
+      /* `wide` renders below `children`, so the row goes here rather than
+         beside the empty state: that is what puts it under the grid when
+         there is one and under "Posts coming soon." when there is not. */
+      wide={
+        <>
+          {posts.length > 0 && <PostGrid posts={posts} />}
+          <OtherSeries current={found} />
+        </>
+      }
     >
       <JsonLd data={blogSeriesSchema(found)} />
 
       {/* The empty state stays for a series with nothing in it yet. */}
       {posts.length === 0 && <p className="text-muted">Posts coming soon.</p>}
-
     </TextPage>
   );
 }
