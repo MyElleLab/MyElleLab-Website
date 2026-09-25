@@ -20,7 +20,12 @@ type Params = { series: string; slug: string };
    column leaves it unbounded. */
 const PAD_L = 56;
 const PAD_R = 68;
-const PANEL_W = OG_SIZE.width - OG_SPLIT_X;
+/* The divider is a flex item between the two panels rather than something
+   laid over them, so it cannot clip the contained cover and the seam it draws
+   is the seam that is actually there. The text panel gives up its width so
+   the three still total 1200. */
+const RULE_W = 1;
+const PANEL_W = OG_SIZE.width - OG_SPLIT_X - RULE_W;
 const TEXT_W = PANEL_W - PAD_L - PAD_R;
 
 export const size = OG_SIZE;
@@ -119,6 +124,15 @@ export default async function PostOpenGraphImage({
         <div
           style={{
             display: "flex",
+            width: RULE_W,
+            height: "100%",
+            background: OG_COLORS.ink,
+          }}
+        />
+
+        <div
+          style={{
+            display: "flex",
             flexDirection: "column",
             justifyContent: "space-between",
             width: PANEL_W,
@@ -130,9 +144,11 @@ export default async function PostOpenGraphImage({
           }}
         >
           <div style={{ display: "flex", flexDirection: "column" }}>
-            {/* Uppercased here rather than with textTransform, which Satori
-                handles inconsistently. The site leaves series names in their
-                own casing; this is a label on a card, not the site. */}
+            {/* As written, not uppercased. The site settled this already:
+                series names are wordmarks and keep their capitals, section
+                labels do not. MYFREETIME is a run of letters; MyFreeTime is
+                the mark. This image predates that decision and was the last
+                place still shouting it. */}
             <div
               style={{
                 fontSize: 21,
@@ -141,7 +157,7 @@ export default async function PostOpenGraphImage({
                 color: OG_COLORS.muted,
               }}
             >
-              {post.series.name.toUpperCase()}
+              {post.series.name}
             </div>
 
             <div
