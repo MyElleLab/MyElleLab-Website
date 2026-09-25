@@ -3,7 +3,6 @@
 import type { CSSProperties } from "react";
 
 import styles from "./Scorecard.module.css";
-import { usePlayOnScroll } from "./usePlayOnScroll";
 
 /**
  * A scorecard emptying of options.
@@ -100,14 +99,11 @@ const CELLS = (() => {
 })();
 
 export function Scorecard() {
-  const { ref, played } = usePlayOnScroll<SVGSVGElement>();
-
   return (
     <svg
-      ref={ref}
       viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
       preserveAspectRatio="xMidYMid meet"
-      className={`h-full w-full ${played ? styles.play : ""}`}
+      className="h-full w-full"
       /* Decorative: the figcaption says what this means, and a screen reader
          counting thirteen rectangles would say nothing useful. */
       aria-hidden

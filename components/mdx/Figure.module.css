@@ -1,0 +1,51 @@
+/* The replay affordance.
+
+   Quiet on purpose. A visible "replay" control on every figure would be the
+   loudest thing in a post that is otherwise text, so the button carries no
+   chrome of its own: it is the frame, and the only standing signal is the
+   cursor, which costs nothing to anyone who is not looking for it.
+
+   On touch there is no hover and therefore no cursor, so there is no standing
+   signal at all. That is a deliberate gap rather than an oversight: the
+   animation playing at the right moment is the affordance, and the fix for a
+   reader who scrolled past it is that tapping works, not that they were told
+   it would. If it should be advertised, the smallest honest version is a
+   glyph that fades in once the figure has settled, which is a decision about
+   loudness rather than about code. */
+
+.frame {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-align: inherit;
+  /* The button is the frame, so it must not add a box of its own. */
+  appearance: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .frame {
+    cursor: pointer;
+  }
+}
+
+/* Acknowledge the press without moving anything: the figure inside is about
+   to move on its own, and two motions at once read as a glitch. */
+.frame:active .surface {
+  opacity: 0.92;
+}
+
+.surface {
+  transition: opacity 120ms linear;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .surface,
+  .frame:active .surface {
+    opacity: 1;
+    transition: none;
+  }
+}

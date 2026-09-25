@@ -17,8 +17,15 @@
   transition-delay: var(--delay);
 }
 
-.play .dot {
+[data-figure-state="playing"] .dot {
   transform: translateY(0);
+}
+
+/* One frame with transitions off, so a replay snaps back to the start
+   instead of animating there backwards. */
+[data-figure-state="resetting"] .dot,
+[data-figure-state="resetting"] .line {
+  transition: none;
 }
 
 /* pathLength="1" normalises the line so the dash maths needs no measuring
@@ -31,19 +38,22 @@
   transition: stroke-dashoffset 1500ms cubic-bezier(0.33, 0, 0.2, 1) 500ms;
 }
 
-.play .line {
+[data-figure-state="playing"] .line {
   stroke-dashoffset: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {
+  /* Every state, not just the played one: this is the single place the
+     motion preference is enforced, so no tap and no replay can get round
+     it. */
   .dot,
-  .play .dot {
+  [data-figure-state] .dot {
     transform: translateY(0);
     transition: none;
   }
 
   .line,
-  .play .line {
+  [data-figure-state] .line {
     stroke-dashoffset: 0;
     transition: none;
   }

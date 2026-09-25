@@ -3,7 +3,6 @@
 import type { CSSProperties } from "react";
 
 import styles from "./ScatterToTrend.module.css";
-import { usePlayOnScroll } from "./usePlayOnScroll";
 
 /**
  * Forty entries that look like noise until they are seen together.
@@ -64,14 +63,11 @@ const lineX = (t: number) => 26 + t * (VIEW_W - 52);
 const LINE = `${lineX(LINE_T0).toFixed(2)},${trendY(LINE_T0).toFixed(2)} ${lineX(LINE_T1).toFixed(2)},${trendY(LINE_T1).toFixed(2)}`;
 
 export function ScatterToTrend() {
-  const { ref, played } = usePlayOnScroll<SVGSVGElement>();
-
   return (
     <svg
-      ref={ref}
       viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
       preserveAspectRatio="xMidYMid meet"
-      className={`h-full w-full ${played ? styles.play : ""}`}
+      className="h-full w-full"
       /* Decorative: the figcaption underneath says what this means, and a
          screen reader repeating forty circles would say nothing useful. */
       aria-hidden

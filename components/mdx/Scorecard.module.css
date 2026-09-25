@@ -16,13 +16,22 @@
   transition-delay: var(--delay);
 }
 
-.play .cell {
+[data-figure-state="playing"] .cell {
   fill-opacity: 1;
 }
 
+/* One frame with transitions off, so a replay empties the card instantly
+   rather than fading it back out cell by cell. */
+[data-figure-state="resetting"] .cell {
+  transition: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
+  /* Every state, not just the played one: this is the single place the
+     motion preference is enforced, so no tap and no replay can get round
+     it. */
   .cell,
-  .play .cell {
+  [data-figure-state] .cell {
     fill-opacity: 1;
     transition: none;
   }
