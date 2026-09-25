@@ -85,10 +85,21 @@ export default async function PostOpenGraphImage({
           fontFamily: "Geist",
         }}
       >
-        {/* The cover fills the left panel and bleeds off the top, left and
-            bottom. `cover` rather than `contain`: a contained image in a
-            panel this tall would letterbox into the same floating picture
-            this layout exists to get rid of. */}
+        {/* The cover takes the left panel at its full width and bleeds off
+            the left edge.
+
+            `contain`, not `cover`. Cropping to the panel window kept only the
+            middle 1004px of a 1672px original, and every drawing is wider
+            than that: the bomber lost 5 per cent, the checklist 16, and the
+            dice row 27, which took its outer two dice down to slivers. No
+            objectPosition fixes a subject wider than its window, so the
+            window had to stop being the constraint.
+
+            Contain letterboxes, and here the bars cost nothing: the drawings
+            sit on the same #F8F7FB the panel does, so bar and ground are the
+            same colour and there is no seam to see. That is a property of
+            these particular covers, not of the layout, and a cover exported
+            on any other ground would show a band top and bottom. */}
         {post.cover && (
           <img
             src={publicImageDataUri(post.cover)}
@@ -97,17 +108,10 @@ export default async function PostOpenGraphImage({
             style={{
               width: OG_SPLIT_X,
               height: OG_SIZE.height,
-              objectFit: "cover",
-              /* Centred, and measured rather than assumed: the window keeps
-                 the middle 1004px of a 1672px original, and every cover's
-                 drawing is wider than that (bomber 1053, phone and checklist
-                 1191, dice 1383). No objectPosition fits a subject wider than
-                 its window, so centring is not a compromise between options,
-                 it is the only one that loses the same amount from both ends.
-                 The bomber keeps 95 per cent of its drawing, the checklist 84,
-                 the dice row 73. Covers drawn to fill the width will always
-                 lose their ends here. */
-              objectPosition: "center",
+              objectFit: "contain",
+              /* Stated on the image rather than left to the root, so the bars
+                 are the panel colour by declaration and not by inheritance. */
+              background: OG_COLORS.canvas,
             }}
           />
         )}
