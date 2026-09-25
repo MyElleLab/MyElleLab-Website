@@ -73,7 +73,9 @@ export function IconBloom({
         className={classes}
         style={sizeVars}
         tabIndex={tabIndex}
-        {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
+        {...(external
+          ? { target: "_blank", rel: "noopener noreferrer" }
+          : {})}
         aria-label={alt || undefined}
       >
         {contents}

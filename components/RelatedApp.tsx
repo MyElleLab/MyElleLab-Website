@@ -9,11 +9,20 @@ import { appStoreUrl, type Product } from "@/lib/products";
  * a pitch does not happen to contain the name, the link is appended instead
  * of silently rendering an unlinked line.
  *
- * The lens is deliberately not a link. The app name a few words to its left
- * already points at the App Store, and a second adjacent link to the same
- * destination is a duplicate target for anyone tabbing or using a screen
- * reader. It is decorative here, the same arrangement ProductCard uses, where
- * the card owns the interaction and the lens is passive.
+ * The lens is a link too, to the app's own site. It was decorative until the
+ * two links could be told apart: a second link to the *same* destination is a
+ * duplicate target for anyone tabbing or listening, which is what it would
+ * have been while both pointed at the App Store. Pointing it at the product
+ * site instead gives it somewhere of its own to go, and a name of its own to
+ * say, so the two are distinct rather than redundant.
+ *
+ * Name to the store, mark to the site. The accessible names are "MyGrowth"
+ * and "MyGrowth website", which is the distinction stated out loud rather
+ * than left to the reader to infer from two identical-sounding targets.
+ *
+ * A product with no siteUrl falls back to the decorative lens rather than a
+ * dead link. Every product has one today; the type says the field is
+ * optional, so the fallback is what keeps that true.
  */
 
 /**
@@ -71,17 +80,33 @@ export function RelatedApp({
           </>
         )}
       </span>
-      {/* alt="" makes IconBloom render a div and hide it from assistive tech,
-          which is right: the link already carries the name. hoverEffects off
-          because nothing here is hoverable. */}
       <span className="shrink-0">
-        <IconBloom
-          src={product.iconSrc}
-          alt=""
-          size={LENS_SIZE}
-          iconSize={LENS_ICON}
-          hoverEffects={false}
-        />
+        {product.siteUrl ? (
+          /* href makes IconBloom an anchor and alt becomes its aria-label, so
+             the accessible name is "MyGrowth website" rather than the empty
+             string this used to render or the whole sentence beside it.
+             hoverEffects is left at its default, which is the hero row's
+             behaviour: scale, glass sweep and a press state, all already
+             gated behind (hover: hover) and reduced motion in the module. */
+          <IconBloom
+            src={product.iconSrc}
+            alt={`${product.name} website`}
+            href={product.siteUrl}
+            size={LENS_SIZE}
+            iconSize={LENS_ICON}
+          />
+        ) : (
+          /* alt="" makes IconBloom render a div and hide it from assistive
+             tech, and nothing here is hoverable, which is right when there is
+             nowhere for it to go. */
+          <IconBloom
+            src={product.iconSrc}
+            alt=""
+            size={LENS_SIZE}
+            iconSize={LENS_ICON}
+            hoverEffects={false}
+          />
+        )}
       </span>
     </p>
   );

@@ -6,6 +6,14 @@
   --bloom-size: 60px;
   --bloom-icon: 32px;
 
+  /* Block, explicitly. The lens is an <a> whenever it links somewhere, and an
+     inline <a> ignores width and height, so the box collapses to the size of
+     its (empty) text content while the absolutely positioned disc goes on
+     painting outside it. The hero row never showed this because its anchors
+     are flex items and get blockified; the blog aside, where the anchor is an
+     ordinary inline child, collapsed to 8x18 and took the hit target with
+     it. */
+  display: block;
   position: relative;
   width: var(--bloom-size);
   aspect-ratio: 1;
