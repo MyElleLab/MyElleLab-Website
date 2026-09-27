@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LogoMark } from "./Logo";
@@ -15,14 +14,15 @@ const links = [
   { href: "/#about", label: "About" },
 ];
 
-/* 44px tall so each link is a real touch target, not just its text. The
-   underline is a pseudo-element under the label: ink and 2px when the link is
-   the current section, a faint preview on hover. */
+/* 44px tall so each link is a real touch target, not just its text. Every
+   section link carries a 2px underline (a pseudo-element under the label):
+   light ink at rest, full ink on hover, and full ink with ink text when it is
+   the current page, so "you are here" still reads apart from the rest. */
 const LINK =
   "relative inline-flex min-h-11 items-center rounded-md px-2.5 sm:px-3 transition-colors duration-200 " +
   "after:absolute after:inset-x-2.5 sm:after:inset-x-3 after:bottom-2 after:h-0.5 after:rounded-full after:transition-colors after:duration-200 " +
   "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink";
-const LINK_IDLE = "text-muted hover:text-ink after:bg-transparent hover:after:bg-rule";
+const LINK_IDLE = "text-muted hover:text-ink after:bg-ink/25 hover:after:bg-ink";
 const LINK_ACTIVE = "font-medium text-ink after:bg-ink";
 
 /* Contact is the one action in the bar, so it is drawn as one: a small pill
@@ -34,25 +34,14 @@ const CONTACT =
   "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink";
 
 export function Nav() {
-  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
+  /* A hard 2px ink rule separates the bar from every page, at the top and
+     while scrolling: the same edge weight as the cards and the Contact pill.
+     The bar keeps its own translucent ground at all times so the rule never
+     floats over the hero on its own. */
   return (
-    <header
-      className={[
-        "fixed top-0 left-0 right-0 z-50 border-b transition-[background-color,border-color] duration-200",
-        scrolled
-          ? "backdrop-blur-xl bg-canvas/85 border-rule"
-          : "bg-transparent border-transparent",
-      ].join(" ")}
-    >
+    <header className="fixed top-0 left-0 right-0 z-50 border-b-2 border-ink bg-canvas/85 backdrop-blur-xl">
       {/* First tab stop on every page, visible only when focused. */}
       <a
         href="#main"
