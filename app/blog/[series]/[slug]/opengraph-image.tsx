@@ -32,6 +32,7 @@ const EDGE = 56;
 const CARD_W = 560;
 const CARD_H = Math.round((CARD_W * 9) / 16);
 const BORDER = 3;
+const RADIUS = 28;
 /* The site's 5px offset at card scale is lost at thumbnail size; 10px reads
    as the same edge once the image is shrunk into a feed. */
 const SHADOW = 10;
@@ -123,7 +124,7 @@ export default async function PostOpenGraphImage({
             height: CARD_H,
             flexShrink: 0,
             overflow: "hidden",
-            borderRadius: 28,
+            borderRadius: RADIUS,
             border: `${BORDER}px solid ${OG_COLORS.ink}`,
             background: post.cover ? OG_COLORS.canvas : OG_COLORS.wisp,
             boxShadow: `${SHADOW}px ${SHADOW}px 0 0 ${OG_COLORS.ink}`,
@@ -138,6 +139,11 @@ export default async function PostOpenGraphImage({
                 width: CARD_W - BORDER * 2,
                 height: CARD_H - BORDER * 2,
                 objectFit: "cover",
+                /* Satori does not clip a child to its parent's rounded
+                   corners, so the image carries the inner radius itself.
+                   Without it a dark cover shows square corners poking past
+                   the border. */
+                borderRadius: RADIUS - BORDER,
               }}
             />
           )}
