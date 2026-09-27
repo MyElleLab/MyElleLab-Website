@@ -40,6 +40,8 @@ export function TextPage({
   return (
     <main className="relative z-10">
       <Nav />
+      {/* Skip-link target: after the nav, so "Skip to content" skips it. */}
+      <div id="main" tabIndex={-1} className="outline-none" />
       <section className="relative bg-canvas pt-36 pb-16 md:pt-44 md:pb-20">
         <div className="mx-auto max-w-7xl px-6 md:px-10">
           {header ?? (
