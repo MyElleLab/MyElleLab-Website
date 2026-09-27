@@ -141,3 +141,27 @@ body {
 .mdx pre code span {
   white-space: pre;
 }
+
+/* ---------------------------------------------------------------------------
+   Card edge
+   ---------------------------------------------------------------------------
+   The blog's cards (posts and series) share one hard edge: a 2px ink border
+   and a solid 5px offset shadow down and to the right. On hover the card lifts
+   toward the top left and the shadow grows by the same 2px, so the card rises
+   off its shadow instead of sliding. Motion is dropped for reduced motion; the
+   edge itself stays. */
+@layer components {
+  .card-edge {
+    @apply border-2 border-ink shadow-[5px_5px_0_0_theme(colors.ink)] transition duration-200;
+  }
+  .card-edge:hover {
+    @apply -translate-x-0.5 -translate-y-0.5 shadow-[7px_7px_0_0_theme(colors.ink)];
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .card-edge,
+    .card-edge:hover {
+      transition: none;
+      transform: none;
+    }
+  }
+}

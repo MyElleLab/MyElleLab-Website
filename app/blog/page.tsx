@@ -71,10 +71,8 @@ function SeriesCard({ series }: { series: BlogSeries }) {
     <Link
       href={seriesPath(series)}
       className={[
-        "group block rounded-2xl border px-6 py-5 transition",
-        featured
-          ? "border-ink bg-ink hover:bg-ink/90"
-          : "border-rule bg-surface hover:border-ink/20 hover:bg-canvas",
+        "card-edge group block rounded-2xl px-6 py-5",
+        featured ? "bg-ink hover:bg-ink/90" : "bg-surface",
       ].join(" ")}
     >
       <span className="flex items-baseline justify-between gap-4">

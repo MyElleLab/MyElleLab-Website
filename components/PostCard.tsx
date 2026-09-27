@@ -6,9 +6,8 @@ import { formatPostDate, type Post } from "@/lib/posts";
 /**
  * One post, on the series pages and the /blog index.
  *
- * Our visual language, not the reference's: white surface, pale lavender
- * hairline, soft shadow, the cards' existing radius. No hard black border,
- * no offset drop shadow, no monospace date.
+ * White surface, the cards' existing radius, and the shared hard edge
+ * (`card-edge` in globals.css): 2px ink border, solid 5px offset shadow.
  *
  * A post with no cover renders without the image area rather than with a
  * placeholder; `items-stretch` on the grid plus `h-full` on the card keeps a
@@ -18,10 +17,10 @@ export function PostCard({ post }: { post: Post }) {
   return (
     <Link
       href={post.href}
-      className="group flex h-full flex-col overflow-hidden rounded-2xl border border-rule bg-surface shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-ink/15 hover:shadow-md"
+      className="group flex h-full flex-col overflow-hidden card-edge rounded-2xl bg-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
     >
       {post.cover && (
-        <div className="relative aspect-video w-full overflow-hidden bg-canvas">
+        <div className="relative aspect-video w-full overflow-hidden border-b-2 border-ink bg-canvas">
           <Image
             src={post.cover}
             alt={post.coverAlt ?? ""}

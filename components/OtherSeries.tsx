@@ -70,10 +70,8 @@ function SeriesLink({ series }: { series: BlogSeries }) {
       <Link
         href={seriesPath(series)}
         className={[
-          "group flex h-full flex-col rounded-2xl border p-5 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:shadow-md",
-          featured
-            ? "border-ink bg-ink hover:bg-ink/90"
-            : "border-rule bg-surface hover:border-ink/15",
+          "card-edge group flex h-full flex-col rounded-2xl p-5",
+          featured ? "bg-ink hover:bg-ink/90" : "bg-surface",
         ].join(" ")}
       >
         {/* text-xl, not the /blog index's text-xl md:text-2xl. That card is
