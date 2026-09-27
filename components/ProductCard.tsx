@@ -125,7 +125,7 @@ export function ProductCard({ product }: { product: Product }) {
               href={storeUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className={`inline-flex items-center gap-2 rounded-full bg-ink px-3.5 py-2 text-xs font-medium text-white transition hover:bg-black ${styles.actionBtn}`}
+              className={`inline-flex min-h-11 items-center gap-2 rounded-full bg-ink px-4 text-[13px] font-medium text-white transition hover:bg-black ${styles.actionBtn}`}
             >
               <AppStoreBadge />
               Download
@@ -134,8 +134,8 @@ export function ProductCard({ product }: { product: Product }) {
             <button
               type="button"
               disabled
-              aria-label={`${product.name} — coming soon to the App Store`}
-              className={`inline-flex items-center gap-2 rounded-full bg-ink px-3.5 py-2 text-xs font-medium text-white opacity-60 cursor-not-allowed ${styles.actionBtn}`}
+              aria-label={`${product.name}: coming soon to the App Store`}
+              className={`inline-flex min-h-11 items-center gap-2 rounded-full bg-ink px-4 text-[13px] font-medium text-white opacity-60 cursor-not-allowed ${styles.actionBtn}`}
             >
               <AppStoreBadge />
               Soon
@@ -147,7 +147,7 @@ export function ProductCard({ product }: { product: Product }) {
               href={product.siteUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className={`inline-flex items-center gap-1.5 rounded-full border border-ink bg-surface px-3.5 py-2 text-xs font-medium text-ink hover:bg-ink hover:text-white transition ${styles.actionBtn}`}
+              className={`inline-flex min-h-11 items-center gap-1.5 rounded-full border border-ink bg-surface px-4 text-[13px] font-medium text-ink hover:bg-ink hover:text-white transition ${styles.actionBtn}`}
             >
               Visit site
               <ExternalIcon />
