@@ -3,7 +3,9 @@ import type React from "react";
 import Image from "next/image";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import rehypePrettyCode, { type Options as PrettyCodeOptions } from "rehype-pretty-code";
+import remarkGfm from "remark-gfm";
 
+import { AppCard } from "@/components/mdx/AppCard";
 import { Figure } from "@/components/mdx/Figure";
 import { ScatterToTrend } from "@/components/mdx/ScatterToTrend";
 import { Scorecard } from "@/components/mdx/Scorecard";
@@ -39,15 +41,18 @@ const prettyCodeOptions: PrettyCodeOptions = {
 type P<T extends keyof React.JSX.IntrinsicElements> = ComponentPropsWithoutRef<T>;
 
 const components = {
+  /* Section titles follow the post title down a step: the same Playfair 700,
+     the same tight tracking, so the page has one heading voice. The top
+     margin is the section break; nothing else divides sections. */
   h2: (props: P<"h2">) => (
     <h2
-      className="mt-12 mb-4 font-serif text-2xl md:text-3xl font-semibold tracking-wordmark text-ink scroll-mt-24"
+      className="mt-16 mb-6 font-serif text-[2rem] md:text-[2.5rem] font-bold leading-[1.08] tracking-[-0.02em] text-balance text-ink scroll-mt-24"
       {...props}
     />
   ),
   h3: (props: P<"h3">) => (
     <h3
-      className="mt-9 mb-3 font-serif text-xl md:text-2xl font-semibold tracking-wordmark text-ink scroll-mt-24"
+      className="mt-10 mb-3 font-serif text-xl md:text-2xl font-bold leading-snug tracking-[-0.015em] text-ink scroll-mt-24"
       {...props}
     />
   ),
@@ -86,19 +91,28 @@ const components = {
       {...props}
     />
   ),
+  /* Tables read as a lookup: a tinted header row, the first column as the
+     row label (ink, semibold, a rule to its right), values in muted text,
+     and the last column washed in lavender so the answer column stands out.
+     A two-column table is label and answer; a wider one keeps the wash on
+     its final column. Sentence case headers, not eyebrows: a table header
+     is read, not scanned past. */
   table: (props: P<"table">) => (
-    <div className="my-7 overflow-x-auto">
-      <table className="w-full border-collapse text-sm" {...props} />
+    <div className="my-9 overflow-x-auto">
+      <table className="w-full border-collapse border-y border-rule font-sans text-sm" {...props} />
     </div>
   ),
   th: (props: P<"th">) => (
     <th
-      className="border-b border-rule px-3 py-2 text-left font-sans text-[11px] font-medium uppercase tracking-eyebrow text-muted"
+      className="border-b border-rule bg-wisp/30 px-4 py-3.5 text-left align-bottom font-semibold text-ink first:border-r last:bg-wisp/50"
       {...props}
     />
   ),
   td: (props: P<"td">) => (
-    <td className="border-b border-rule px-3 py-2 align-top text-ink" {...props} />
+    <td
+      className="border-b border-rule bg-surface px-4 py-3.5 align-top leading-relaxed text-muted first:border-r first:font-semibold first:text-ink last:bg-wisp/20"
+      {...props}
+    />
   ),
   /* Capitalised entries are components a post calls by name rather than
      element mappings. Figure is the frame for anything visual in a body;
@@ -106,6 +120,7 @@ const components = {
      <Figure caption="..."><ScatterToTrend /></Figure> and nothing about the
      frame is restated per post. */
   Figure,
+  AppCard,
   ScatterToTrend,
   Scorecard,
   /* Only src/alt/title are carried through. Markdown types width and height
@@ -129,7 +144,13 @@ export function MdxContent({ source }: { source: string }) {
       <MDXRemote
         source={source}
         components={components}
-        options={{ mdxOptions: { rehypePlugins: [[rehypePrettyCode, prettyCodeOptions]] } }}
+        options={{
+          mdxOptions: {
+            /* GFM for pipe tables, which plain MDX does not parse. */
+            remarkPlugins: [remarkGfm],
+            rehypePlugins: [[rehypePrettyCode, prettyCodeOptions]],
+          },
+        }}
       />
     </div>
   );

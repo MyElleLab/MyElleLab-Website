@@ -26,6 +26,15 @@ export const SHOW_DRAFTS = process.env.NODE_ENV === "development";
 export type Post = {
   title: string;
   description: string;
+  /**
+   * The executive summary under the title: two or three sentences that give
+   * the reader the whole argument before the first section. Frontmatter
+   * `summary`, or `description` when it is absent, so older posts still get
+   * a header without an edit.
+   */
+  summary: string;
+  /** Whole minutes at READING_WPM, never less than one. */
+  readingMinutes: number;
   /** As authored, ISO 8601. */
   date: string;
   /** Frontmatter `author`, or DEFAULT_AUTHOR when it is absent. */
@@ -62,7 +71,7 @@ function fail(file: string, problem: string): never {
       `    problem: ${problem}`,
       "",
       "  Required: title (string), description (string), date (ISO 8601).",
-      "  Optional: author (string), tags (string[]), cover (path under /public), draft (boolean),",
+      "  Optional: summary (string), author (string), tags (string[]), cover (path under /public), draft (boolean),",
       "            relatedApp (a product slug) with relatedPitch (one sentence).",
       "  coverAlt (string) is required whenever cover is set.",
       "",
@@ -78,6 +87,24 @@ function requireString(file: string, data: Record<string, unknown>, key: string)
   return value.trim();
 }
 
+/** A common figure for attentive reading of prose on screen. */
+const READING_WPM = 230;
+
+/**
+ * Words in the body, counted after the parts a reader does not read as words
+ * are gone: JSX tags such as <Figure> and <AppCard>, MDX comments, and code
+ * fences. A figure still takes time to look at, but a figure is not measured
+ * in words, and counting its markup would only add noise.
+ */
+function readingMinutes(body: string) {
+  const prose = body
+    .replace(/```[\s\S]*?```/g, " ")
+    .replace(/\{\/\*[\s\S]*?\*\/\}/g, " ")
+    .replace(/<[^>]+>/g, " ");
+  const words = prose.split(/\s+/).filter((w) => /[\p{L}\p{N}]/u.test(w)).length;
+  return Math.max(1, Math.ceil(words / READING_WPM));
+}
+
 function parsePost(filePath: string, series: BlogSeries): Post {
   const relative = path.relative(process.cwd(), filePath);
   const parsed = matter(fs.readFileSync(filePath, "utf8"));
@@ -85,6 +112,8 @@ function parsePost(filePath: string, series: BlogSeries): Post {
 
   const title = requireString(relative, data, "title");
   const description = requireString(relative, data, "description");
+  const summary =
+    data.summary === undefined ? description : requireString(relative, data, "summary");
 
   /* YAML turns an unquoted 2026-09-06 into a Date, and a quoted one into a
      string. Both are reasonable things to write in frontmatter, so both are
@@ -167,6 +196,8 @@ function parsePost(filePath: string, series: BlogSeries): Post {
   return {
     title,
     description,
+    summary,
+    readingMinutes: readingMinutes(parsed.content),
     date,
     author,
     tags,

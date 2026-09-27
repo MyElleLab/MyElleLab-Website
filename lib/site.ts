@@ -29,6 +29,14 @@ export const DEFAULT_AUTHOR = "Leonardo Ferhati";
 /** The author's personal site — the Person `url` in a post's JSON-LD. */
 export const AUTHOR_URL = "https://leonardoferhati.com";
 
+/**
+ * The byline photo, a square image under /public. Unset, the byline draws the
+ * author's initials in a lavender disc instead, so a post never shows a
+ * broken image. Setting it is the one edit that swaps the placeholder out
+ * everywhere, e.g. "/author-leonardo.jpg".
+ */
+export const AUTHOR_AVATAR: string | undefined = undefined;
+
 export const BLOG_NAME = `${SITE_NAME} Blog`;
 export const BLOG_DESCRIPTION =
   "Notes from the studio: one series per suite, plus the studio itself.";

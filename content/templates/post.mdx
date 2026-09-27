@@ -1,0 +1,88 @@
+---
+# MyElleLab blog post template.
+#
+# Copy this file to content/blog/<series-slug>/<post-slug>.mdx. The folder is
+# the series (lib/series.ts); the file name is the URL slug. This folder
+# (content/templates) is never read by the build, so the template itself is
+# never published.
+#
+# The page header is built from this frontmatter, in this order:
+#   Series · date · N min read      (read time is computed from the body)
+#   Title                           (title)
+#   Executive summary               (summary, falls back to description)
+#   Written by <photo> <author>     (photo: AUTHOR_AVATAR in lib/site.ts)
+# then the cover, then the body below.
+
+title: "A short title that makes a claim"
+# One or two sentences for search results, social cards and post cards.
+description: "The line a stranger reads before deciding to click."
+# The executive summary under the title: the whole argument in two or three
+# sentences, so a reader who stops here still leaves with the point.
+summary: "State the finding first. Add the one fact that makes it true. Say what the reader should do or think differently."
+date: "2026-01-01"
+tags: ["topic", "topic"]
+# 16:9 image under /public/blog. coverAlt is required with it.
+cover: "/blog/your-cover.png"
+coverAlt: "What is in the picture, described plainly"
+# The quiet closing line at the very end of the post. The pitch must contain
+# the app's name, which becomes the link.
+relatedApp: "mygrowth"
+relatedPitch: "MyGrowth is the habit tracker we build, if you want a record of your own."
+# author: "Someone Else"   # omit for the default byline
+draft: true
+---
+
+{/* Opening: two or three short paragraphs, no heading. Start with the scene
+    or the fact, not with a preamble about what the post will cover. */}
+
+The first paragraph puts the reader inside the problem.
+
+The second one says why it matters.
+
+## First section, phrased as the question it answers
+
+{/* Every section opens with an H2. It carries the section title style
+    (Playfair 700, large, tight). Write it as a question or a claim. */}
+
+Body copy.
+
+{/* Tables: first column is the row label, the last column is tinted as the
+    answer. Keep headers in sentence case. */}
+
+| Term | What it means |
+| --- | --- |
+| First term | Plain definition |
+| Second term | Plain definition |
+
+## Second section
+
+Body copy.
+
+{/* Animated figures keep their existing frame. Register new visuals in
+    components/mdx/MdxContent.tsx next to ScatterToTrend and Scorecard. */}
+
+<Figure caption="One sentence on what the picture shows.">
+  <ScatterToTrend />
+</Figure>
+
+{/* The app card goes between two sections, roughly two thirds of the way
+    down: after the reader has had value, before the ending. headline is
+    optional (defaults to the app's tagline); caption is required and ties
+    the app to this post. image is an optional screenshot under /public. */}
+
+<AppCard
+  app="mygrowth"
+  headline="A short declarative line."
+  caption="One or two sentences on why this app belongs next to this post."
+/>
+
+## Third section
+
+Body copy.
+
+## Closing section
+
+{/* End on the idea, not on a summary of the sections. The share buttons,
+    the relatedPitch line and the series navigation are added by the page. */}
+
+Body copy.

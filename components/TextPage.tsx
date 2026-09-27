@@ -11,6 +11,7 @@ import { Nav } from "@/components/Nav";
  * standing line under the H1 that is not part of the body copy.
  */
 export function TextPage({
+  header,
   title,
   eyebrow,
   meta,
@@ -18,7 +19,12 @@ export function TextPage({
   children,
   wide,
 }: {
-  title: string;
+  /**
+   * A complete header in place of eyebrow, title, meta and subtitle. The
+   * post pages pass PostHeader here; everything else uses the parts.
+   */
+  header?: ReactNode;
+  title?: string;
   /** Small tracked line above the H1 — the post pages' series link. */
   eyebrow?: ReactNode;
   /** Small line under the H1 — the post pages' date. */
@@ -36,17 +42,21 @@ export function TextPage({
       <Nav />
       <section className="relative bg-canvas pt-36 pb-24 md:pt-44 md:pb-32">
         <div className="mx-auto max-w-7xl px-6 md:px-10">
-          {eyebrow && <div className="mb-5">{eyebrow}</div>}
-          <h1 className="font-serif text-4xl md:text-5xl font-semibold tracking-wordmark text-balance leading-[1.05] text-ink">
-            {title}
-          </h1>
-          {meta && (
-            <p className="mt-4 font-sans text-sm text-muted">{meta}</p>
-          )}
-          {subtitle && (
-            <p className="mt-5 max-w-[34rem] font-sans text-lg text-muted leading-relaxed">
-              {subtitle}
-            </p>
+          {header ?? (
+            <>
+              {eyebrow && <div className="mb-5">{eyebrow}</div>}
+              <h1 className="font-serif text-4xl md:text-5xl font-semibold tracking-wordmark text-balance leading-[1.05] text-ink">
+                {title}
+              </h1>
+              {meta && (
+                <p className="mt-4 font-sans text-sm text-muted">{meta}</p>
+              )}
+              {subtitle && (
+                <p className="mt-5 max-w-[34rem] font-sans text-lg text-muted leading-relaxed">
+                  {subtitle}
+                </p>
+              )}
+            </>
           )}
           {/* 544px, about 72 characters of running prose.
 
