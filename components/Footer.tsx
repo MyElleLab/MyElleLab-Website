@@ -70,8 +70,7 @@ export function Footer() {
                 Write to the studio.
               </h2>
               <p className="mt-3 max-w-md font-sans text-base leading-relaxed text-muted">
-                Questions about one of our apps, press, or an idea you want
-                built.
+                Questions about one of our apps, press, or any feedback.
               </p>
             </div>
             <a

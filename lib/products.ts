@@ -40,8 +40,7 @@ export const suites: Suite[] = [
       {
         name: "MySellingMate",
         slug: "mysellingmate",
-        tagline:
-          "Photograph anything you want to sell and get a price and a place to sell it.",
+        tagline: "One photo, a price, and where to sell it.",
         status: "AVAILABLE",
         appStoreId: "6794851597",
         iconSrc: "/icon-MySellingMate.png",
@@ -113,7 +112,7 @@ export const suites: Suite[] = [
       {
         name: "MyMoodLab",
         slug: "mymoodlab",
-        tagline: "Relationship Court.",
+        tagline: "Mood scores and honest AI feedback.",
         status: "AVAILABLE",
         appStoreId: "6758580161",
         iconSrc: "/icon-MyMoodLab.png",
@@ -122,7 +121,7 @@ export const suites: Suite[] = [
       {
         name: "MyYahtzee",
         slug: "myyahtzee",
-        tagline: "Dice & Tracker.",
+        tagline: "Yahtzee with friends, no paper needed.",
         status: "AVAILABLE",
         appStoreId: "6790156691",
         iconSrc: "/icon-MyYahtzee.png",
