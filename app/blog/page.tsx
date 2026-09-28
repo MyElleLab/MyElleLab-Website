@@ -12,9 +12,8 @@ import { BLOG_DESCRIPTION, SITE_NAME, blogRobots } from "@/lib/site";
 export const metadata: Metadata = {
   title: `Blog — ${SITE_NAME}`,
   description: BLOG_DESCRIPTION,
-  // Noindexed while the series pages are empty. Lifting it is one edit —
-  // BLOG_INDEXABLE in lib/site.ts — which also adds these routes to the
-  // sitemap, so the two signals can never disagree.
+  // Driven by BLOG_INDEXABLE in lib/site.ts, which also controls whether
+  // these routes are in the sitemap, so the two signals can never disagree.
   robots: blogRobots,
 };
 

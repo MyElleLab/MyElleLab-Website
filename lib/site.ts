@@ -48,17 +48,18 @@ export function absoluteUrl(path: string) {
 }
 
 /**
- * Whether the blog is fit to be indexed. It is not, while the series pages
- * hold no posts: an empty page indexed as your blog is worse than not being
- * indexed at all.
+ * Whether the blog is fit to be indexed. It was held false until every series
+ * had at least one published post, since an empty page indexed as your blog
+ * is worse than not being indexed at all. That condition was met on
+ * 27 September 2026 and the flag is now true.
  *
- * TODO: flip this to `true` when the first real posts land. That single edit
- * does both halves of the job at once — the blog routes drop their noindex
- * (see `blogRobots` below) and the sitemap starts listing them (see
- * app/sitemap.ts). They are deliberately wired to the same constant so the
- * sitemap can never advertise a URL whose page says "don't index me".
+ * One constant drives both halves: the blog routes' robots tag (see
+ * `blogRobots` below) and their presence in the sitemap (see app/sitemap.ts),
+ * so the sitemap can never advertise a URL whose page says "don't index me".
+ * If a series is ever emptied again, setting this back to false withdraws
+ * both at once.
  */
-export const BLOG_INDEXABLE = false;
+export const BLOG_INDEXABLE = true;
 
 /**
  * `robots` metadata for the blog routes. `undefined` emits no robots tag at

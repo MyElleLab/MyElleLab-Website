@@ -19,14 +19,10 @@ import { BLOG_INDEXABLE, absoluteUrl } from "@/lib/site";
  *   says "don't". Sending both is a contradiction, so the noindexed page is
  *   simply left out.
  *
- *   /blog, every series page and every post — same reason, for now.
- *   They are written
- *   out below and gated on BLOG_INDEXABLE rather than commented out, so
- *   lifting the noindex is one edit in lib/site.ts and the sitemap follows in
- *   the same breath. The two can't drift apart.
- *
- * TODO: nothing to uncomment here — set BLOG_INDEXABLE = true in lib/site.ts
- * when the first posts land, and these five URLs appear automatically.
+ * The blog (/blog, every series page, every published post) is gated on
+ * BLOG_INDEXABLE in lib/site.ts, the same constant that sets those pages'
+ * robots tag, so the sitemap and the pages can't drift apart. Drafts never
+ * appear: getPosts() drops them in production.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   /* Build time. Good enough for a site whose content ships with the deploy —

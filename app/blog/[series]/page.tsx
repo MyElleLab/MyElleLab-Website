@@ -34,9 +34,8 @@ export async function generateMetadata({
   return {
     title: `${found.name} — ${BLOG_NAME}`,
     description: found.description,
-    // Noindexed while this series is empty. Lifting it is one edit —
-    // BLOG_INDEXABLE in lib/site.ts — which also adds this route to the
-    // sitemap, so the two signals can never disagree.
+    // Driven by BLOG_INDEXABLE in lib/site.ts, which also controls whether
+    // this route is in the sitemap, so the two signals can never disagree.
     robots: blogRobots,
   };
 }
