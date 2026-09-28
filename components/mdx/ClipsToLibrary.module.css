@@ -1,0 +1,104 @@
+/* Clips sorting into collections.
+
+   Cards are authored in place and pushed into a pile with transform; the
+   loop draws with stroke-dashoffset. Neither animates `d`, which CSS only
+   supports in Blink. Reduced motion shows the sorted library. */
+
+.clip {
+  fill: var(--wisp);
+  stroke: var(--ink);
+  stroke-width: 1;
+}
+
+.pick {
+  fill: var(--ink);
+}
+
+.play {
+  fill: var(--ink);
+}
+
+.playOnInk {
+  fill: var(--surface);
+}
+
+.title {
+  stroke: var(--muted);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+
+.card {
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: translate(var(--dx), var(--dy)) rotate(var(--rot));
+  transition: transform 800ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--delay);
+}
+
+[data-figure-state="playing"] .card {
+  transform: translate(0, 0) rotate(0deg);
+}
+
+.meta,
+.loopHead {
+  opacity: 0;
+  transition: opacity 400ms ease-out 1100ms;
+}
+
+[data-figure-state="playing"] .meta,
+[data-figure-state="playing"] .loopHead {
+  opacity: 1;
+}
+
+.loop {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 700ms cubic-bezier(0.33, 0, 0.2, 1) 1000ms;
+}
+
+.loopHead {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition-delay: 1600ms;
+}
+
+[data-figure-state="playing"] .loop {
+  stroke-dashoffset: 0;
+}
+
+[data-figure-state="resetting"] .card,
+[data-figure-state="resetting"] .meta,
+[data-figure-state="resetting"] .loop,
+[data-figure-state="resetting"] .loopHead {
+  transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  [data-figure-state] .card {
+    transform: none;
+    transition: none;
+  }
+
+  .meta,
+  .loopHead,
+  [data-figure-state] .meta,
+  [data-figure-state] .loopHead {
+    opacity: 1;
+    transition: none;
+  }
+
+  .loop,
+  [data-figure-state] .loop {
+    stroke-dashoffset: 0;
+    transition: none;
+  }
+}

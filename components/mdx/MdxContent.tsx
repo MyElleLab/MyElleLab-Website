@@ -7,6 +7,10 @@ import remarkGfm from "remark-gfm";
 
 import { AppCard } from "@/components/mdx/AppCard";
 import { Figure } from "@/components/mdx/Figure";
+import { ClipsToLibrary } from "@/components/mdx/ClipsToLibrary";
+import { HabitWeek } from "@/components/mdx/HabitWeek";
+import { PhotoToListing } from "@/components/mdx/PhotoToListing";
+import { SproutChecklist } from "@/components/mdx/SproutChecklist";
 import { ScatterToTrend } from "@/components/mdx/ScatterToTrend";
 import { Scorecard } from "@/components/mdx/Scorecard";
 import { codeTheme } from "@/lib/code-theme";
@@ -121,8 +125,12 @@ const components = {
      frame is restated per post. */
   Figure,
   AppCard,
+  ClipsToLibrary,
+  HabitWeek,
+  PhotoToListing,
   ScatterToTrend,
   Scorecard,
+  SproutChecklist,
   /* Only src/alt/title are carried through. Markdown types width and height
      as strings, which next/image rejects, and the rest of an <img>'s props
      have no meaning here. */

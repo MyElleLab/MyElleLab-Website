@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #F8F7FB; }
+      .line-primary { stroke: #0A0A0B; stroke-width: 2px; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+      .line-secondary { stroke: #6B6B7A; stroke-width: 2px; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+      .fill-lavender { fill: #D8D5EA; stroke: #0A0A0B; stroke-width: 2px; stroke-linecap: round; stroke-linejoin: round; }
+      .fill-lavender-subtle { fill: #D8D5EA; stroke: #6B6B7A; stroke-width: 2px; stroke-linecap: round; stroke-linejoin: round; }
+    </style>
+  </defs>
+
+  <!-- Background filling entire canvas -->
+  <rect class="bg" width="1200" height="675" />
+
+  <!-- Main Composition Group Centered -->
+  <g transform="translate(0, 0)">
+
+    <!-- BASELINE GROUNDING LINE -->
+    <line class="line-secondary" x1="280" y1="480" x2="920" y2="480" />
+
+    <!-- HABIT 1: TIME-BLOCKING (Calendar Matrix - Left Element) -->
+    <g transform="translate(320, 240)">
+      <!-- Calendar Frame -->
+      <rect class="line-secondary" x1="0" y1="0" width="130" height="150" rx="4" />
+      <!-- Header Bar -->
+      <line class="line-secondary" x1="0" y1="30" x2="130" y2="30" />
+      <!-- Binder Rings -->
+      <line class="line-secondary" x1="30" y1="-8" x2="30" y2="8" />
+      <line class="line-secondary" x1="100" y1="-8" x2="100" y2="8" />
+      <!-- Time Blocks (Secondary) -->
+      <rect class="line-secondary" x1="15" y1="45" x2="115" y2="60" rx="2" />
+      <rect class="line-secondary" x1="15" y1="70" x2="70" y2="85" rx="2" />
+      <rect class="line-secondary" x1="15" y1="95" x2="115" y2="110" rx="2" />
+      <rect class="line-secondary" x1="15" y1="120" x2="90" y2="135" rx="2" />
+    </g>
+
+    <!-- HABIT 2 & 4: DEEP FOCUS & RULE OF 3 (Central Hourglass - PRIMARY EMPHASIS) -->
+    <g transform="translate(540, 170)">
+      <!-- Soft Fill inside the upper chamber/focus zone -->
+      <polygon class="fill-lavender" points="20,20 100,20 60,110" />
+      <polygon class="fill-lavender" points="25,200 95,200 60,110" />
+
+      <!-- Hourglass Frame Structure -->
+      <line class="line-primary" x1="10" y1="10" x2="110" y2="10" />
+      <line class="line-primary" x1="10" y1="210" x2="110" y2="210" />
+      <path class="line-primary" d="M 20,10 C 20,70 50,95 60,110 C 70,95 100,70 100,10" />
+      <path class="line-primary" d="M 20,210 C 20,150 50,125 60,110 C 70,125 100,150 100,210" />
+
+      <!-- Concentrated Flow Line (Center) -->
+      <line class="line-primary" x1="60" y1="95" x2="60" y2="150" />
+
+      <!-- Rule of 3 - Three Focus Rays / Points -->
+      <circle class="line-primary" cx="60" cy="-25" r="4" />
+      <circle class="line-primary" cx="30" cy="-20" r="4" />
+      <circle class="line-primary" cx="90" cy="-20" r="4" />
+      <line class="line-secondary" x1="60" y1="-15" x2="60" y2="-2" />
+      <line class="line-secondary" x1="33" y1="-12" x2="48" y2="2" />
+      <line class="line-secondary" x1="87" y1="-12" x2="72" y2="2" />
+    </g>
+
+    <!-- HABIT 6: TRACKING & GROWTH (Ascending Chart - Right Element) -->
+    <g transform="translate(740, 260)">
+      <!-- Axis -->
+      <polyline class="line-secondary" points="0,0 0,130 140,130" />
+      <!-- Grid abstract lines -->
+      <line class="line-secondary" x1="0" y1="90" x2="140" y2="90" />
+      <line class="line-secondary" x1="0" y1="50" x2="140" y2="50" />
+      <!-- Ascending Trend Line -->
+      <polyline class="line-primary" points="10,110 45,95 80,55 125,20" />
+      <!-- Key Metric Data Points -->
+      <circle class="fill-lavender" cx="10" cy="110" r="5" />
+      <circle class="fill-lavender" cx="45" cy="95" r="5" />
+      <circle class="fill-lavender" cx="80" cy="55" r="5" />
+      <circle class="fill-lavender" cx="125" cy="20" r="6" />
+    </g>
+
+    <!-- HABIT 3: MORNING MOVEMENT (Abstract Rising Sun Arc - Upper Left Background) -->
+    <g transform="translate(380, 180)">
+      <path class="line-secondary" d="M -30,0 A 35,35 0 0,1 40,0" />
+      <line class="line-secondary" x1="5" y1="-45" x2="5" y2="-37" />
+      <line class="line-secondary" x1="-25" y1="-30" x2="-19" y2="-24" />
+      <line class="line-secondary" x1="35" y1="-30" x2="29" y2="-24" />
+    </g>
+
+    <!-- HABIT 5 & 7: EVENING SHUTDOWN & SLEEP / REST (Crescent Moon - Upper Right Background) -->
+    <g transform="translate(800, 150)">
+      <path class="line-secondary" d="M 25,-20 A 30,30 0 1,0 50,20 A 22,22 0 1,1 25,-20 Z" />
+    </g>
+
+    <!-- ABSTRACT KNOWLEDGE / JOURNAL LINES (Base Details - Abstract Micro-Learning) -->
+    <g transform="translate(480, 420)">
+      <!-- Abstract open book / journal platform -->
+      <polygon class="line-secondary" points="0,30 120,0 240,30 120,60" />
+      <line class="line-secondary" x1="120" y1="0" x2="120" y2="60" />
+      <line class="line-secondary" x1="0" y1="30" x2="0" y2="40" />
+      <line class="line-secondary" x1="120" y1="60" x2="120" y2="70" />
+      <line class="line-secondary" x1="240" y1="30" x2="240" y2="40" />
+      <polyline class="line-secondary" points="0,40 120,70 240,40" />
+      <!-- Content representation (horizontal lines) -->
+      <line class="line-secondary" x1="30" y1="28" x2="90" y2="13" />
+      <line class="line-secondary" x1="30" y1="38" x2="80" y2="25" />
+      <line class="line-secondary" x1="150" y1="13" x2="210" y2="28" />
+      <line class="line-secondary" x1="160" y1="25" x2="210" y2="38" />
+    </g>
+
+    <!-- HARMONIZING ORBITAL / GEOMETRIC ACCENTS -->
+    <!-- Alignment Circles -->
+    <circle class="line-secondary" cx="600" cy="280" r="190" stroke-dasharray="4 8" />
+    <circle class="line-secondary" cx="600" cy="280" r="240" stroke-dasharray="2 12" />
+
+    <!-- Balance Nodes -->
+    <circle class="line-secondary" cx="380" cy="480" r="3" />
+    <circle class="line-secondary" cx="820" cy="480" r="3" />
+    <circle class="line-primary" cx="600" cy="110" r="3" />
+
+  </g>
+</svg>

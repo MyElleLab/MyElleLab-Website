@@ -1,0 +1,154 @@
+/* Photo to price to marketplace.
+
+   Links draw with stroke-dashoffset on pathLength="1"; the tag and chips
+   arrive with transform and opacity. The scan line is the one element that
+   is not part of the resting picture: it sweeps once while playing and is
+   otherwise invisible. Reduced motion shows the finished diagram. */
+
+.ink {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.frame {
+  fill: none;
+  stroke: var(--muted);
+  stroke-width: 0.8;
+  stroke-dasharray: 3 3;
+}
+
+.link {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 500ms cubic-bezier(0.33, 0, 0.2, 1);
+}
+
+.link1 {
+  transition-delay: 150ms;
+}
+
+[data-figure-state="playing"] .link {
+  stroke-dashoffset: 0;
+}
+
+.scan {
+  stroke: var(--ink);
+  stroke-width: 1.5;
+  opacity: 0;
+}
+
+[data-figure-state="playing"] .scan {
+  animation: scan 700ms ease-in-out 650ms both;
+}
+
+@keyframes scan {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+}
+
+.tag {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  transform: translateY(8px) scale(0.9);
+  transition:
+    opacity 300ms ease-out 1250ms,
+    transform 420ms cubic-bezier(0.34, 1.4, 0.64, 1) 1250ms;
+}
+
+[data-figure-state="playing"] .tag {
+  opacity: 1;
+  transform: none;
+}
+
+.tagBody {
+  fill: var(--ink);
+}
+
+.price {
+  font-family: var(--font-sans), ui-sans-serif, system-ui;
+  font-size: 9px;
+  font-weight: 600;
+  fill: var(--surface);
+}
+
+.chip {
+  opacity: 0;
+  transform: translateX(-6px);
+  transition:
+    opacity 300ms ease-out,
+    transform 300ms ease-out;
+}
+
+[data-figure-state="playing"] .chip {
+  opacity: 1;
+  transform: none;
+}
+
+.chipBody {
+  fill: var(--surface);
+  stroke: var(--ink);
+  stroke-width: 1;
+}
+
+.chipBest {
+  fill: var(--ink);
+}
+
+.chipText,
+.chipTextBest {
+  font-family: var(--font-sans), ui-sans-serif, system-ui;
+  font-size: 8px;
+  font-weight: 500;
+}
+
+.chipText {
+  fill: var(--ink);
+}
+
+.chipTextBest {
+  fill: var(--surface);
+}
+
+[data-figure-state="resetting"] .link,
+[data-figure-state="resetting"] .tag,
+[data-figure-state="resetting"] .chip {
+  transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link,
+  [data-figure-state] .link {
+    stroke-dashoffset: 0;
+    transition: none;
+  }
+
+  .tag,
+  .chip,
+  [data-figure-state] .tag,
+  [data-figure-state] .chip {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  [data-figure-state] .scan {
+    animation: none;
+  }
+}
