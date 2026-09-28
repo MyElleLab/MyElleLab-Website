@@ -6,7 +6,11 @@ import type { Metadata } from "next";
  * read from here rather than each carrying their own copy.
  */
 
-export const SITE_URL = "https://myellelab.com";
+/* www, because that is the host Vercel serves: the bare domain redirects to
+   it. Every absolute URL (sitemap, robots.txt, canonical and Open Graph via
+   metadataBase, JSON-LD, share links) is built from this, so a sitemap entry
+   answers 200 instead of a redirect. */
+export const SITE_URL = "https://www.myellelab.com";
 export const SITE_NAME = "MyElleLab";
 
 /** The studio line the footer prints under the wordmark. */
