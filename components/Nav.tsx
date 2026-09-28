@@ -4,15 +4,12 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LogoMark } from "./Logo";
 
-/* Root-relative, not bare hashes: the nav is reused on /privacy, /terms,
-   /company and the blog, where "#suites" and "#about" point at sections that
-   do not exist on the page. "/#suites" resolves from anywhere. Blog is a real
-   route rather than a fragment, so it renders as a Link (see below). */
-const links = [
-  { href: "/#suites", label: "Suites" },
-  { href: "/blog", label: "Blog" },
-  { href: "/#about", label: "About" },
-];
+/* Blog and Contact only. Suites and About are sections of the home page and
+   stay reachable from the footer's Studio links. Contact is rendered
+   separately below as the bar's one action. Any fragment link added here must
+   be root-relative ("/#section"), because the nav is reused on pages where a
+   bare "#section" does not exist. */
+const links = [{ href: "/blog", label: "Blog" }];
 
 /* 44px tall so each link is a real touch target, not just its text. Every
    section link carries a 2px underline (a pseudo-element under the label):
@@ -55,12 +52,10 @@ export function Nav() {
           className="group flex min-h-11 items-center gap-2.5 rounded-md text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
         >
           <LogoMark size={28} className="shrink-0 rounded-md border border-rule" />
-          {/* The wordmark is desktop-only. Four links plus a 90px wordmark do
-              not fit the 342px of content width a 390px phone leaves: the row
-              was already within 5px of the edge at three links, and "Blog"
-              pushed "Contact" off-screen. The mark carries the brand at this
-              size, and its alt text keeps the link named for screen readers. */}
-          <span className="hidden sm:inline font-serif font-bold tracking-wordmark text-[19px]">
+          {/* The wordmark shows at every width again: with two items on the
+              right there is room for it on a 375px phone, which the four-link
+              bar did not have. */}
+          <span className="font-serif font-bold tracking-wordmark text-[19px]">
             MyElleLab
           </span>
         </Link>

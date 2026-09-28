@@ -27,6 +27,15 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* No rubber-band overscroll. iOS paints the root background past the end of
+   the page while you pull, and the root is lavender while the footer is ink,
+   so every bounce at the bottom flashed a band of lavender under the footer.
+   Painting the root ink instead would move the same flash to the top, above
+   the light header. Stopping the bounce fixes both ends. */
+html {
+  overscroll-behavior-y: none;
+}
+
 ::selection {
   background: rgba(216, 213, 234, 0.7);
   color: var(--ink);
