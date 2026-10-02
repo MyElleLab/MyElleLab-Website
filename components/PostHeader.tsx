@@ -63,7 +63,7 @@ export function PostHeader({ post }: { post: Post }) {
   const authorHref = post.author === DEFAULT_AUTHOR ? AUTHOR_URL : undefined;
 
   return (
-    <header className="max-w-[34rem]">
+    <header className="mx-auto max-w-[34rem]">
       <p className="flex flex-wrap items-center gap-x-2 gap-y-1 font-sans text-sm text-muted">
         {/* Not uppercased: the series name is a wordmark. */}
         <Link

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Playfair_Display } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import { AgentationToolbar } from "@/components/AgentationToolbar";
 import { JsonLd } from "@/components/JsonLd";
 import { organizationSchema } from "@/lib/schema";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
@@ -56,6 +57,7 @@ export default function RootLayout({
             the App Router path: "@vercel/analytics/react" is the older one
             and warns. */}
         <Analytics />
+        <AgentationToolbar />
       </body>
     </html>
   );

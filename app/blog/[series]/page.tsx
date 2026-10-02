@@ -54,6 +54,7 @@ export default async function BlogSeriesPage({
   return (
     <TextPage
       title={found.name}
+      contact={false}
       subtitle={found.description}
       /* `wide` renders below `children`, so the row goes here rather than
          beside the empty state: that is what puts it under the grid when

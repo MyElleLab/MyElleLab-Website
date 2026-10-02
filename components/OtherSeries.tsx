@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { Marquee } from "@/components/Marquee";
 import { blogSeries, seriesPath, type BlogSeries } from "@/lib/series";
 
 /**
@@ -14,33 +15,34 @@ import { blogSeries, seriesPath, type BlogSeries } from "@/lib/series";
  * this row on a series page that has posts, so borrowing any other card would
  * put two card languages on one page.
  *
- * Two up rather than four across. Four fit, and are in fact shorter overall,
- * but at 285px three of the four descriptions wrap to a second line and the
- * fourth does not, so the row reads ragged. At 590px every name and every
- * description is one line. 590 also sits near the page's own 544px prose
- * measure, where 285 is narrower than anything else on the page and makes the
- * row read as a denser continuation of the post grid rather than a footer to
- * it.
+ * A marquee rather than a grid: the other series drift past in one row, the
+ * same treatment the /blog index gives all five. Four 18-20rem cards are
+ * wider than the 7xl container, so one copy always overfills it and the loop
+ * shows no gap. Each card has a fixed width, so a description wraps the same
+ * way on every card instead of leaving the row ragged.
  */
 export function OtherSeries({ current }: { current: BlogSeries }) {
   const others = blogSeries.filter((series) => series.slug !== current.slug);
   if (others.length === 0) return null;
 
   return (
-    <nav aria-label="Other series" className="mt-16">
+    <nav aria-labelledby="read-more" className="mt-16">
       {/* The same fading rule the post pages close with, not a border: this
           is a change of subject, not a new section. */}
       <div className="hairline" />
 
-      <h2 className="mt-8 font-sans text-[11px] font-medium uppercase tracking-eyebrow text-muted">
-        Other series
+      <h2
+        id="read-more"
+        className="mt-8 font-sans text-[11px] font-medium tracking-eyebrow text-muted"
+      >
+        Read more
       </h2>
 
-      <ul className="mt-6 grid grid-cols-1 items-stretch gap-5 sm:grid-cols-2">
+      <Marquee duration={32} className="mt-4">
         {others.map((series) => (
           <SeriesLink key={series.slug} series={series} />
         ))}
-      </ul>
+      </Marquee>
     </nav>
   );
 }
@@ -66,7 +68,7 @@ function SeriesLink({ series }: { series: BlogSeries }) {
   const featured = series.featured === true;
 
   return (
-    <li className="h-full">
+    <div className="w-72 md:w-80">
       <Link
         href={seriesPath(series)}
         className={[
@@ -74,10 +76,7 @@ function SeriesLink({ series }: { series: BlogSeries }) {
           featured ? "bg-ink hover:bg-ink/90" : "bg-surface",
         ].join(" ")}
       >
-        {/* text-xl, not the /blog index's text-xl md:text-2xl. That card is
-            full width and can carry 24px; these are half width. 20px is the
-            size both neighbours share: the /blog card below its breakpoint,
-            and every PostCard title on this page. */}
+        {/* text-xl: the size every PostCard title on this page shares. */}
         <span
           className={[
             "font-serif text-xl font-semibold leading-snug tracking-wordmark",
@@ -95,6 +94,6 @@ function SeriesLink({ series }: { series: BlogSeries }) {
           {series.description}
         </span>
       </Link>
-    </li>
+    </div>
   );
 }

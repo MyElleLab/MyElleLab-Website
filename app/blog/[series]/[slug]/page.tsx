@@ -85,14 +85,15 @@ export default async function BlogPostPage({
   return (
     <TextPage
       header={<PostHeader post={post} />}
+      contact={false}
       wide={
         elsewhere.length >= ELSEWHERE_MIN ? (
           <section aria-labelledby="elsewhere" className="mt-20">
             <h2
               id="elsewhere"
-              className="font-sans text-[11px] font-medium uppercase tracking-eyebrow text-muted"
+              className="font-sans text-[11px] font-medium tracking-eyebrow text-muted"
             >
-              Elsewhere in the studio
+              Read more
             </h2>
             <div className="mt-6">
               <PostGrid posts={elsewhere} />

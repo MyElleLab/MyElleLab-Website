@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { JsonLd } from "@/components/JsonLd";
+import { Marquee } from "@/components/Marquee";
 import { PostGrid } from "@/components/PostCard";
 import { TextPage } from "@/components/TextPage";
 import { getLatestPosts } from "@/lib/posts";
@@ -26,31 +27,40 @@ export default function BlogIndexPage() {
   return (
     <TextPage
       title="Blog"
+      contact={false}
       subtitle={BLOG_DESCRIPTION}
       wide={
-        latest.length > 0 ? (
-          <section aria-labelledby="latest" className="mt-16">
-            <h2
-              id="latest"
-              className="font-sans text-[11px] font-medium uppercase tracking-eyebrow text-muted"
-            >
-              Latest
-            </h2>
-            <div className="mt-6">
-              <PostGrid posts={latest} />
-            </div>
-          </section>
-        ) : null
+        <>
+          {/* The series drift past in one row at the full container width,
+              rather than stacking in the prose measure. Five 20rem cards are
+              wider than the 7xl container, so one copy always overfills it
+              and the loop never shows a gap. */}
+          <nav aria-label="Series">
+            <Marquee duration={36}>
+              {blogSeries.map((series) => (
+                <div key={series.slug} className="w-72 md:w-80">
+                  <SeriesCard series={series} />
+                </div>
+              ))}
+            </Marquee>
+          </nav>
+          {latest.length > 0 ? (
+            <section aria-labelledby="latest" className="mt-16">
+              <h2
+                id="latest"
+                className="font-sans text-[11px] font-medium tracking-eyebrow text-muted"
+              >
+                Fresh from the lab
+              </h2>
+              <div className="mt-6">
+                <PostGrid posts={latest} />
+              </div>
+            </section>
+          ) : null}
+        </>
       }
     >
       <JsonLd data={blogSchema()} />
-      <ul className="space-y-3">
-        {blogSeries.map((series) => (
-          <li key={series.slug}>
-            <SeriesCard series={series} />
-          </li>
-        ))}
-      </ul>
     </TextPage>
   );
 }
@@ -70,7 +80,7 @@ function SeriesCard({ series }: { series: BlogSeries }) {
     <Link
       href={seriesPath(series)}
       className={[
-        "card-edge group block rounded-2xl px-6 py-5",
+        "card-edge group block h-full rounded-2xl px-6 py-5",
         featured ? "bg-ink hover:bg-ink/90" : "bg-surface",
       ].join(" ")}
     >

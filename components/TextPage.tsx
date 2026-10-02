@@ -18,6 +18,7 @@ export function TextPage({
   subtitle,
   children,
   wide,
+  contact = true,
 }: {
   /**
    * A complete header in place of eyebrow, title, meta and subtitle. The
@@ -36,6 +37,8 @@ export function TextPage({
    * the whole page; prose does not.
    */
   wide?: ReactNode;
+  /** Passed to the footer: false drops its contact card. */
+  contact?: boolean;
 }) {
   return (
     <main className="relative z-10">
@@ -44,8 +47,11 @@ export function TextPage({
       <div id="main" tabIndex={-1} className="outline-none" />
       <section className="relative bg-canvas pt-36 pb-16 md:pt-44 md:pb-20">
         <div className="mx-auto max-w-7xl px-6 md:px-10">
+          {/* The header and the prose share one 34rem column, centred in
+              the container; the text inside it stays left-aligned. `wide`
+              content below keeps the full container width. */}
           {header ?? (
-            <>
+            <div className="mx-auto max-w-[34rem]">
               {eyebrow && <div className="mb-5">{eyebrow}</div>}
               <h1 className="font-serif text-4xl md:text-5xl font-semibold tracking-wordmark text-balance leading-[1.05] text-ink">
                 {title}
@@ -54,11 +60,11 @@ export function TextPage({
                 <p className="mt-4 font-sans text-sm text-muted">{meta}</p>
               )}
               {subtitle && (
-                <p className="mt-5 max-w-[34rem] font-sans text-lg text-muted leading-relaxed">
+                <p className="mt-5 font-sans text-lg text-muted leading-relaxed">
                   {subtitle}
                 </p>
               )}
-            </>
+            </div>
           )}
           {/* 544px, about 72 characters of running prose.
 
@@ -68,14 +74,14 @@ export function TextPage({
               45 to 75. A fixed rem value keeps the measure independent of the
               typeface's figure width. */}
           {children && (
-            <div className="mt-8 max-w-[34rem] font-sans text-ink leading-relaxed space-y-4">
+            <div className="mx-auto mt-8 max-w-[34rem] font-sans text-ink leading-relaxed space-y-4">
               {children}
             </div>
           )}
           {wide && <div className="mt-8">{wide}</div>}
         </div>
       </section>
-      <Footer />
+      <Footer contact={contact} />
     </main>
   );
 }

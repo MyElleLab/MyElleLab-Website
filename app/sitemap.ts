@@ -36,6 +36,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 1,
   };
 
+  const about: MetadataRoute.Sitemap[number] = {
+    url: absoluteUrl("/about"),
+    lastModified,
+    changeFrequency: "monthly",
+    priority: 0.8,
+  };
+
   const blog: MetadataRoute.Sitemap = [
     {
       url: absoluteUrl("/blog"),
@@ -60,5 +67,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   ];
 
-  return [home, ...(BLOG_INDEXABLE ? blog : [])];
+  return [home, about, ...(BLOG_INDEXABLE ? blog : [])];
 }

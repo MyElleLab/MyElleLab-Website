@@ -4,12 +4,15 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LogoMark } from "./Logo";
 
-/* Blog and Contact only. Suites and About are sections of the home page and
-   stay reachable from the footer's Studio links. Contact is rendered
+/* Blog, About and Contact. The home page is the apps wheel and nothing else,
+   so About is a page of its own now rather than a section. Contact is rendered
    separately below as the bar's one action. Any fragment link added here must
    be root-relative ("/#section"), because the nav is reused on pages where a
    bare "#section" does not exist. */
-const links = [{ href: "/blog", label: "Blog" }];
+const links = [
+  { href: "/blog", label: "Blog" },
+  { href: "/about", label: "About" },
+];
 
 /* 44px tall so each link is a real touch target, not just its text. Every
    section link carries a 2px underline (a pseudo-element under the label):
