@@ -17,7 +17,7 @@ export function About() {
     >
       <div className="mx-auto max-w-7xl px-6 md:px-10">
         <Reveal>
-          <p className="font-sans uppercase tracking-eyebrow text-[11px] font-medium text-muted">
+          <p className="font-sans tracking-eyebrow text-[11px] font-medium text-muted">
             About the studio
           </p>
         </Reveal>

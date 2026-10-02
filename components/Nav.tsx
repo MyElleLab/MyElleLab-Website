@@ -91,7 +91,8 @@ export function Nav() {
             );
           })}
           <li>
-            <a href="/#contact" className={CONTACT}>
+            {/* The contact card at the foot of /about. */}
+            <a href="/about#contact" className={CONTACT}>
               Contact
             </a>
           </li>

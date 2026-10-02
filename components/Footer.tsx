@@ -228,8 +228,7 @@ export function Footer({
 /**
  * The home page's footer: one ink bar under the apps wheel, which holds the
  * page to a single screen. No contact card; the address sits in the bar
- * instead and carries id="contact", so the header's Contact link still lands
- * on something here.
+ * instead. The header's Contact link goes to the card on /about.
  */
 function SlimFooter() {
   return (
@@ -239,7 +238,6 @@ function SlimFooter() {
           © {new Date().getFullYear()} {SITE_NAME}
         </p>
         <a
-          id="contact"
           href={`mailto:${CONTACT_EMAIL}`}
           className={cn(LINK, "-mx-2 px-2 text-xs")}
         >
