@@ -240,3 +240,11 @@ html {
     display: none;
   }
 }
+
+/* The home page is one fixed screen (app/page.tsx). The body behind it is
+   still min-h-screen, which on iOS is taller than the visible area while the
+   browser bars show, so the document could scroll past the footer into bare
+   canvas. Nothing on this page scrolls, so the root is not allowed to. */
+html:has(.home-screen) {
+  overflow: hidden;
+}

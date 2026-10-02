@@ -60,10 +60,9 @@ export function AppsWheel() {
       />
       <p
         aria-hidden
-        className="pointer-events-none absolute bottom-4 left-6 font-sans text-[10px] italic text-muted md:left-10"
+        className="pointer-events-none absolute bottom-4 left-10 hidden font-sans text-[10px] italic text-muted md:block"
       >
-        <span className="hidden md:inline">scroll to turn</span>
-        <span className="md:hidden">swipe to turn</span>
+        scroll to turn
       </p>
     </section>
   );
